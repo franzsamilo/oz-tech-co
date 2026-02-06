@@ -385,7 +385,7 @@ html {
 .cracked-text::before {
   color: rgba(94, 228, 20, 0.3);
   clip-path: polygon(0 0, 45% 0, 45% 100%, 0 100%);
-  transform: translate(-2px, -1px);
+  transform: translate(-2px, -3px);
   z-index: -1;
 }
 

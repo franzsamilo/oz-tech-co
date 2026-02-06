@@ -493,11 +493,12 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   return (
     <div
       ref={wrapRef}
-      className={`relative touch-none ${className}`.trim()}
+      className={`relative touch-none overflow-hidden ${className}`.trim()}
       style={
         {
           perspective: "500px",
           transform: "translate3d(0, 0, 0.1px)",
+          borderRadius: cardRadius,
           ...cardStyle,
         } as React.CSSProperties
       }
@@ -512,7 +513,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
           }}
         />
       )}
-      <div ref={shellRef} className="relative z-[1] group">
+      <div ref={shellRef} className="relative z-[1] group overflow-hidden" style={{ borderRadius: cardRadius }}>
         <section
           className="grid relative overflow-hidden"
           style={{
@@ -735,17 +736,20 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                 }}
               >
                 <div
-                  className="w-full absolute flex flex-col items-center justify-end"
+                  className="w-full absolute flex flex-col items-center justify-center"
                   style={{ 
                     bottom: "20px",
                     left: "20px",
                     right: "20px",
                     display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
                     gridArea: "auto"
                   }}
                 >
                   <h3
-                    className="font-semibold m-0"
+                    className="font-semibold m-0 text-center w-full"
                     style={{
                       fontSize: "min(5svh, 2.5em)",
                       backgroundImage:
@@ -759,12 +763,14 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                       borderRadius: "0",
                       pointerEvents: "auto",
                       textShadow: "0 0 20px rgba(255, 107, 53, 0.5)",
+                      textAlign: "center",
+                      width: "100%",
                     }}
                   >
                     {name}
                   </h3>
                   <p
-                    className="font-semibold whitespace-nowrap mx-auto w-min"
+                    className="font-semibold mx-auto text-center"
                     style={{
                       position: "relative",
                       top: "-8px",
@@ -780,6 +786,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                       gridArea: "auto",
                       borderRadius: "0",
                       pointerEvents: "auto",
+                      textAlign: "center",
+                      width: "100%",
                     }}
                   >
                     {title}

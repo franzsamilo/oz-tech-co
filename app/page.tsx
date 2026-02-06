@@ -8,6 +8,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ScrollVelocity from "@/components/ScrollVelocity";
 import StaggeredMenu from "@/components/StaggeredMenu";
 import ProfileCard from "@/components/ProfileCard";
+import HackerProfileCard from "@/components/HackerProfileCard";
 import LaserFlow from "@/components/LaserFlow";
 import Folder from "@/components/Folder";
 import TargetCursor from "@/components/TargetCursor";
@@ -28,6 +29,7 @@ export default function Home() {
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isShowcaseSectionVisible, setIsShowcaseSectionVisible] =
     useState(false);
+  const [isDesktop, setIsDesktop] = useState(false); // Track desktop for TargetCursor
 
   // Section visibility tracking for performance optimization
   const [visibleSections, setVisibleSections] = useState<Set<string>>(
@@ -64,7 +66,7 @@ export default function Home() {
     },
     {
       id: "jed",
-      name: "Jed Matthew Mamosto",
+      name: "Jed Mamosto",
       title: "Tech Lead",
       avatarUrl: "/members/Jed.png",
       handle: "jedmamosto",
@@ -145,7 +147,7 @@ export default function Home() {
     },
     {
       id: "franz",
-      name: "Franz Eliezer Samilo",
+      name: "Franz Samilo",
       title: "Frontend Software Engineer",
       avatarUrl: "/members/Franz.png",
       handle: "franzsamilo",
@@ -257,7 +259,7 @@ RESULTS:
       team: [
         "Matthew Ledesma - Project Manager",
         "Louie Dale Cervera - Backend Engineer",
-        "Franz Eliezer Samilo - Frontend Engineer",
+        "Franz Samilo - Frontend Engineer",
       ],
     },
     {
@@ -308,7 +310,7 @@ RESULTS:
       ],
       team: [
         "Louie Dale Cervera - Backend Engineer",
-        "Franz Eliezer Samilo - Frontend Engineer",
+        "Franz Samilo - Frontend Engineer",
       ],
     },
     {
@@ -453,7 +455,7 @@ STATUS:
         "LGU Integration",
       ],
       team: [
-        "Jed Matthew Mamosto - Tech Lead",
+        "Jed Mamosto - Tech Lead",
         "Matthew Ledesma - Project Manager",
       ],
     },
@@ -529,6 +531,17 @@ STATUS:
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
+  }, []);
+
+  // Check if desktop on client side only (for SSR hydration safety)
+  useEffect(() => {
+    const checkIsDesktop = () => {
+      setIsDesktop(window.innerWidth > 768);
+    };
+    
+    checkIsDesktop();
+    window.addEventListener('resize', checkIsDesktop);
+    return () => window.removeEventListener('resize', checkIsDesktop);
   }, []);
 
   // Handle smooth scroll navigation for hash links
@@ -607,18 +620,25 @@ STATUS:
         {/* Hero Section - Imbalanced Layout */}
         <section
           id="hero"
-          className="h-screen flex items-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 section-transition-start snap-start snap-always w-full max-w-full"
+          className="min-h-screen flex items-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 section-transition-start snap-start snap-always w-full max-w-full py-8 sm:py-12 md:py-0"
         >
-          {/* Animated background elements - Asymmetric */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-1/4 left-[15%] w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-[#5EE414]/20 rounded-full blur-3xl green-glow" />
-            <div className="absolute bottom-[20%] right-[10%] w-56 h-56 sm:w-72 sm:h-72 md:w-[28rem] md:h-[28rem] bg-[#5EE414]/15 rounded-full blur-3xl" />
-            <div className="absolute top-[60%] left-[70%] w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 bg-[#5EE414]/10 rounded-full blur-2xl" />
+          {/* Animated background elements - Asymmetric - Enhanced on mobile */}
+          <div className="absolute inset-0 opacity-60 md:opacity-40 sm:opacity-30">
+            {/* Mobile-specific background elements - More intense */}
+            <div className="absolute top-1/4 left-[15%] w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-[#5EE414]/35 sm:bg-[#5EE414]/25 md:bg-[#5EE414]/20 rounded-full blur-3xl green-glow" />
+            <div className="absolute bottom-[20%] right-[10%] w-56 h-56 sm:w-72 sm:h-72 md:w-[28rem] md:h-[28rem] bg-[#5EE414]/30 sm:bg-[#5EE414]/20 md:bg-[#5EE414]/15 rounded-full blur-3xl" />
+            <div className="absolute top-[60%] left-[70%] w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 bg-[#5EE414]/25 sm:bg-[#5EE414]/15 md:bg-[#5EE414]/10 rounded-full blur-2xl" />
+            {/* Additional mobile background elements for depth */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:hidden bg-[#5EE414]/20 rounded-full blur-3xl" />
+            <div className="absolute top-[75%] left-[5%] w-40 h-40 sm:hidden bg-[#5EE414]/25 rounded-full blur-2xl" />
           </div>
 
-          {/* Tech grid overlay - Cracked pattern */}
-          <div className="absolute inset-0 tech-grid opacity-20" />
-          <div className="absolute inset-0 tech-magic-glow" />
+          {/* Tech grid overlay - Cracked pattern - Enhanced on mobile */}
+          <div className="absolute inset-0 tech-grid opacity-50 sm:opacity-30 md:opacity-20" />
+          <div className="absolute inset-0 tech-magic-glow opacity-80 sm:opacity-60 md:opacity-100" />
+          
+          {/* Additional mobile-specific gradient overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#5EE414]/5 via-transparent to-[#5EE414]/10 md:hidden" />
 
           {/* LaserFlow accent effect for "CH" in OZTECH - Only render when section is visible */}
           {visibleSections.has("hero") && (
@@ -658,12 +678,12 @@ STATUS:
             </div>
           )}
 
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6 py-8 sm:py-12 md:py-0 flex flex-col items-center md:items-start">
             <motion.div
               initial={{ opacity: 0, x: -50, y: 20 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-6 sm:mb-8 md:mb-12 relative"
+              className="mb-3 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-12 relative w-full text-center md:text-left"
             >
               <div className="cracked-text distorted-text" data-text="OZTECH">
                 <DecryptedText
@@ -674,7 +694,7 @@ STATUS:
                   revealDirection="center"
                   useOriginalCharsOnly={true}
                   animateOn="view"
-                  className="text-white text-[clamp(3rem,15vw,11rem)] font-tech tracking-widest green-glow-text relative z-10"
+                  className="text-white text-[clamp(3rem,14vw,11rem)] sm:text-[clamp(3rem,15vw,11rem)] font-tech tracking-widest green-glow-text relative z-10 drop-shadow-[0_0_20px_rgba(94,228,20,0.6)] md:drop-shadow-none"
                   encryptedClassName="text-[#5EE414]/70 font-mono"
                   parentClassName="block"
                 />
@@ -685,7 +705,7 @@ STATUS:
               initial={{ opacity: 0, x: -30, y: 20 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="mb-8 sm:mb-12 md:mb-16 max-w-2xl"
+              className="mb-6 sm:mb-8 md:mb-12 lg:mb-16 max-w-2xl w-full text-center md:text-left -mt-1 sm:-mt-1 md:mt-0 space-y-2"
             >
               <div className="cracked-text" data-text="NAVIGATING THE MAZE">
                 <DecryptedText
@@ -695,27 +715,29 @@ STATUS:
                   sequential={true}
                   revealDirection="start"
                   animateOn="view"
-                  className="text-white text-xl sm:text-2xl md:text-3xl lg:text-5xl font-cracked leading-tight green-glow-text mb-4"
+                  className="text-white text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl font-cracked leading-tight green-glow-text mb-2 sm:mb-2 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] md:drop-shadow-none"
                   encryptedClassName="text-[#5EE414]/40"
                 />
               </div>
-              <DecryptedText
-                text="OF DIGITAL INNOVATION"
-                speed={30}
-                maxIterations={15}
-                sequential={true}
-                revealDirection="start"
-                animateOn="view"
-                className="text-[#5EE414] text-lg sm:text-xl md:text-2xl lg:text-4xl font-cracked leading-tight ml-8 sm:ml-12 md:ml-16"
-                encryptedClassName="text-[#5EE414]/30"
-              />
+              <div className="block md:inline-block">
+                <DecryptedText
+                  text="OF DIGITAL INNOVATION"
+                  speed={30}
+                  maxIterations={15}
+                  sequential={true}
+                  revealDirection="start"
+                  animateOn="view"
+                  className="text-[#5EE414] text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-4xl font-cracked leading-tight drop-shadow-[0_0_8px_rgba(94,228,20,0.7)] md:drop-shadow-none font-semibold"
+                  encryptedClassName="text-[#5EE414]/30"
+                />
+              </div>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex items-start gap-4"
+              className="flex items-start gap-2 sm:gap-4 mt-6 sm:mt-6 md:mt-8"
             >
               <motion.div
                 animate={{ y: [0, 10, 0] }}
@@ -724,11 +746,11 @@ STATUS:
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="text-xs sm:text-sm text-[#5EE414]/70 font-cracked uppercase tracking-wider"
+                className="text-sm sm:text-sm text-[#5EE414] font-cracked uppercase tracking-wider drop-shadow-[0_0_6px_rgba(94,228,20,0.5)] md:drop-shadow-none"
               >
                 Scroll to explore
               </motion.div>
-              <div className="w-px h-12 bg-[#5EE414]/30 mt-1" />
+              <div className="hidden sm:block w-px h-8 sm:h-10 md:h-12 bg-[#5EE414]/30 mt-1" />
             </motion.div>
           </div>
         </section>
@@ -736,20 +758,43 @@ STATUS:
         {/* About Us Section */}
         <section
           id="about"
-          className="h-screen flex items-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 grainy-bg cracked-maze section-transition-middle snap-start snap-always w-full max-w-full"
+          className="min-h-screen flex items-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 grainy-bg cracked-maze section-transition-middle snap-start snap-always w-full max-w-full py-8 sm:py-12 md:py-0"
         >
           {/* Two Column Layout */}
-          <div className="w-full h-full grid grid-cols-1 lg:grid-cols-2 relative">
+          <div className="w-full h-full grid grid-cols-1 lg:grid-cols-2 relative gap-4 lg:gap-0">
             {/* Left Column - Text Content */}
-            <div className="relative bg-[#1a0a0a] flex items-center justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16 z-10 overflow-hidden">
-              <div className="w-full max-w-2xl">
+            <div className="relative bg-[#1a0a0a] flex items-center justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16 z-10 overflow-hidden min-h-[50vh] lg:min-h-0">
+              <div className="w-full max-w-2xl relative z-10">
+                {/* ScrollVelocity Background - Top (Mobile only) - Above Logo */}
+                {visibleSections.has("about") && (
+                  <div className="relative h-24 mb-4 md:hidden overflow-hidden opacity-30 z-0">
+                    <ScrollVelocity
+                      scrollContainerRef={scrollContainerRefAsHTMLElement}
+                      texts={[
+                        "OZ TECH",
+                        "INNOVATION",
+                        "EXCELLENCE",
+                        "TECHNOLOGY",
+                        "DIGITAL",
+                        "SOLUTIONS",
+                      ]}
+                      velocity={80}
+                      className="text-[#5EE414]"
+                      parallaxClassName="py-2 relative z-10"
+                      scrollerClassName="text-[#5EE414] green-glow-text font-tech"
+                      textSize="text-lg"
+                      fontWeight="font-bold"
+                    />
+                  </div>
+                )}
+                
                 {/* Logo */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ root: scrollContainerRef, margin: "-50px" }}
                   transition={{ duration: 0.6 }}
-                  className="mb-6 sm:mb-8 md:mb-12"
+                  className="mb-6 sm:mb-8 md:mb-12 relative z-10"
                 >
                   <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 relative">
                     <Image
@@ -804,11 +849,34 @@ STATUS:
                     personalized solutions to our clients.
                   </p>
                 </motion.div>
+                
+                {/* ScrollVelocity Background - Bottom (Mobile only) - Below Last Text */}
+                {visibleSections.has("about") && (
+                  <div className="relative h-24 mt-4 md:hidden overflow-hidden opacity-30 z-0">
+                    <ScrollVelocity
+                      scrollContainerRef={scrollContainerRefAsHTMLElement}
+                      texts={[
+                        "OZ TECH",
+                        "INNOVATION",
+                        "EXCELLENCE",
+                        "TECHNOLOGY",
+                        "DIGITAL",
+                        "SOLUTIONS",
+                      ]}
+                      velocity={80}
+                      className="text-[#5EE414]"
+                      parallaxClassName="py-2 relative z-10"
+                      scrollerClassName="text-[#5EE414] green-glow-text font-tech"
+                      textSize="text-lg"
+                      fontWeight="font-bold"
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Right Column - Image with Overlay */}
-            <div className="relative h-full overflow-hidden">
+            <div className="relative h-full overflow-hidden min-h-[50vh] lg:min-h-0 hidden md:block">
               {/* Background Pattern/Image Placeholder - Tech-themed texture */}
               <div className="absolute inset-0 bg-linear-to-br from-[#0a0a0a] via-[#1a0a0a] to-[#0a0a0a]">
                 <div className="absolute inset-0 tech-grid opacity-30" />
@@ -820,8 +888,8 @@ STATUS:
                 </div>
               </div>
 
-              {/* Semi-transparent Overlay Shape that bleeds into left column */}
-              <div className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-[15%] w-80 h-[500px] sm:w-96 sm:h-[600px] bg-[#5EE414]/15 rounded-2xl rotate-12 z-20 mix-blend-screen" />
+              {/* Semi-transparent Overlay Shape that bleeds into left column - Hidden on mobile */}
+              <div className="hidden lg:block absolute top-1/2 left-0 -translate-y-1/2 -translate-x-[15%] w-80 h-[500px] sm:w-96 sm:h-[600px] bg-[#5EE414]/15 rounded-2xl rotate-12 z-20 mix-blend-screen" />
 
               {/* Centered Image Container - Only animate ScrollVelocity when visible */}
               <div className="relative h-full flex items-center justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16 z-30">
@@ -867,20 +935,20 @@ STATUS:
         {/* Team Showcase Section */}
         <section
           id="innovation"
-          className="h-screen flex items-center relative overflow-hidden px-4 sm:px-6 md:px-12 lg:px-20 section-transition-middle snap-start snap-always w-full max-w-full"
+          className="h-screen md:min-h-screen flex items-center relative overflow-visible px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 section-transition-middle snap-start snap-always w-full max-w-full md:py-0"
         >
           <div className="absolute inset-0 tech-grid opacity-10" />
           <div className="absolute inset-0 tech-magic-glow" />
 
-          {/* OZ Logo - Top Left */}
+          {/* OZ Logo - Top Left - Smaller on mobile, positioned better */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ root: scrollContainerRef, margin: "-50px" }}
             transition={{ duration: 0.6 }}
-            className="absolute top-4 sm:top-6 md:top-8 lg:top-12 xl:top-16 left-4 sm:left-6 md:left-8 lg:left-12 xl:left-16 z-20"
+            className="absolute top-2 sm:top-4 md:top-6 lg:top-12 xl:top-16 left-2 sm:left-4 md:left-6 lg:left-12 xl:left-16 z-20"
           >
-            <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 relative">
+            <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 relative">
               <Image
                 src="/logo.png"
                 alt="OZ Tech Logo"
@@ -891,18 +959,18 @@ STATUS:
             </div>
           </motion.div>
 
-          <div className="container mx-auto w-full max-w-7xl relative z-10 flex flex-col h-full justify-center">
-            {/* Section Header */}
-            <div className="mb-3 sm:mb-4 md:mb-6 text-center px-2">
+          <div className="container mx-auto w-full max-w-7xl relative z-10 flex flex-col h-full justify-center md:py-0 py-4 sm:py-6 md:py-0">
+            {/* Section Header - Smaller on mobile */}
+            <div className="mb-2 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10 text-center px-2 md:mt-0">
               <ScrollReveal
                 scrollContainerRef={scrollContainerRefAsHTMLElement}
                 enableBlur={true}
                 baseOpacity={0.2}
                 baseRotation={2}
                 blurStrength={5}
-                containerClassName="mb-2 sm:mb-3 md:mb-4"
+                containerClassName="mb-1 sm:mb-2 md:mb-3 lg:mb-4"
                 textClassName="text-white"
-                textSize="text-[clamp(1.5rem,5vw,4rem)] sm:text-[clamp(2rem,6vw,4rem)]"
+                textSize="text-xl sm:text-[clamp(1.5rem,5vw,4rem)] md:text-[clamp(2rem,6vw,4rem)]"
                 fontWeight="font-bold"
                 margin="my-0"
               >
@@ -914,9 +982,9 @@ STATUS:
                 baseOpacity={0.2}
                 baseRotation={-1}
                 blurStrength={5}
-                containerClassName="mb-2 sm:mb-3 md:mb-4"
+                containerClassName="mb-1 sm:mb-2 md:mb-3 lg:mb-4"
                 textClassName="text-[#5EE414]"
-                textSize="text-[clamp(1.25rem,4vw,3.5rem)] sm:text-[clamp(1.75rem,5vw,3.5rem)]"
+                textSize="text-lg sm:text-[clamp(1.25rem,4vw,3.5rem)] md:text-[clamp(1.75rem,5vw,3.5rem)]"
                 fontWeight="font-bold"
                 margin="my-0"
               >
@@ -925,7 +993,7 @@ STATUS:
             </div>
 
             {/* Carousel Container - Only animate when section is visible */}
-            <div className="relative w-full flex-1 flex flex-col justify-center">
+            <div className="relative w-full flex-1 flex flex-col justify-center min-h-0 overflow-visible">
               <AnimatePresence mode="wait">
                 {teamMembers.map((member, index) => {
                   if (index !== currentMemberIndex) return null;
@@ -945,25 +1013,16 @@ STATUS:
                           ? { duration: 0.6, ease: "easeInOut" }
                           : { duration: 0 }
                       }
-                      className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 items-center mb-8 sm:mb-12 md:mb-16 lg:mb-20"
+                      className="flex flex-col lg:grid lg:grid-cols-2 gap-3 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 items-center justify-center lg:items-start md:mb-6 lg:mb-8 xl:mb-12 py-2 sm:py-4 md:py-0"
                     >
-                      {/* Left Side - Profile Card */}
-                      <div className="flex justify-center lg:justify-start px-2 sm:px-0">
-                        <div className="w-full max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-lg profile-card-theme scale-90 sm:scale-95 md:scale-100 lg:scale-95 xl:scale-100">
-                          <ProfileCard
+                      {/* Left Side - Profile Card - Centered and sized for mobile */}
+                      <div className="flex justify-center items-center lg:justify-start order-2 lg:order-1 w-full lg:w-auto mx-auto lg:mx-0">
+                        <div className="w-[240px] h-[320px] sm:w-[280px] sm:h-[360px] md:w-full md:h-auto md:max-w-sm lg:max-w-md xl:max-w-lg flex-shrink-0">
+                          <HackerProfileCard
                             avatarUrl={member.avatarUrl}
                             name={member.name}
                             title={member.title}
-                            handle={member.handle}
-                            status="Available"
-                            contactText="Connect"
-                            showUserInfo={false}
-                            enableTilt={visibleSections.has("innovation")}
-                            enableMobileTilt={false}
-                            innerGradient="linear-gradient(145deg, rgba(255, 107, 53, 0.2) 0%, rgba(10, 10, 10, 0.9) 100%)"
-                            behindGlowColor="rgba(255, 107, 53, 0.3)"
-                            behindGlowSize="200px"
-                            className="w-full"
+                            className="w-full h-full md:h-auto"
                             imageObjectFit={member.imageConfig.objectFit}
                             imagePosition={member.imageConfig.objectPosition}
                             imageScale={member.imageConfig.scale}
@@ -972,10 +1031,10 @@ STATUS:
                         </div>
                       </div>
 
-                      {/* Right Side - Description & Stats */}
-                      <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 lg:gap-8 justify-center px-2 sm:px-0">
-                        {/* Description with DecryptedText */}
-                        <div className="space-y-2 sm:space-y-3 md:space-y-4">
+                      {/* Right Side - Description & Stats - Above card on mobile */}
+                      <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-6 xl:gap-8 justify-center w-full lg:w-auto order-1 lg:order-2 text-center lg:text-left px-2 sm:px-0 overflow-visible">
+                        {/* Description with DecryptedText - Smaller on mobile */}
+                        <div className="space-y-1.5 sm:space-y-2 md:space-y-3 lg:space-y-4">
                           <DecryptedText
                             text={member.description}
                             speed={30}
@@ -984,16 +1043,16 @@ STATUS:
                             revealDirection="start"
                             animateOn="view"
                             className="text-white/90 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed font-cracked break-words"
-                            encryptedClassName="text-[#5EE414]/40"
+                            encryptedClassName="text-[#5EE414]/40 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed font-cracked break-words"
                           />
                         </div>
 
-                        {/* Skills */}
-                        <div>
+                        {/* Skills - Smaller on mobile */}
+                        <div className="w-full">
                           <h4 className="text-[#5EE414] font-tech text-xs sm:text-sm md:text-base lg:text-lg uppercase tracking-wider mb-2 sm:mb-3 md:mb-4 lg:mb-5">
                             Expertise
                           </h4>
-                          <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3">
+                          <div className="flex flex-wrap justify-center lg:justify-start gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3">
                             {member.skills.map((skill, skillIndex) => (
                               <span
                                 key={skillIndex}
@@ -1010,17 +1069,17 @@ STATUS:
                 })}
               </AnimatePresence>
 
-              {/* Navigation Buttons - Central Reference Point */}
-              <div className="flex justify-center items-center gap-2 sm:gap-3 md:gap-4 lg:gap-6 mt-auto mb-2 sm:mb-3 md:mb-4 px-2">
+              {/* Navigation Buttons - Smaller on mobile */}
+              <div className="flex justify-center items-center gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-6 mt-auto mb-1 sm:mb-2 md:mb-3 lg:mb-4 px-2">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={goToPrevious}
-                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-[#1a0a0a]/50 border border-[#5EE414]/30 hover:border-[#5EE414] flex items-center justify-center transition-all hover:green-glow touch-manipulation"
+                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full bg-[#1a0a0a]/50 border border-[#5EE414]/30 hover:border-[#5EE414] flex items-center justify-center transition-all hover:green-glow touch-manipulation"
                   aria-label="Previous member"
                 >
                   <svg
-                    className="w-5 h-5 sm:w-6 sm:h-6 text-[#5EE414]"
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#5EE414]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -1035,7 +1094,7 @@ STATUS:
                 </motion.button>
 
                 {/* Indicator Dots */}
-                <div className="flex gap-1.5 sm:gap-2 md:gap-3">
+                <div className="flex gap-1 sm:gap-1.5 md:gap-2 lg:gap-3">
                   {teamMembers.map((_, index) => (
                     <button
                       key={index}
@@ -1043,9 +1102,9 @@ STATUS:
                         setCurrentMemberIndex(index);
                         resetCarousel();
                       }}
-                      className={`h-2 w-2 sm:h-2.5 sm:w-2.5 md:h-3 md:w-3 rounded-full transition-all touch-manipulation ${
+                      className={`h-1.5 w-1.5 sm:h-2 sm:w-2 md:h-2.5 md:w-2.5 lg:h-3 lg:w-3 rounded-full transition-all touch-manipulation ${
                         index === currentMemberIndex
-                          ? "bg-[#5EE414] w-6 sm:w-7 md:w-8 lg:w-10"
+                          ? "bg-[#5EE414] w-5 sm:w-6 md:w-7 lg:w-8 xl:w-10"
                           : "bg-[#5EE414]/30 hover:bg-[#5EE414]/50"
                       }`}
                       aria-label={`Go to member ${index + 1}`}
@@ -1057,11 +1116,11 @@ STATUS:
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={goToNext}
-                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-[#1a0a0a]/50 border border-[#5EE414]/30 hover:border-[#5EE414] flex items-center justify-center transition-all hover:green-glow touch-manipulation"
+                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full bg-[#1a0a0a]/50 border border-[#5EE414]/30 hover:border-[#5EE414] flex items-center justify-center transition-all hover:green-glow touch-manipulation"
                   aria-label="Next member"
                 >
                   <svg
-                    className="w-5 h-5 sm:w-6 sm:h-6 text-[#5EE414]"
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#5EE414]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -1082,13 +1141,13 @@ STATUS:
         {/* Showcase Section - Hacker Computer Vibe */}
         <section
           id="showcase"
-          className="h-screen flex items-center relative overflow-hidden px-2 sm:px-3 md:px-4 lg:px-6 xl:px-12 section-transition-middle snap-start snap-always w-full max-w-full"
+          className="min-h-screen flex items-center relative overflow-hidden px-2 sm:px-3 md:px-4 lg:px-6 xl:px-12 section-transition-middle snap-start snap-always w-full max-w-full py-4 sm:py-6 md:py-0"
         >
           {/* Custom Hacker Background - Lightweight CSS-based */}
           <div className="absolute inset-0 hacker-bg"></div>
 
-          {/* TargetCursor for hacker vibe - Only active in section 4 */}
-          {isShowcaseSectionVisible && (
+          {/* TargetCursor for hacker vibe - Only active in section 4 - Disabled on mobile */}
+          {isShowcaseSectionVisible && isDesktop && (
             <TargetCursor
               targetSelector=".hacker-target"
               spinDuration={1.5}
@@ -1098,7 +1157,7 @@ STATUS:
             />
           )}
 
-          <div className="container mx-auto w-full max-w-7xl relative z-10 h-full flex flex-col px-1 sm:px-2">
+          <div className="container mx-auto w-full max-w-7xl relative z-10 h-full flex flex-col px-1 sm:px-2 py-4 sm:py-6 md:py-0">
             {/* Terminal Header */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -1121,10 +1180,10 @@ STATUS:
               </div>
             </motion.div>
 
-            {/* Main Content Grid */}
-            <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6 lg:gap-8 overflow-hidden">
+            {/* Main Content Grid - Stack vertically on mobile */}
+            <div className="flex-1 flex flex-col lg:grid lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 overflow-hidden min-h-0">
               {/* Left Side - Terminal Windows & Files */}
-              <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 overflow-y-auto max-h-full scrollbar-hide hover:scrollbar-hide">
+              <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 overflow-y-auto max-h-[50vh] lg:max-h-full scrollbar-hide hover:scrollbar-hide order-1">
                 {/* Terminal Windows */}
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
@@ -1210,14 +1269,14 @@ STATUS:
                 </motion.div>
               </div>
 
-              {/* Right Side - Project Details */}
-              <div className="flex flex-col min-h-0">
+              {/* Right Side - Project Details - Below files on mobile */}
+              <div className="flex flex-col min-h-0 order-2 lg:order-2">
                 {selectedProject ? (
                   <motion.div
                     initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 30 }}
-                    className="bg-[#0a0a0a]/90 border border-[#5EE414]/40 rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 lg:p-8 h-full flex flex-col min-h-0"
+                    className="bg-[#0a0a0a]/90 border border-[#5EE414]/40 rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 lg:p-8 min-h-[300px] lg:h-full flex flex-col"
                   >
                     <div className="mb-3 sm:mb-4 md:mb-6">
                       <h3 className="text-[#5EE414] font-mono text-base sm:text-lg md:text-xl lg:text-2xl mb-1 sm:mb-2 font-semibold break-words">
@@ -1400,10 +1459,10 @@ STATUS:
         {/* Contact Section - Contact Form */}
         <section
           id="contact"
-          className="h-screen flex items-center justify-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 grainy-bg cracked-maze section-transition-end snap-start snap-always w-full max-w-full"
+          className="min-h-screen flex items-center justify-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 grainy-bg cracked-maze section-transition-end snap-start snap-always w-full max-w-full py-8 sm:py-12 md:py-0"
         >
           <div className="absolute inset-0 tech-magic-glow" />
-          <div className="container mx-auto w-full max-w-4xl relative z-10 px-2 sm:px-4">
+          <div className="container mx-auto w-full max-w-4xl relative z-10 px-2 sm:px-4 py-8 sm:py-12 md:py-0">
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -1412,7 +1471,7 @@ STATUS:
               className="w-full"
             >
               {/* Section Header */}
-              <div className="mb-4 sm:mb-6 md:mb-8 lg:mb-12 text-center px-2">
+              <div className="mb-6 sm:mb-8 md:mb-10 lg:mb-12 text-center px-2">
                 <div
                   className="cracked-text distorted-text mb-2 sm:mb-3 md:mb-4"
                   data-text="GET IN TOUCH"

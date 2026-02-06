@@ -182,21 +182,46 @@ export default function DecryptedText({
         }
       : {};
 
+  // Extract sizing-related classes to apply to both states
+  const sizingRegex = /(text-\[[^\]]+\]|text-\w+|leading-\w+|font-\w+|break-\w+)/g;
+  const sizingClasses = (className.match(sizingRegex) || []).join(' ');
+  const encryptedWithSizing = encryptedClassName 
+    ? `${encryptedClassName} ${sizingClasses}`.trim()
+    : sizingClasses;
+
   return (
     <motion.span
       ref={containerRef}
       className={`inline-block whitespace-pre-wrap ${parentClassName}`}
+      style={{ 
+        minHeight: '1.5em',
+        lineHeight: 'inherit'
+      }}
       {...hoverProps}
       {...props}
     >
-      <span className="sr-only">{displayText}</span>
+      <span className="sr-only">{text}</span>
 
-      <span aria-hidden="true">
+      <span 
+        aria-hidden="true" 
+        className="inline-block"
+        style={{ 
+          minHeight: 'inherit',
+          lineHeight: 'inherit'
+        }}
+      >
         {displayText.split('').map((char, index) => {
           const isRevealedOrDone = revealedIndices.has(index) || !isScrambling || !isHovering;
 
           return (
-            <span key={index} className={isRevealedOrDone ? className : encryptedClassName}>
+            <span 
+              key={index} 
+              className={isRevealedOrDone ? className : encryptedWithSizing}
+              style={{
+                display: 'inline-block',
+                lineHeight: 'inherit'
+              }}
+            >
               {char}
             </span>
           );
