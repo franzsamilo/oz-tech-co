@@ -49,7 +49,8 @@ const HackerProfileCard: React.FC<HackerProfileCardProps> = ({
   return (
     <div
       ref={cardRef}
-      className={`relative w-full aspect-[3/4] overflow-visible ${className}`}
+      className={`relative w-full h-full overflow-hidden ${className}`}
+      style={{ aspectRatio: '3/4' }}
     >
       {/* Main Card Container */}
       <motion.div

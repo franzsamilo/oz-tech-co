@@ -961,7 +961,7 @@ STATUS:
 
           <div className="container mx-auto w-full max-w-7xl relative z-10 flex flex-col h-full justify-center md:py-0 py-4 sm:py-6 md:py-0">
             {/* Section Header - Smaller on mobile */}
-            <div className="mb-2 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10 text-center px-2 md:mt-0">
+            <div className="mb-0 sm:mb-0 md:mb-1 lg:mb-2 xl:mb-4 text-center px-2 md:mt-0 -mt-4 sm:-mt-3 md:-mt-2 lg:-mt-1 xl:mt-0">
               <ScrollReveal
                 scrollContainerRef={scrollContainerRefAsHTMLElement}
                 enableBlur={true}
@@ -993,8 +993,8 @@ STATUS:
             </div>
 
             {/* Carousel Container - Only animate when section is visible */}
-            <div className="relative w-full flex-1 flex flex-col justify-center min-h-0 overflow-visible">
-              <AnimatePresence mode="wait">
+            <div className="relative w-full flex-1 flex flex-col justify-start min-h-0 overflow-hidden max-h-full">
+              <AnimatePresence mode="wait" initial={false}>
                 {teamMembers.map((member, index) => {
                   if (index !== currentMemberIndex) return null;
 
@@ -1003,26 +1003,20 @@ STATUS:
                   return (
                     <motion.div
                       key={member.id}
-                      initial={
-                        isVisible ? { opacity: 0, x: 50 } : { opacity: 1, x: 0 }
-                      }
+                      initial={{ opacity: 0, x: 50 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -50 }}
-                      transition={
-                        isVisible
-                          ? { duration: 0.6, ease: "easeInOut" }
-                          : { duration: 0 }
-                      }
-                      className="flex flex-col lg:grid lg:grid-cols-2 gap-3 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 items-center justify-center lg:items-start md:mb-6 lg:mb-8 xl:mb-12 py-2 sm:py-4 md:py-0"
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="flex flex-col lg:grid lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-10 items-start justify-start lg:items-start md:mb-4 lg:mb-6 xl:mb-8 py-0"
                     >
                       {/* Left Side - Profile Card - Centered and sized for mobile */}
-                      <div className="flex justify-center items-center lg:justify-start order-2 lg:order-1 w-full lg:w-auto mx-auto lg:mx-0">
-                        <div className="w-[240px] h-[320px] sm:w-[280px] sm:h-[360px] md:w-full md:h-auto md:max-w-sm lg:max-w-md xl:max-w-lg flex-shrink-0">
+                      <div className="flex justify-center items-start lg:justify-start order-2 lg:order-1 w-full lg:w-auto mx-auto lg:mx-0">
+                        <div className="w-[275px] h-[367px] sm:w-[288px] sm:h-[384px] md:w-[275px] md:h-[367px] lg:w-[350px] lg:h-[467px] xl:w-[400px] xl:h-[534px] flex-shrink-0">
                           <HackerProfileCard
                             avatarUrl={member.avatarUrl}
                             name={member.name}
                             title={member.title}
-                            className="w-full h-full md:h-auto"
+                            className="w-full h-full"
                             imageObjectFit={member.imageConfig.objectFit}
                             imagePosition={member.imageConfig.objectPosition}
                             imageScale={member.imageConfig.scale}
@@ -1036,9 +1030,10 @@ STATUS:
                         {/* Description with DecryptedText - Smaller on mobile */}
                         <div className="space-y-1.5 sm:space-y-2 md:space-y-3 lg:space-y-4">
                           <DecryptedText
+                            key={`${member.id}-desc`}
                             text={member.description}
-                            speed={30}
-                            maxIterations={15}
+                            speed={20}
+                            maxIterations={10}
                             sequential={true}
                             revealDirection="start"
                             animateOn="view"
@@ -1063,14 +1058,80 @@ STATUS:
                             ))}
                           </div>
                         </div>
+
+                        {/* Navigation Buttons - Under expertise on desktop only */}
+                        <div className="hidden lg:flex justify-start items-center gap-3 xl:gap-4 mt-6 mb-0 px-0">
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={goToPrevious}
+                            className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full bg-[#1a0a0a]/50 border border-[#5EE414]/30 hover:border-[#5EE414] flex items-center justify-center transition-all hover:green-glow touch-manipulation"
+                            aria-label="Previous member"
+                          >
+                            <svg
+                              className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#5EE414]"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M15 19l-7-7 7-7"
+                              />
+                            </svg>
+                          </motion.button>
+
+                          {/* Indicator Dots */}
+                          <div className="flex gap-1 sm:gap-1.5 md:gap-2 lg:gap-3">
+                            {teamMembers.map((_, index) => (
+                              <button
+                                key={index}
+                                onClick={() => {
+                                  setCurrentMemberIndex(index);
+                                  resetCarousel();
+                                }}
+                                className={`h-1.5 w-1.5 sm:h-2 sm:w-2 md:h-2.5 md:w-2.5 lg:h-3 lg:w-3 rounded-full transition-all touch-manipulation ${
+                                  index === currentMemberIndex
+                                    ? "bg-[#5EE414] w-5 sm:w-6 md:w-7 lg:w-8 xl:w-10"
+                                    : "bg-[#5EE414]/30 hover:bg-[#5EE414]/50"
+                                }`}
+                                aria-label={`Go to member ${index + 1}`}
+                              />
+                            ))}
+                          </div>
+
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={goToNext}
+                            className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full bg-[#1a0a0a]/50 border border-[#5EE414]/30 hover:border-[#5EE414] flex items-center justify-center transition-all hover:green-glow touch-manipulation"
+                            aria-label="Next member"
+                          >
+                            <svg
+                              className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#5EE414]"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 5l7 7-7 7"
+                              />
+                            </svg>
+                          </motion.button>
+                        </div>
                       </div>
                     </motion.div>
                   );
                 })}
               </AnimatePresence>
 
-              {/* Navigation Buttons - Smaller on mobile */}
-              <div className="flex justify-center items-center gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-6 mt-auto mb-1 sm:mb-2 md:mb-3 lg:mb-4 px-2">
+              {/* Navigation Buttons - Mobile only, at bottom */}
+              <div className="flex justify-center items-center gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-6 mt-auto mb-1 sm:mb-2 md:mb-3 lg:mb-4 px-2 lg:hidden">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
