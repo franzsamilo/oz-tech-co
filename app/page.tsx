@@ -1452,19 +1452,34 @@ STATUS:
                     </div>
 
                     <div className="space-y-3 sm:space-y-4 md:space-y-6">
-                      <DecryptedText
-                        text={
-                          projects.find((p) => p.id === selectedProject)
-                            ?.fullContent || ""
-                        }
-                        speed={25}
-                        maxIterations={20}
-                        sequential={true}
-                        revealDirection="start"
-                        animateOn="view"
-                        className="text-white/90 font-mono text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed whitespace-pre-line break-words"
-                        encryptedClassName="text-[#5EE414]/40"
-                      />
+                      <div className="text-white/90 font-mono text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed break-words whitespace-pre-line">
+                        {(() => {
+                          const content = projects.find((p) => p.id === selectedProject)?.fullContent || "";
+                          // Split content by lines and render with proper spacing
+                          const lines = content.split('\n');
+                          return lines.map((line, idx) => {
+                            const trimmedLine = line.trim();
+                            if (!trimmedLine) {
+                              return <div key={idx} className="h-2 sm:h-3" />; // Empty line spacing
+                            }
+                            return (
+                              <div key={idx} className="mb-1 sm:mb-1.5">
+                                <DecryptedText
+                                  text={trimmedLine}
+                                  speed={25}
+                                  maxIterations={20}
+                                  sequential={true}
+                                  revealDirection="start"
+                                  animateOn="view"
+                                  className="text-white/90 font-mono text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed break-words"
+                                  encryptedClassName="text-[#5EE414]/40 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed break-words"
+                                  parentClassName="block"
+                                />
+                              </div>
+                            );
+                          });
+                        })()}
+                      </div>
 
                       {/* Technologies */}
                       {projects.find((p) => p.id === selectedProject)

@@ -189,10 +189,14 @@ export default function DecryptedText({
     ? `${encryptedClassName} ${sizingClasses}`.trim()
     : sizingClasses;
 
+  // Preserve whitespace and line breaks
+  const preserveWhitespace = parentClassName.includes('whitespace-pre') || parentClassName.includes('whitespace-pre-line') || parentClassName.includes('whitespace-pre-wrap');
+  const whitespaceClass = preserveWhitespace ? 'whitespace-pre-wrap' : '';
+
   return (
     <motion.span
       ref={containerRef}
-      className={`inline-block whitespace-pre-wrap ${parentClassName}`}
+      className={`${preserveWhitespace ? 'block' : 'inline-block'} ${whitespaceClass} ${parentClassName}`}
       style={{ 
         minHeight: '1.5em',
         lineHeight: 'inherit'
@@ -204,7 +208,7 @@ export default function DecryptedText({
 
       <span 
         aria-hidden="true" 
-        className="inline-block"
+        className={`${preserveWhitespace ? 'block' : 'inline-block'} ${whitespaceClass}`}
         style={{ 
           minHeight: 'inherit',
           lineHeight: 'inherit'
@@ -212,17 +216,20 @@ export default function DecryptedText({
       >
         {displayText.split('').map((char, index) => {
           const isRevealedOrDone = revealedIndices.has(index) || !isScrambling || !isHovering;
+          // Preserve spaces and newlines
+          const displayChar = char === ' ' ? '\u00A0' : char === '\n' ? '\n' : char;
 
           return (
             <span 
               key={index} 
               className={isRevealedOrDone ? className : encryptedWithSizing}
               style={{
-                display: 'inline-block',
-                lineHeight: 'inherit'
+                display: char === '\n' ? 'block' : 'inline',
+                lineHeight: 'inherit',
+                whiteSpace: 'pre-wrap'
               }}
             >
-              {char}
+              {displayChar}
             </span>
           );
         })}
