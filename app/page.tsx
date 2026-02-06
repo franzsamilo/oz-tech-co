@@ -9,7 +9,6 @@ import ScrollVelocity from '@/components/ScrollVelocity';
 import StaggeredMenu from '@/components/StaggeredMenu';
 import ProfileCard from '@/components/ProfileCard';
 import LaserFlow from '@/components/LaserFlow';
-import FaultyTerminal from '@/components/FaultyTerminal';
 import Folder from '@/components/Folder';
 import TargetCursor from '@/components/TargetCursor';
 
@@ -393,23 +392,15 @@ STATUS:
     resetCarousel();
   }, [teamMembers.length, resetCarousel]);
 
-  // Auto-advance carousel every 10 seconds - Only when section is visible
+  // Auto-advance carousel every 10 seconds
   useEffect(() => {
-    if (!visibleSections.has('innovation')) {
-      if (carouselIntervalRef.current) {
-        clearInterval(carouselIntervalRef.current);
-        carouselIntervalRef.current = null;
-      }
-      return;
-    }
-    
     resetCarousel();
     return () => {
       if (carouselIntervalRef.current) {
         clearInterval(carouselIntervalRef.current);
       }
     };
-  }, [resetCarousel, visibleSections]);
+  }, [resetCarousel]);
 
   // Track all section visibility for performance optimization
   useEffect(() => {
@@ -533,12 +524,8 @@ STATUS:
           </div>
 
           {/* Tech grid overlay - Cracked pattern */}
-          {visibleSections.has('hero') && (
-            <>
-              <div className="absolute inset-0 tech-grid opacity-20" />
-              <div className="absolute inset-0 tech-magic-glow" />
-            </>
-          )}
+          <div className="absolute inset-0 tech-grid opacity-20" />
+          <div className="absolute inset-0 tech-magic-glow" />
 
           {/* LaserFlow accent effect for "CH" in OZTECH - Only render when section is visible */}
           {visibleSections.has('hero') && (
@@ -580,20 +567,20 @@ STATUS:
 
           <div className="relative z-10 w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6">
             <motion.div
-              initial={visibleSections.has('hero') ? { opacity: 0, x: -50, y: 20 } : { opacity: 1, x: 0, y: 0 }}
-              animate={visibleSections.has('hero') ? { opacity: 1, x: 0, y: 0 } : { opacity: 1, x: 0, y: 0 }}
-              transition={visibleSections.has('hero') ? { duration: 0.8, delay: 0.2 } : { duration: 0 }}
+              initial={{ opacity: 0, x: -50, y: 20 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
               className="mb-6 sm:mb-8 md:mb-12 relative"
             >
               <div className="cracked-text distorted-text" data-text="OZTECH">
                 <DecryptedText
                   text="OZTECH"
                   speed={20}
-                  maxIterations={visibleSections.has('hero') ? 25 : 0}
+                  maxIterations={25}
                   sequential={true}
                   revealDirection="center"
                   useOriginalCharsOnly={true}
-                  animateOn={visibleSections.has('hero') ? "view" : "hover"}
+                  animateOn="view"
                   className="text-white text-[clamp(3rem,15vw,11rem)] font-tech tracking-widest green-glow-text relative z-10"
                   encryptedClassName="text-[#5EE414]/70 font-mono"
                   parentClassName="block"
@@ -602,19 +589,19 @@ STATUS:
             </motion.div>
 
             <motion.div
-              initial={visibleSections.has('hero') ? { opacity: 0, x: -30, y: 20 } : { opacity: 1, x: 0, y: 0 }}
+              initial={{ opacity: 0, x: -30, y: 20 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={visibleSections.has('hero') ? { duration: 0.8, delay: 0.4 } : { duration: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
               className="mb-8 sm:mb-12 md:mb-16 max-w-2xl"
             >
               <div className="cracked-text" data-text="NAVIGATING THE MAZE">
                 <DecryptedText
                   text="NAVIGATING THE MAZE"
                   speed={30}
-                  maxIterations={visibleSections.has('hero') ? 15 : 0}
+                  maxIterations={15}
                   sequential={true}
                   revealDirection="start"
-                  animateOn={visibleSections.has('hero') ? "view" : "hover"}
+                  animateOn="view"
                   className="text-white text-xl sm:text-2xl md:text-3xl lg:text-5xl font-cracked leading-tight green-glow-text mb-4"
                   encryptedClassName="text-[#5EE414]/40"
                 />
@@ -622,24 +609,24 @@ STATUS:
               <DecryptedText
                 text="OF DIGITAL INNOVATION"
                 speed={30}
-                maxIterations={visibleSections.has('hero') ? 15 : 0}
+                maxIterations={15}
                 sequential={true}
                 revealDirection="start"
-                animateOn={visibleSections.has('hero') ? "view" : "hover"}
-                className="text-[#5EE414] text-lg sm:text-xl md:text-2xl lg:text-4xl font-cracked leading-tight ml-4 sm:ml-6 md:ml-8 lg:ml-12 xl:ml-16"
+                animateOn="view"
+                className="text-[#5EE414] text-lg sm:text-xl md:text-2xl lg:text-4xl font-cracked leading-tight ml-8 sm:ml-12 md:ml-16"
                 encryptedClassName="text-[#5EE414]/30"
               />
             </motion.div>
 
             <motion.div
-              initial={visibleSections.has('hero') ? { opacity: 0, x: -20 } : { opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={visibleSections.has('hero') ? { duration: 0.8, delay: 0.8 } : { duration: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
               className="flex items-start gap-4"
             >
               <motion.div
-                animate={visibleSections.has('hero') ? { y: [0, 10, 0] } : { y: 0 }}
-                transition={visibleSections.has('hero') ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : { duration: 0 }}
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 className="text-xs sm:text-sm text-[#5EE414]/70 font-cracked uppercase tracking-wider"
               >
                 Scroll to explore
@@ -659,9 +646,9 @@ STATUS:
                 {/* Logo */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={visibleSections.has('about') ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ root: scrollContainerRef, margin: "-50px" }}
-                  transition={visibleSections.has('about') ? { duration: 0.6 } : { duration: 0 }}
+                  transition={{ duration: 0.6 }}
                   className="mb-6 sm:mb-8 md:mb-12"
                 >
                   <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 relative">
@@ -678,9 +665,9 @@ STATUS:
                 {/* Main Heading */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
-                  whileInView={visibleSections.has('about') ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ root: scrollContainerRef, margin: "-50px" }}
-                  transition={visibleSections.has('about') ? { duration: 0.8, delay: 0.2 } : { duration: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
                   className="mb-4 sm:mb-6 md:mb-8"
                 >
                   <h1 className="font-tech text-[#5EE414] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight">
@@ -693,9 +680,9 @@ STATUS:
                 {/* Body Text */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
-                  whileInView={visibleSections.has('about') ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ root: scrollContainerRef, margin: "-50px" }}
-                  transition={visibleSections.has('about') ? { duration: 0.8, delay: 0.4 } : { duration: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
                   className="space-y-2 sm:space-y-3 md:space-y-4"
                 >
                   <p className="text-white font-cracked text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed font-semibold">
@@ -718,12 +705,8 @@ STATUS:
             <div className="relative h-full overflow-hidden">
               {/* Background Pattern/Image Placeholder - Tech-themed texture */}
               <div className="absolute inset-0 bg-linear-to-br from-[#0a0a0a] via-[#1a0a0a] to-[#0a0a0a]">
-                {visibleSections.has('about') && (
-                  <>
-                    <div className="absolute inset-0 tech-grid opacity-30" />
-                    <div className="absolute inset-0 cracked-maze opacity-40" />
-                  </>
-                )}
+                <div className="absolute inset-0 tech-grid opacity-30" />
+                <div className="absolute inset-0 cracked-maze opacity-40" />
                 <div className="absolute inset-0">
                   <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-[#5EE414]/15 rounded-full blur-3xl" />
                   <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#5EE414]/10 rounded-full blur-3xl" />
@@ -738,9 +721,9 @@ STATUS:
               <div className="relative h-full flex items-center justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16 z-30">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={visibleSections.has('about') ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ root: scrollContainerRef, margin: "-50px" }}
-                  transition={visibleSections.has('about') ? { duration: 0.8, delay: 0.3 } : { duration: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
                   className="relative w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl"
                 >
                   {/* ScrollVelocity Card - Only render when section is visible */}
@@ -770,19 +753,15 @@ STATUS:
 
         {/* Team Showcase Section */}
         <section id="innovation" className="h-screen flex items-center relative overflow-hidden px-4 sm:px-6 md:px-12 lg:px-20 section-transition-middle snap-start snap-always w-full max-w-full">
-          {visibleSections.has('innovation') && (
-            <>
-              <div className="absolute inset-0 tech-grid opacity-10" />
-              <div className="absolute inset-0 tech-magic-glow" />
-            </>
-          )}
+          <div className="absolute inset-0 tech-grid opacity-10" />
+          <div className="absolute inset-0 tech-magic-glow" />
           
           {/* OZ Logo - Top Left */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={visibleSections.has('innovation') ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ root: scrollContainerRef, margin: "-50px" }}
-            transition={visibleSections.has('innovation') ? { duration: 0.6 } : { duration: 0 }}
+            transition={{ duration: 0.6 }}
             className="absolute top-4 sm:top-6 md:top-8 lg:top-12 xl:top-16 left-4 sm:left-6 md:left-8 lg:left-12 xl:left-16 z-20"
           >
             <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 relative">
@@ -878,10 +857,10 @@ STATUS:
                           <DecryptedText
                             text={member.description}
                             speed={30}
-                            maxIterations={visibleSections.has('innovation') ? 15 : 0}
+                            maxIterations={15}
                             sequential={true}
                             revealDirection="start"
-                            animateOn={visibleSections.has('innovation') ? "view" : "hover"}
+                            animateOn="view"
                             className="text-white/90 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed font-cracked break-words"
                             encryptedClassName="text-[#5EE414]/40"
                           />
@@ -958,30 +937,8 @@ STATUS:
 
         {/* Showcase Section - Hacker Computer Vibe */}
         <section id="showcase" className="h-screen flex items-center relative overflow-hidden px-2 sm:px-3 md:px-4 lg:px-6 xl:px-12 section-transition-middle snap-start snap-always w-full max-w-full">
-          {/* FaultyTerminal Background - Only render when section is visible */}
-          {visibleSections.has('showcase') && (
-            <div className="absolute inset-0 opacity-40">
-              <FaultyTerminal
-                scale={1.5}
-                gridMul={[2, 1]}
-                digitSize={1.8}
-                timeScale={0.4}
-                scanlineIntensity={0.3}
-                glitchAmount={1.2}
-                flickerAmount={1}
-                noiseAmp={1}
-                chromaticAberration={0.15}
-                dither={0.6}
-                curvature={0.15}
-                tint="#5EE414"
-                mouseReact={true}
-                mouseStrength={0.2}
-                brightness={0.7}
-                pause={!visibleSections.has('showcase')}
-                className="w-full h-full"
-              />
-            </div>
-          )}
+          {/* Custom Hacker Background - Lightweight CSS-based */}
+          <div className="absolute inset-0 hacker-bg"></div>
           
           {/* TargetCursor for hacker vibe - Only active in section 4 */}
           {isShowcaseSectionVisible && (
@@ -998,9 +955,9 @@ STATUS:
             {/* Terminal Header */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
-              whileInView={visibleSections.has('showcase') ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ root: scrollContainerRef, margin: "-50px" }}
-              transition={visibleSections.has('showcase') ? { duration: 0.6 } : { duration: 0 }}
+              transition={{ duration: 0.6 }}
               className="mb-3 sm:mb-4 md:mb-6"
             >
               <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 mb-1.5 sm:mb-2">
@@ -1022,9 +979,9 @@ STATUS:
                 {/* Terminal Windows */}
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
-                  whileInView={visibleSections.has('showcase') ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ root: scrollContainerRef, margin: "-50px" }}
-                  transition={visibleSections.has('showcase') ? { duration: 0.6, delay: 0.2 } : { duration: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
                   className="bg-[#0a0a0a]/90 border border-[#5EE414]/40 rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-4 lg:p-5 hacker-target"
                 >
                   <div className="font-mono text-[#5EE414] text-[10px] sm:text-xs md:text-sm space-y-0.5 sm:space-y-1">
@@ -1046,9 +1003,9 @@ STATUS:
                 {/* Files Grid */}
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
-                  whileInView={visibleSections.has('showcase') ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ root: scrollContainerRef, margin: "-50px" }}
-                  transition={visibleSections.has('showcase') ? { duration: 0.6, delay: 0.4 } : { duration: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
                   className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6"
                 >
                   {projects.map((project) => (
@@ -1080,9 +1037,9 @@ STATUS:
                 {/* Additional Terminal Window */}
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
-                  whileInView={visibleSections.has('showcase') ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ root: scrollContainerRef, margin: "-50px" }}
-                  transition={visibleSections.has('showcase') ? { duration: 0.6, delay: 0.6 } : { duration: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
                   className="bg-[#0a0a0a]/90 border border-[#5EE414]/40 rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-4 lg:p-5 hacker-target"
                 >
                   <div className="font-mono text-[#5EE414] text-[10px] sm:text-xs md:text-sm space-y-0.5 sm:space-y-1">
@@ -1102,10 +1059,9 @@ STATUS:
               <div className="flex flex-col min-h-0">
                 {selectedProject ? (
                   <motion.div
-                    initial={visibleSections.has('showcase') ? { opacity: 0, x: 30 } : { opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 30 }}
-                    transition={visibleSections.has('showcase') ? { duration: 0.6 } : { duration: 0 }}
                     className="bg-[#0a0a0a]/90 border border-[#5EE414]/40 rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 lg:p-8 h-full flex flex-col min-h-0"
                   >
                     <div className="mb-3 sm:mb-4 md:mb-6">
@@ -1121,10 +1077,10 @@ STATUS:
                       <DecryptedText
                         text={projects.find(p => p.id === selectedProject)?.description || ''}
                         speed={30}
-                        maxIterations={visibleSections.has('showcase') ? 15 : 0}
+                        maxIterations={15}
                         sequential={true}
                         revealDirection="start"
-                        animateOn={visibleSections.has('showcase') ? "view" : "hover"}
+                        animateOn="view"
                         className="text-white/90 font-mono text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed break-words"
                         encryptedClassName="text-[#5EE414]/40"
                       />
@@ -1212,10 +1168,10 @@ STATUS:
                       <DecryptedText
                         text={projects.find(p => p.id === selectedProject)?.fullContent || ''}
                         speed={25}
-                        maxIterations={isProjectModalOpen ? 20 : 0}
+                        maxIterations={20}
                         sequential={true}
                         revealDirection="start"
-                        animateOn={isProjectModalOpen ? "view" : "hover"}
+                        animateOn="view"
                         className="text-white/90 font-mono text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed whitespace-pre-line break-words"
                         encryptedClassName="text-[#5EE414]/40"
                       />
@@ -1264,9 +1220,7 @@ STATUS:
 
         {/* Contact Section - Contact Form */}
         <section id="contact" className="h-screen flex items-center justify-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 grainy-bg cracked-maze section-transition-end snap-start snap-always w-full max-w-full">
-          {visibleSections.has('contact') && (
-            <div className="absolute inset-0 tech-magic-glow" />
-          )}
+          <div className="absolute inset-0 tech-magic-glow" />
           <div className="container mx-auto w-full max-w-4xl relative z-10 px-2 sm:px-4">
             <motion.div
               initial={{ opacity: 0 }}
@@ -1281,10 +1235,10 @@ STATUS:
                   <DecryptedText
                     text="GET IN TOUCH"
                     speed={40}
-                    maxIterations={visibleSections.has('contact') ? 12 : 0}
+                    maxIterations={12}
                     sequential={true}
                     revealDirection="center"
-                    animateOn={visibleSections.has('contact') ? "view" : "hover"}
+                    animateOn="view"
                     className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-tech mb-1 sm:mb-2 leading-tight green-glow-text"
                     encryptedClassName="text-[#5EE414]/40"
                   />
@@ -1292,10 +1246,10 @@ STATUS:
                 <DecryptedText
                   text="Let's build something amazing together"
                   speed={30}
-                  maxIterations={visibleSections.has('contact') ? 15 : 0}
+                  maxIterations={15}
                   sequential={true}
                   revealDirection="start"
-                  animateOn={visibleSections.has('contact') ? "view" : "hover"}
+                  animateOn="view"
                   className="text-[#5EE414] text-sm sm:text-base md:text-lg lg:text-xl font-cracked px-2"
                   encryptedClassName="text-[#5EE414]/30"
                 />
@@ -1304,9 +1258,9 @@ STATUS:
               {/* Contact Form */}
               <motion.form
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={visibleSections.has('contact') ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ root: scrollContainerRef, margin: "-50px" }}
-                transition={visibleSections.has('contact') ? { duration: 0.8, delay: 0.3 } : { duration: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
                 className="space-y-4 sm:space-y-6 md:space-y-8"
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -1390,9 +1344,9 @@ STATUS:
                 {/* Submit Button */}
                 <motion.div
                   initial={{ opacity: 0 }}
-                  whileInView={visibleSections.has('contact') ? { opacity: 1 } : { opacity: 1 }}
+                  whileInView={{ opacity: 1 }}
                   viewport={{ root: scrollContainerRef, margin: "-50px" }}
-                  transition={visibleSections.has('contact') ? { duration: 0.8, delay: 0.5 } : { duration: 0 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
                   className="flex justify-center pt-2 sm:pt-4"
                 >
                   <motion.button

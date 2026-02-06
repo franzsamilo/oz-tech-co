@@ -231,8 +231,6 @@ html {
 /* Grainy texture overlay - Enhanced with multiple layers */
 .grainy-bg {
   position: relative;
-  will-change: auto;
-  contain: layout style paint;
 }
 
 .grainy-bg::before {
@@ -607,21 +605,102 @@ html {
   display: none;  /* Chrome, Safari, Opera */
 }
 
-/* Performance optimizations */
-.tech-grid,
-.tech-magic-glow {
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+/* Custom Hacker Background - Lightweight CSS alternative to FaultyTerminal */
+.hacker-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    /* Base dark background */
+    #0a0a0a,
+    /* Animated grid pattern */
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(94, 228, 20, 0.03) 2px,
+      rgba(94, 228, 20, 0.03) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(94, 228, 20, 0.03) 2px,
+      rgba(94, 228, 20, 0.03) 4px
+    ),
+    /* Scanline effect */
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(94, 228, 20, 0.05) 1px,
+      rgba(94, 228, 20, 0.05) 2px
+    );
+  background-size: 100% 100%, 50px 50px, 50px 50px, 100% 3px;
+  animation: hackerScan 8s linear infinite;
+  opacity: 0.4;
+  pointer-events: none;
 }
 
-/* Reduce motion for better performance */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+.hacker-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    /* Glitch effect overlay */
+    radial-gradient(circle at 20% 30%, rgba(94, 228, 20, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(94, 228, 20, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(94, 228, 20, 0.05) 0%, transparent 60%);
+  animation: hackerGlow 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.hacker-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    /* Matrix-style falling characters effect */
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      rgba(94, 228, 20, 0.02) 1px,
+      transparent 2px,
+      transparent 8px
+    );
+  background-size: 100% 20px;
+  animation: hackerMatrix 10s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes hackerScan {
+  0% {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: 0 0, 50px 50px, 50px 50px, 0 100vh;
+  }
+}
+
+@keyframes hackerGlow {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+}
+
+@keyframes hackerMatrix {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 20px;
   }
 }
