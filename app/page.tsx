@@ -1,146 +1,186 @@
-'use client';
+"use client";
 
-import { useRef, useEffect, useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import Image from 'next/image';
-import DecryptedText from '@/components/DecryptedText';
-import ScrollReveal from '@/components/ScrollReveal';
-import ScrollVelocity from '@/components/ScrollVelocity';
-import StaggeredMenu from '@/components/StaggeredMenu';
-import ProfileCard from '@/components/ProfileCard';
-import LaserFlow from '@/components/LaserFlow';
-import Folder from '@/components/Folder';
-import TargetCursor from '@/components/TargetCursor';
+import { useRef, useEffect, useState, useCallback } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import Image from "next/image";
+import DecryptedText from "@/components/DecryptedText";
+import ScrollReveal from "@/components/ScrollReveal";
+import ScrollVelocity from "@/components/ScrollVelocity";
+import StaggeredMenu from "@/components/StaggeredMenu";
+import ProfileCard from "@/components/ProfileCard";
+import LaserFlow from "@/components/LaserFlow";
+import Folder from "@/components/Folder";
+import TargetCursor from "@/components/TargetCursor";
 
 export default function Home() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
+
   // Type assertion for components that expect HTMLElement ref
-  const scrollContainerRefAsHTMLElement = scrollContainerRef as React.RefObject<HTMLElement>;
+  const scrollContainerRefAsHTMLElement =
+    scrollContainerRef as React.RefObject<HTMLElement>;
 
   // Team member carousel state
   const [currentMemberIndex, setCurrentMemberIndex] = useState(0);
   const carouselIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  
+
   // Project showcase state
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
-  const [isShowcaseSectionVisible, setIsShowcaseSectionVisible] = useState(false);
-  
+  const [isShowcaseSectionVisible, setIsShowcaseSectionVisible] =
+    useState(false);
+
   // Section visibility tracking for performance optimization
-  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set(['hero'])); // Start with hero visible
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(
+    new Set(["hero"]),
+  ); // Start with hero visible
 
   const teamMembers = [
     {
-      id: 'cris',
-      name: 'Cris Vinson',
-      title: 'Co-Founder & Strategic Lead',
-      avatarUrl: '/members/Cris.png',
-      handle: 'crisvinson',
-      description: '10 years of digital marketing expertise. Gold SaaS Award winner. Generated $1M+ through single funnel. Led 25+ AI implementations and created 300+ remote positions.',
-      skills: ['Conversion Strategy', 'Performance Marketing', 'Operational Systems', 'Team Leadership', 'AI Implementation'],
+      id: "cris",
+      name: "Cris Vinson",
+      title: "Co-Founder & Strategic Lead",
+      avatarUrl: "/members/Cris.png",
+      handle: "crisvinson",
+      description:
+        "10 years of digital marketing expertise. Gold SaaS Award winner. Generated $1M+ through single funnel. Led 25+ AI implementations and created 300+ remote positions.",
+      skills: [
+        "Conversion Strategy",
+        "Performance Marketing",
+        "Operational Systems",
+        "Team Leadership",
+        "AI Implementation",
+      ],
       stats: [
-        { label: 'Years Experience', value: '10+' },
-        { label: 'AI Projects', value: '25+' },
-        { label: 'Revenue Generated', value: '$100M+' }
+        { label: "Years Experience", value: "10+" },
+        { label: "AI Projects", value: "25+" },
+        { label: "Revenue Generated", value: "$100M+" },
       ],
       imageConfig: {
-        objectFit: 'cover' as const,
-        objectPosition: 'center center',
+        objectFit: "cover" as const,
+        objectPosition: "center center",
         scale: 1,
-        bottom: '-1px'
-      }
+        bottom: "-1px",
+      },
     },
     {
-      id: 'jed',
-      name: 'Jed Matthew Mamosto',
-      title: 'Tech Lead',
-      avatarUrl: '/members/Jed.png',
-      handle: 'jedmamosto',
-      description: 'GDSC Executive (2021-2025). Leads technical strategy for high-impact projects at the intersection of technology and social good. Expert in AI engineering and software architecture.',
-      skills: ['AI Engineering', 'Full-stack Development', 'Software Architecture', 'Project Management', 'Community Leadership'],
+      id: "jed",
+      name: "Jed Matthew Mamosto",
+      title: "Tech Lead",
+      avatarUrl: "/members/Jed.png",
+      handle: "jedmamosto",
+      description:
+        "Leads technical strategy for high-impact projects at the intersection of technology and social good. Expert in AI engineering and software architecture.",
+      skills: [
+        "AI Engineering",
+        "Full-stack Development",
+        "Software Architecture",
+        "Project Management",
+        "Community Leadership",
+      ],
       stats: [
-        { label: 'GDSC Years', value: '4' },
-        { label: 'Projects Led', value: '15+' },
-        { label: 'Team Size', value: '30+' }
+        { label: "GDSC Years", value: "4" },
+        { label: "Projects Led", value: "15+" },
+        { label: "Team Size", value: "30+" },
       ],
       imageConfig: {
-        objectFit: 'cover' as const,
-        objectPosition: 'center 25%',
+        objectFit: "cover" as const,
+        objectPosition: "center 25%",
         scale: 1.05,
-        bottom: '-1px'
-      }
+        bottom: "-1px",
+      },
     },
     {
-      id: 'matthew',
-      name: 'Matthew Ledesma',
-      title: 'Project Manager',
-      avatarUrl: '/members/Matthew L..png',
-      handle: 'matthewledesma',
-      description: 'Award-winning project leader. 2nd Place Microsoft Imagine Cup Philippines. Top 20 Finalist PolyHack Hong Kong. Expert in managing complex digital platforms under tight constraints.',
-      skills: ['Project Lifecycle', 'Team Coordination', 'Stakeholder Management', 'Agile Methodology', 'Product Scaling'],
+      id: "matthew",
+      name: "Matthew Ledesma",
+      title: "Project Manager",
+      avatarUrl: "/members/Matthew L..png",
+      handle: "matthewledesma",
+      description:
+        "Expert in managing complex digital platforms under tight constraints. Award-winning project leader. 2nd Place Microsoft Imagine Cup Philippines. Top 20 Finalist PolyHack Hong Kong.",
+      skills: [
+        "Project Lifecycle",
+        "Team Coordination",
+        "Stakeholder Management",
+        "Agile Methodology",
+        "Product Scaling",
+      ],
       stats: [
-        { label: 'Awards', value: '2' },
-        { label: 'Projects Managed', value: '20+' },
-        { label: 'Success Rate', value: '100%' }
+        { label: "Awards", value: "2" },
+        { label: "Projects Managed", value: "20+" },
+        { label: "Success Rate", value: "100%" },
       ],
       imageConfig: {
-        objectFit: 'cover' as const,
-        objectPosition: 'center center',
+        objectFit: "cover" as const,
+        objectPosition: "center center",
         scale: 1,
-        bottom: '-1px'
-      }
+        bottom: "-1px",
+      },
     },
     {
-      id: 'louie',
-      name: 'Louie Dale Cervera',
-      title: 'Backend Software Engineer',
-      avatarUrl: '/members/Louie.png',
-      handle: 'louiecervera',
-      description: 'Specializes in invisible architecture powering modern applications. GIS-integrated dashboards, IoT-driven smart systems. Expert in technical design, DevOps, and embedded systems.',
-      skills: ['Technical Design', 'DevOps', 'GIS Capabilities', 'IoT Integration', 'Computer Vision'],
+      id: "louie",
+      name: "Louie Dale Cervera",
+      title: "Backend Software Engineer",
+      avatarUrl: "/members/Louie.png",
+      handle: "louiecervera",
+      description:
+        "Specializes in invisible architecture powering modern applications. GIS-integrated dashboards, IoT-driven smart systems. Expert in technical design, DevOps, and embedded systems.",
+      skills: [
+        "Technical Design",
+        "DevOps",
+        "GIS Capabilities",
+        "IoT Integration",
+        "Computer Vision",
+      ],
       stats: [
-        { label: 'Systems Built', value: '50+' },
-        { label: 'GIS Projects', value: '10+' },
-        { label: 'IoT Integrations', value: '15+' }
+        { label: "Systems Built", value: "50+" },
+        { label: "GIS Projects", value: "10+" },
+        { label: "IoT Integrations", value: "15+" },
       ],
       imageConfig: {
-        objectFit: 'cover' as const,
-        objectPosition: 'center center',
+        objectFit: "cover" as const,
+        objectPosition: "center center",
         scale: 1,
-        bottom: '-1px'
-      }
+        bottom: "-1px",
+      },
     },
     {
-      id: 'franz',
-      name: 'Franz Eliezer Samilo',
-      title: 'Frontend Software Engineer',
-      avatarUrl: '/members/Franz.png',
-      handle: 'franzsamilo',
-      description: 'Specialist in high-performance user interfaces. Architected custom ML/DL framework. Built AI-augmented search interfaces. Expert in design systems and motion systems.',
-      skills: ['Design Systems', 'Motion Systems', 'ML/DL Frameworks', 'Knowledge Graph Rendering', 'Real-time Data Streaming'],
+      id: "franz",
+      name: "Franz Eliezer Samilo",
+      title: "Frontend Software Engineer",
+      avatarUrl: "/members/Franz.png",
+      handle: "franzsamilo",
+      description:
+        "Specialist in high-performance user interfaces. Architected custom ML/DL framework. Built AI-augmented search interfaces. Expert in design systems and motion systems.",
+      skills: [
+        "Design Systems",
+        "Motion Systems",
+        "ML/DL Frameworks",
+        "Knowledge Graph Rendering",
+        "Real-time Data Streaming",
+      ],
       stats: [
-        { label: 'Frameworks Built', value: '5+' },
-        { label: 'UI Systems', value: '20+' },
-        { label: 'ML Projects', value: '10+' }
+        { label: "Frameworks Built", value: "5+" },
+        { label: "UI Systems", value: "20+" },
+        { label: "ML Projects", value: "10+" },
       ],
       imageConfig: {
-        objectFit: 'cover' as const,
-        objectPosition: 'center center',
+        objectFit: "cover" as const,
+        objectPosition: "center center",
         scale: 1,
-        bottom: '-1px'
-      }
-    }
+        bottom: "-1px",
+      },
+    },
   ];
 
   // Project data from the-team-and-co.md
   const projects = [
     {
       id: 1,
-      name: 'The Nomad Escape',
-      fileName: 'nomad_escape.btb',
-      description: 'Member network platform with Better Teams Build Calculator generating 50+ leads at Web Summit',
-      category: 'Member Networks & Platforms',
+      name: "The Nomad Escape",
+      fileName: "nomad_escape.btb",
+      description:
+        "Member network platform with Better Teams Build Calculator generating 50+ leads at Web Summit",
+      category: "Member Networks & Platforms",
       fullContent: `The Nomad Escape: Built Better Teams Build Calculator for 100,000+ member network, generating 50+ leads at Web Summit.
 
 PROJECT OVERVIEW:
@@ -162,15 +202,21 @@ RESULTS:
 - 100,000+ member network served
 - 50+ leads generated at Web Summit
 - Proven track record in membership platform management`,
-      technologies: ['Membership Platforms', 'Data Analytics', 'Lead Generation', 'Conversion Optimization'],
-      team: ['Cris Vinson - Strategic Lead']
+      technologies: [
+        "Membership Platforms",
+        "Data Analytics",
+        "Lead Generation",
+        "Conversion Optimization",
+      ],
+      team: ["Cris Vinson - Strategic Lead"],
     },
     {
       id: 2,
-      name: 'Mentoria',
-      fileName: 'mentoria.ai',
-      description: 'Youth mentorship platform with context-aware AI, secure authentication, and gamified progression',
-      category: 'AI-Powered Applications',
+      name: "Mentoria",
+      fileName: "mentoria.ai",
+      description:
+        "Youth mentorship platform with context-aware AI, secure authentication, and gamified progression",
+      category: "AI-Powered Applications",
       fullContent: `Mentoria: Youth mentorship platform with context-aware AI, secure authentication, and a gamified progression system.
 
 PROJECT OVERVIEW:
@@ -201,15 +247,26 @@ RESULTS:
 - Successful platform launch
 - Engaging user experience
 - Proven AI implementation methodology`,
-      technologies: ['AI/ML', 'Authentication', 'Gamification', 'Motion Design', 'Real-time Systems'],
-      team: ['Matthew Ledesma - Project Manager', 'Louie Dale Cervera - Backend Engineer', 'Franz Eliezer Samilo - Frontend Engineer']
+      technologies: [
+        "AI/ML",
+        "Authentication",
+        "Gamification",
+        "Motion Design",
+        "Real-time Systems",
+      ],
+      team: [
+        "Matthew Ledesma - Project Manager",
+        "Louie Dale Cervera - Backend Engineer",
+        "Franz Eliezer Samilo - Frontend Engineer",
+      ],
     },
     {
       id: 3,
-      name: 'Rare Philippines',
-      fileName: 'rare_marine.dash',
-      description: 'Marine enforcement dashboard with AI analytics, geospatial mapping, and role-based access',
-      category: 'Coastal Conservation Technology',
+      name: "Rare Philippines",
+      fileName: "rare_marine.dash",
+      description:
+        "Marine enforcement dashboard with AI analytics, geospatial mapping, and role-based access",
+      category: "Coastal Conservation Technology",
       fullContent: `Rare Philippines: Marine enforcement dashboard with AI analytics, geospatial mapping, and role-based access control.
 
 PROJECT OVERVIEW:
@@ -242,15 +299,25 @@ RESULTS:
 - Direct experience with coastal/environmental organizations
 - Specialized dashboard features delivered
 - Successful GIS capability integration`,
-      technologies: ['GIS', 'AI Analytics', 'Geospatial Mapping', 'RBAC', 'Real-time Monitoring'],
-      team: ['Louie Dale Cervera - Backend Engineer', 'Franz Eliezer Samilo - Frontend Engineer']
+      technologies: [
+        "GIS",
+        "AI Analytics",
+        "Geospatial Mapping",
+        "RBAC",
+        "Real-time Monitoring",
+      ],
+      team: [
+        "Louie Dale Cervera - Backend Engineer",
+        "Franz Eliezer Samilo - Frontend Engineer",
+      ],
     },
     {
       id: 4,
-      name: 'Civy',
-      fileName: 'civy.payment',
-      description: 'Multi-tenant payment platform with automated reconciliation and real-time data synchronization',
-      category: 'Payment & Financial Infrastructure',
+      name: "Civy",
+      fileName: "civy.payment",
+      description:
+        "Multi-tenant payment platform with automated reconciliation and real-time data synchronization",
+      category: "Payment & Financial Infrastructure",
       fullContent: `Civy: Multi-tenant payment platform with automated reconciliation and real-time data synchronization.
 
 PROJECT OVERVIEW:
@@ -283,15 +350,22 @@ RESULTS:
 - Secure payment platform delivered
 - Scalable infrastructure implemented
 - Proven experience in financial systems`,
-      technologies: ['Payment Processing', 'Multi-tenant Architecture', 'Financial APIs', 'Real-time Sync', 'Automated Reconciliation'],
-      team: ['Louie Dale Cervera - Backend Engineer']
+      technologies: [
+        "Payment Processing",
+        "Multi-tenant Architecture",
+        "Financial APIs",
+        "Real-time Sync",
+        "Automated Reconciliation",
+      ],
+      team: ["Louie Dale Cervera - Backend Engineer"],
     },
     {
       id: 5,
-      name: 'Produkta',
-      fileName: 'produkta.msme',
-      description: 'Dedicated platform for Iloilo MSMEs in partnership with DTI Region VI',
-      category: 'Public Sector Solutions',
+      name: "Produkta",
+      fileName: "produkta.msme",
+      description:
+        "Dedicated platform for Iloilo MSMEs in partnership with DTI Region VI",
+      category: "Public Sector Solutions",
       fullContent: `Produkta Platform: Dedicated platform for Iloilo MSMEs in partnership with DTI Region VI.
 
 PROJECT OVERVIEW:
@@ -324,15 +398,21 @@ RESULTS:
 - Regional economic goals achieved
 - Technical requirements met
 - Platform successfully deployed`,
-      technologies: ['Marketplace Platform', 'Business Management', 'Regional Analytics', 'Partnership Integration'],
-      team: ['Matthew Ledesma - Project Manager']
+      technologies: [
+        "Marketplace Platform",
+        "Business Management",
+        "Regional Analytics",
+        "Partnership Integration",
+      ],
+      team: ["Matthew Ledesma - Project Manager"],
     },
     {
       id: 6,
-      name: 'Transport Guide',
-      fileName: 'transport.iloilo',
-      description: 'Public Transportation Guide for Iloilo City tourists and locals',
-      category: 'Public Utility',
+      name: "Transport Guide",
+      fileName: "transport.iloilo",
+      description:
+        "Public Transportation Guide for Iloilo City tourists and locals",
+      category: "Public Utility",
       fullContent: `Transportation Solutions: Public Transportation Guide for Iloilo City tourists and locals.
 
 PROJECT OVERVIEW:
@@ -365,9 +445,18 @@ STATUS:
 - Currently in active development
 - Coordinating with NGOs and Iloilo City LGU
 - Focused on urban transport planning solutions`,
-      technologies: ['Mobile Development', 'Transit Logistics', 'Route Mapping', 'Real-time Data', 'LGU Integration'],
-      team: ['Jed Matthew Mamosto - Tech Lead', 'Matthew Ledesma - Project Manager']
-    }
+      technologies: [
+        "Mobile Development",
+        "Transit Logistics",
+        "Route Mapping",
+        "Real-time Data",
+        "LGU Integration",
+      ],
+      team: [
+        "Jed Matthew Mamosto - Tech Lead",
+        "Matthew Ledesma - Project Manager",
+      ],
+    },
   ];
 
   const resetCarousel = useCallback(() => {
@@ -404,7 +493,7 @@ STATUS:
 
   // Track all section visibility for performance optimization
   useEffect(() => {
-    const sections = ['hero', 'about', 'innovation', 'showcase', 'contact'];
+    const sections = ["hero", "about", "innovation", "showcase", "contact"];
     const observers: IntersectionObserver[] = [];
 
     sections.forEach((sectionId) => {
@@ -425,12 +514,12 @@ STATUS:
             });
 
             // Special handling for showcase section (for TargetCursor)
-            if (sectionId === 'showcase') {
+            if (sectionId === "showcase") {
               setIsShowcaseSectionVisible(entry.isIntersecting);
             }
           });
         },
-        { threshold: 0.1, rootMargin: '50px' } // Trigger when 10% visible, with 50px margin
+        { threshold: 0.1, rootMargin: "50px" }, // Trigger when 10% visible, with 50px margin
       );
 
       observer.observe(section);
@@ -447,49 +536,50 @@ STATUS:
     const handleHashClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const link = target.closest('a[href^="#"]') as HTMLAnchorElement;
-      
+
       if (link && link.hash) {
         e.preventDefault();
         const targetId = link.hash.substring(1);
         const targetElement = document.getElementById(targetId);
-        
+
         if (targetElement && scrollContainerRef.current) {
           const container = scrollContainerRef.current;
           // Get the target element's position relative to the container
           const containerRect = container.getBoundingClientRect();
           const targetRect = targetElement.getBoundingClientRect();
-          
+
           // Calculate scroll position
-          const scrollTop = container.scrollTop + (targetRect.top - containerRect.top) - 100; // 100px offset from top
-          
+          const scrollTop =
+            container.scrollTop + (targetRect.top - containerRect.top) - 100; // 100px offset from top
+
           container.scrollTo({
             top: Math.max(0, scrollTop),
-            behavior: 'smooth'
+            behavior: "smooth",
           });
         } else if (targetElement) {
           // Fallback: scroll the window if no container
-          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }
     };
 
     // Use capture phase to catch events before they bubble
-    document.addEventListener('click', handleHashClick, true);
-    return () => document.removeEventListener('click', handleHashClick, true);
+    document.addEventListener("click", handleHashClick, true);
+    return () => document.removeEventListener("click", handleHashClick, true);
   }, []);
 
   const menuItems = [
-    { label: 'Home', link: '#hero', ariaLabel: 'Go to home' },
-    { label: 'About Us', link: '#about', ariaLabel: 'Learn about us' },
-    { label: 'The Team', link: '#innovation', ariaLabel: 'Meet the team' },
-    { label: 'Showcase', link: '#showcase', ariaLabel: 'View showcase' },
-    { label: 'Contact', link: '#contact', ariaLabel: 'Get in touch' },
+    { label: "Home", link: "#hero", ariaLabel: "Go to home" },
+    { label: "About Us", link: "#about", ariaLabel: "Learn about us" },
+    { label: "The Team", link: "#innovation", ariaLabel: "Meet the team" },
+    { label: "Showcase", link: "#showcase", ariaLabel: "View showcase" },
+    { label: "Contact", link: "#contact", ariaLabel: "Get in touch" },
   ];
 
   const socialItems = [
-    { label: 'Twitter', link: 'https://twitter.com' },
-    { label: 'LinkedIn', link: 'https://linkedin.com' },
-    { label: 'GitHub', link: 'https://github.com' },
+    { label: "Twitter", link: "https://twitter.com" },
+    { label: "LinkedIn", link: "https://linkedin.com" },
+    { label: "GitHub", link: "https://github.com" },
   ];
 
   return (
@@ -497,7 +587,7 @@ STATUS:
       {/* Staggered Menu */}
       <StaggeredMenu
         position="right"
-        colors={['#0a0a0a', '#1a1a1a', '#2a1a0a']}
+        colors={["#0a0a0a", "#1a1a1a", "#2a1a0a"]}
         items={menuItems}
         socialItems={socialItems}
         displaySocials={true}
@@ -510,12 +600,15 @@ STATUS:
         closeOnClickAway={true}
       />
 
-      <div 
+      <div
         ref={scrollContainerRef}
         className="h-screen bg-[#0a0a0a] grainy-bg cracked-maze overflow-y-auto overflow-x-hidden snap-y snap-mandatory relative w-full"
       >
         {/* Hero Section - Imbalanced Layout */}
-        <section id="hero" className="h-screen flex items-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 section-transition-start snap-start snap-always w-full max-w-full">
+        <section
+          id="hero"
+          className="h-screen flex items-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 section-transition-start snap-start snap-always w-full max-w-full"
+        >
           {/* Animated background elements - Asymmetric */}
           <div className="absolute inset-0 opacity-30">
             <div className="absolute top-1/4 left-[15%] w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-[#5EE414]/20 rounded-full blur-3xl green-glow" />
@@ -528,18 +621,18 @@ STATUS:
           <div className="absolute inset-0 tech-magic-glow" />
 
           {/* LaserFlow accent effect for "CH" in OZTECH - Only render when section is visible */}
-          {visibleSections.has('hero') && (
+          {visibleSections.has("hero") && (
             <div className="absolute inset-0 z-5 pointer-events-none overflow-hidden">
-              <div 
+              <div
                 className="absolute hidden sm:block"
                 style={{
-                  top: '50%',
-                  left: '60%',
-                  transform: 'translate(-50%, -50%)',
-                  width: '70vw',
-                  height: '100vh',
-                  maxWidth: '1200px',
-                  maxHeight: '1400px'
+                  top: "50%",
+                  left: "60%",
+                  transform: "translate(-50%, -50%)",
+                  width: "70vw",
+                  height: "100vh",
+                  maxWidth: "1200px",
+                  maxHeight: "1400px",
                 }}
               >
                 <LaserFlow
@@ -626,7 +719,11 @@ STATUS:
             >
               <motion.div
                 animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
                 className="text-xs sm:text-sm text-[#5EE414]/70 font-cracked uppercase tracking-wider"
               >
                 Scroll to explore
@@ -637,7 +734,10 @@ STATUS:
         </section>
 
         {/* About Us Section */}
-        <section id="about" className="h-screen flex items-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 grainy-bg cracked-maze section-transition-middle snap-start snap-always w-full max-w-full">
+        <section
+          id="about"
+          className="h-screen flex items-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 grainy-bg cracked-maze section-transition-middle snap-start snap-always w-full max-w-full"
+        >
           {/* Two Column Layout */}
           <div className="w-full h-full grid grid-cols-1 lg:grid-cols-2 relative">
             {/* Left Column - Text Content */}
@@ -671,9 +771,15 @@ STATUS:
                   className="mb-4 sm:mb-6 md:mb-8"
                 >
                   <h1 className="font-tech text-[#5EE414] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight">
-                    <span className="block border-b-2 border-[#5EE414] pb-2 mb-2">Who</span>
-                    <span className="block border-b-2 border-[#5EE414] pb-2 mb-2">we</span>
-                    <span className="block border-b-2 border-[#5EE414] pb-2">are.</span>
+                    <span className="block border-b-2 border-[#5EE414] pb-2 mb-2">
+                      Who
+                    </span>
+                    <span className="block border-b-2 border-[#5EE414] pb-2 mb-2">
+                      we
+                    </span>
+                    <span className="block border-b-2 border-[#5EE414] pb-2">
+                      are.
+                    </span>
                   </h1>
                 </motion.div>
 
@@ -727,13 +833,20 @@ STATUS:
                   className="relative w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl"
                 >
                   {/* ScrollVelocity Card - Only render when section is visible */}
-                  {visibleSections.has('about') && (
+                  {visibleSections.has("about") && (
                     <div className="relative bg-[#1a0a0a] rounded-lg overflow-hidden aspect-[3/4] shadow-2xl">
                       <div className="absolute inset-0 bg-linear-to-br from-[#5EE414]/10 via-[#1a0a0a] to-[#0a0a0a] flex items-center justify-center p-4">
                         <div className="w-full h-full flex items-center justify-center">
                           <ScrollVelocity
                             scrollContainerRef={scrollContainerRefAsHTMLElement}
-                            texts={['OZ TECH', 'INNOVATION', 'EXCELLENCE', 'TECHNOLOGY', 'DIGITAL', 'SOLUTIONS']}
+                            texts={[
+                              "OZ TECH",
+                              "INNOVATION",
+                              "EXCELLENCE",
+                              "TECHNOLOGY",
+                              "DIGITAL",
+                              "SOLUTIONS",
+                            ]}
                             velocity={80}
                             className="text-[#5EE414]"
                             parallaxClassName="py-2 relative z-10"
@@ -752,10 +865,13 @@ STATUS:
         </section>
 
         {/* Team Showcase Section */}
-        <section id="innovation" className="h-screen flex items-center relative overflow-hidden px-4 sm:px-6 md:px-12 lg:px-20 section-transition-middle snap-start snap-always w-full max-w-full">
+        <section
+          id="innovation"
+          className="h-screen flex items-center relative overflow-hidden px-4 sm:px-6 md:px-12 lg:px-20 section-transition-middle snap-start snap-always w-full max-w-full"
+        >
           <div className="absolute inset-0 tech-grid opacity-10" />
           <div className="absolute inset-0 tech-magic-glow" />
-          
+
           {/* OZ Logo - Top Left */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -774,7 +890,7 @@ STATUS:
               />
             </div>
           </motion.div>
-          
+
           <div className="container mx-auto w-full max-w-7xl relative z-10 flex flex-col h-full justify-center">
             {/* Section Header */}
             <div className="mb-3 sm:mb-4 md:mb-6 text-center px-2">
@@ -813,16 +929,22 @@ STATUS:
               <AnimatePresence mode="wait">
                 {teamMembers.map((member, index) => {
                   if (index !== currentMemberIndex) return null;
-                  
-                  const isVisible = visibleSections.has('innovation');
-                  
+
+                  const isVisible = visibleSections.has("innovation");
+
                   return (
                     <motion.div
                       key={member.id}
-                      initial={isVisible ? { opacity: 0, x: 50 } : { opacity: 1, x: 0 }}
+                      initial={
+                        isVisible ? { opacity: 0, x: 50 } : { opacity: 1, x: 0 }
+                      }
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -50 }}
-                      transition={isVisible ? { duration: 0.6, ease: "easeInOut" } : { duration: 0 }}
+                      transition={
+                        isVisible
+                          ? { duration: 0.6, ease: "easeInOut" }
+                          : { duration: 0 }
+                      }
                       className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 items-center mb-8 sm:mb-12 md:mb-16 lg:mb-20"
                     >
                       {/* Left Side - Profile Card */}
@@ -836,7 +958,7 @@ STATUS:
                             status="Available"
                             contactText="Connect"
                             showUserInfo={false}
-                            enableTilt={visibleSections.has('innovation')}
+                            enableTilt={visibleSections.has("innovation")}
                             enableMobileTilt={false}
                             innerGradient="linear-gradient(145deg, rgba(255, 107, 53, 0.2) 0%, rgba(10, 10, 10, 0.9) 100%)"
                             behindGlowColor="rgba(255, 107, 53, 0.3)"
@@ -868,7 +990,9 @@ STATUS:
 
                         {/* Skills */}
                         <div>
-                          <h4 className="text-[#5EE414] font-tech text-xs sm:text-sm md:text-base lg:text-lg uppercase tracking-wider mb-2 sm:mb-3 md:mb-4 lg:mb-5">Expertise</h4>
+                          <h4 className="text-[#5EE414] font-tech text-xs sm:text-sm md:text-base lg:text-lg uppercase tracking-wider mb-2 sm:mb-3 md:mb-4 lg:mb-5">
+                            Expertise
+                          </h4>
                           <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3">
                             {member.skills.map((skill, skillIndex) => (
                               <span
@@ -886,60 +1010,83 @@ STATUS:
                 })}
               </AnimatePresence>
 
-                    {/* Navigation Buttons - Central Reference Point */}
-                    <div className="flex justify-center items-center gap-2 sm:gap-3 md:gap-4 lg:gap-6 mt-auto mb-2 sm:mb-3 md:mb-4 px-2">
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={goToPrevious}
-                        className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-[#1a0a0a]/50 border border-[#5EE414]/30 hover:border-[#5EE414] flex items-center justify-center transition-all hover:green-glow touch-manipulation"
-                        aria-label="Previous member"
-                      >
-                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#5EE414]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                      </motion.button>
+              {/* Navigation Buttons - Central Reference Point */}
+              <div className="flex justify-center items-center gap-2 sm:gap-3 md:gap-4 lg:gap-6 mt-auto mb-2 sm:mb-3 md:mb-4 px-2">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={goToPrevious}
+                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-[#1a0a0a]/50 border border-[#5EE414]/30 hover:border-[#5EE414] flex items-center justify-center transition-all hover:green-glow touch-manipulation"
+                  aria-label="Previous member"
+                >
+                  <svg
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-[#5EE414]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                </motion.button>
 
-                      {/* Indicator Dots */}
-                      <div className="flex gap-1.5 sm:gap-2 md:gap-3">
-                        {teamMembers.map((_, index) => (
-                          <button
-                            key={index}
-                            onClick={() => {
-                              setCurrentMemberIndex(index);
-                              resetCarousel();
-                            }}
-                            className={`h-2 w-2 sm:h-2.5 sm:w-2.5 md:h-3 md:w-3 rounded-full transition-all touch-manipulation ${
-                              index === currentMemberIndex
-                                ? 'bg-[#5EE414] w-6 sm:w-7 md:w-8 lg:w-10'
-                                : 'bg-[#5EE414]/30 hover:bg-[#5EE414]/50'
-                            }`}
-                            aria-label={`Go to member ${index + 1}`}
-                          />
-                        ))}
-                      </div>
+                {/* Indicator Dots */}
+                <div className="flex gap-1.5 sm:gap-2 md:gap-3">
+                  {teamMembers.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        setCurrentMemberIndex(index);
+                        resetCarousel();
+                      }}
+                      className={`h-2 w-2 sm:h-2.5 sm:w-2.5 md:h-3 md:w-3 rounded-full transition-all touch-manipulation ${
+                        index === currentMemberIndex
+                          ? "bg-[#5EE414] w-6 sm:w-7 md:w-8 lg:w-10"
+                          : "bg-[#5EE414]/30 hover:bg-[#5EE414]/50"
+                      }`}
+                      aria-label={`Go to member ${index + 1}`}
+                    />
+                  ))}
+                </div>
 
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={goToNext}
-                        className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-[#1a0a0a]/50 border border-[#5EE414]/30 hover:border-[#5EE414] flex items-center justify-center transition-all hover:green-glow touch-manipulation"
-                        aria-label="Next member"
-                      >
-                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#5EE414]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </motion.button>
-                    </div>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={goToNext}
+                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-[#1a0a0a]/50 border border-[#5EE414]/30 hover:border-[#5EE414] flex items-center justify-center transition-all hover:green-glow touch-manipulation"
+                  aria-label="Next member"
+                >
+                  <svg
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-[#5EE414]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </motion.button>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Showcase Section - Hacker Computer Vibe */}
-        <section id="showcase" className="h-screen flex items-center relative overflow-hidden px-2 sm:px-3 md:px-4 lg:px-6 xl:px-12 section-transition-middle snap-start snap-always w-full max-w-full">
+        <section
+          id="showcase"
+          className="h-screen flex items-center relative overflow-hidden px-2 sm:px-3 md:px-4 lg:px-6 xl:px-12 section-transition-middle snap-start snap-always w-full max-w-full"
+        >
           {/* Custom Hacker Background - Lightweight CSS-based */}
           <div className="absolute inset-0 hacker-bg"></div>
-          
+
           {/* TargetCursor for hacker vibe - Only active in section 4 */}
           {isShowcaseSectionVisible && (
             <TargetCursor
@@ -967,7 +1114,9 @@ STATUS:
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 rounded-full bg-[#ADCB14]"></div>
                 </div>
                 <div className="flex-1 bg-[#0a0a0a]/80 border border-[#5EE414]/30 rounded px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 min-w-0">
-                  <span className="text-[#5EE414] font-mono text-[10px] sm:text-xs md:text-sm truncate block">oz-tech@terminal:~$</span>
+                  <span className="text-[#5EE414] font-mono text-[10px] sm:text-xs md:text-sm truncate block">
+                    oz-tech@terminal:~$
+                  </span>
                 </div>
               </div>
             </motion.div>
@@ -989,7 +1138,9 @@ STATUS:
                       <span className="text-[#87D32E]">$</span>
                       <span>ls -la projects/</span>
                     </div>
-                    <div className="text-[#5EE414]/60">total {projects.length}</div>
+                    <div className="text-[#5EE414]/60">
+                      total {projects.length}
+                    </div>
                     {projects.slice(0, 3).map((proj, idx) => (
                       <div key={idx} className="flex items-center gap-2">
                         <span className="text-[#87D32E]">drwxr-xr-x</span>
@@ -1049,8 +1200,12 @@ STATUS:
                     </div>
                     <div className="text-[#5EE414]/60">30+ team members</div>
                     <div className="text-[#5EE414]/60">1000+ sub accounts</div>
-                    <div className="text-[#5EE414]/60">300+ remote positions</div>
-                    <div className="text-[#5EE414]/60">$100M+ client revenue</div>
+                    <div className="text-[#5EE414]/60">
+                      300+ remote positions
+                    </div>
+                    <div className="text-[#5EE414]/60">
+                      $100M+ client revenue
+                    </div>
                   </div>
                 </motion.div>
               </div>
@@ -1066,16 +1221,22 @@ STATUS:
                   >
                     <div className="mb-3 sm:mb-4 md:mb-6">
                       <h3 className="text-[#5EE414] font-mono text-base sm:text-lg md:text-xl lg:text-2xl mb-1 sm:mb-2 font-semibold break-words">
-                        {projects.find(p => p.id === selectedProject)?.name}
+                        {projects.find((p) => p.id === selectedProject)?.name}
                       </h3>
                       <p className="text-[#87D32E] font-mono text-[10px] sm:text-xs md:text-sm mb-2 sm:mb-3 md:mb-4">
-                        {projects.find(p => p.id === selectedProject)?.category}
+                        {
+                          projects.find((p) => p.id === selectedProject)
+                            ?.category
+                        }
                       </p>
                     </div>
-                    
+
                     <div className="flex-1 mb-3 sm:mb-4 md:mb-6 overflow-y-auto min-h-0">
                       <DecryptedText
-                        text={projects.find(p => p.id === selectedProject)?.description || ''}
+                        text={
+                          projects.find((p) => p.id === selectedProject)
+                            ?.description || ""
+                        }
                         speed={30}
                         maxIterations={15}
                         sequential={true}
@@ -1141,7 +1302,10 @@ STATUS:
                         <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[#ADCB14]"></div>
                       </div>
                       <span className="text-[#5EE414] font-mono text-[10px] sm:text-xs md:text-sm lg:text-base truncate">
-                        {projects.find(p => p.id === selectedProject)?.fileName}
+                        {
+                          projects.find((p) => p.id === selectedProject)
+                            ?.fileName
+                        }
                       </span>
                     </div>
                     <button
@@ -1157,16 +1321,22 @@ STATUS:
                   <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 lg:p-8">
                     <div className="mb-3 sm:mb-4 md:mb-6">
                       <h2 className="text-[#5EE414] font-mono text-lg sm:text-xl md:text-2xl lg:text-3xl mb-1 sm:mb-2 font-bold break-words">
-                        {projects.find(p => p.id === selectedProject)?.name}
+                        {projects.find((p) => p.id === selectedProject)?.name}
                       </h2>
                       <p className="text-[#87D32E] font-mono text-xs sm:text-sm md:text-base mb-2 sm:mb-3 md:mb-4">
-                        {projects.find(p => p.id === selectedProject)?.category}
+                        {
+                          projects.find((p) => p.id === selectedProject)
+                            ?.category
+                        }
                       </p>
                     </div>
-                    
+
                     <div className="space-y-3 sm:space-y-4 md:space-y-6">
                       <DecryptedText
-                        text={projects.find(p => p.id === selectedProject)?.fullContent || ''}
+                        text={
+                          projects.find((p) => p.id === selectedProject)
+                            ?.fullContent || ""
+                        }
                         speed={25}
                         maxIterations={20}
                         sequential={true}
@@ -1175,38 +1345,47 @@ STATUS:
                         className="text-white/90 font-mono text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed whitespace-pre-line break-words"
                         encryptedClassName="text-[#5EE414]/40"
                       />
-                      
+
                       {/* Technologies */}
-                      {projects.find(p => p.id === selectedProject)?.technologies && (
+                      {projects.find((p) => p.id === selectedProject)
+                        ?.technologies && (
                         <div className="mt-4 sm:mt-6 md:mt-8 pt-3 sm:pt-4 md:pt-6 border-t border-[#5EE414]/30">
                           <h3 className="text-[#87D32E] font-mono text-xs sm:text-sm md:text-base lg:text-lg mb-2 sm:mb-3 md:mb-4 font-semibold">
                             TECHNOLOGIES:
                           </h3>
                           <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3">
-                            {projects.find(p => p.id === selectedProject)?.technologies.map((tech, idx) => (
-                              <span
-                                key={idx}
-                                className="px-2 sm:px-2.5 md:px-3 py-0.5 sm:py-1 md:py-1.5 bg-[#5EE414]/10 border border-[#5EE414]/30 rounded text-[#5EE414] font-mono text-[10px] sm:text-xs md:text-sm"
-                              >
-                                {tech}
-                              </span>
-                            ))}
+                            {projects
+                              .find((p) => p.id === selectedProject)
+                              ?.technologies.map((tech, idx) => (
+                                <span
+                                  key={idx}
+                                  className="px-2 sm:px-2.5 md:px-3 py-0.5 sm:py-1 md:py-1.5 bg-[#5EE414]/10 border border-[#5EE414]/30 rounded text-[#5EE414] font-mono text-[10px] sm:text-xs md:text-sm"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
                           </div>
                         </div>
                       )}
 
                       {/* Team Members */}
-                      {projects.find(p => p.id === selectedProject)?.team && (
+                      {projects.find((p) => p.id === selectedProject)?.team && (
                         <div className="mt-3 sm:mt-4 md:mt-6 pt-3 sm:pt-4 md:pt-6 border-t border-[#5EE414]/30">
                           <h3 className="text-[#87D32E] font-mono text-xs sm:text-sm md:text-base lg:text-lg mb-2 sm:mb-3 md:mb-4 font-semibold">
                             TEAM:
                           </h3>
                           <div className="space-y-1.5 sm:space-y-2">
-                            {projects.find(p => p.id === selectedProject)?.team.map((member, idx) => (
-                              <div key={idx} className="text-white/80 font-mono text-[10px] sm:text-xs md:text-sm lg:text-base break-words">
-                                <span className="text-[#5EE414]">→</span> {member}
-                              </div>
-                            ))}
+                            {projects
+                              .find((p) => p.id === selectedProject)
+                              ?.team.map((member, idx) => (
+                                <div
+                                  key={idx}
+                                  className="text-white/80 font-mono text-[10px] sm:text-xs md:text-sm lg:text-base break-words"
+                                >
+                                  <span className="text-[#5EE414]">→</span>{" "}
+                                  {member}
+                                </div>
+                              ))}
                           </div>
                         </div>
                       )}
@@ -1219,7 +1398,10 @@ STATUS:
         </section>
 
         {/* Contact Section - Contact Form */}
-        <section id="contact" className="h-screen flex items-center justify-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 grainy-bg cracked-maze section-transition-end snap-start snap-always w-full max-w-full">
+        <section
+          id="contact"
+          className="h-screen flex items-center justify-center relative overflow-hidden px-3 sm:px-4 md:px-6 lg:px-12 xl:px-20 grainy-bg cracked-maze section-transition-end snap-start snap-always w-full max-w-full"
+        >
           <div className="absolute inset-0 tech-magic-glow" />
           <div className="container mx-auto w-full max-w-4xl relative z-10 px-2 sm:px-4">
             <motion.div
@@ -1231,7 +1413,10 @@ STATUS:
             >
               {/* Section Header */}
               <div className="mb-4 sm:mb-6 md:mb-8 lg:mb-12 text-center px-2">
-                <div className="cracked-text distorted-text mb-2 sm:mb-3 md:mb-4" data-text="GET IN TOUCH">
+                <div
+                  className="cracked-text distorted-text mb-2 sm:mb-3 md:mb-4"
+                  data-text="GET IN TOUCH"
+                >
                   <DecryptedText
                     text="GET IN TOUCH"
                     speed={40}
@@ -1266,7 +1451,7 @@ STATUS:
                   e.preventDefault();
                   // Handle form submission here
                   const formData = new FormData(e.currentTarget);
-                  console.log('Form submitted:', Object.fromEntries(formData));
+                  console.log("Form submitted:", Object.fromEntries(formData));
                 }}
               >
                 {/* Name and Email Row */}
