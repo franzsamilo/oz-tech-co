@@ -32,8 +32,8 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   textClassName = '',
   rotationEnd = 'bottom bottom',
   wordAnimationEnd = 'bottom bottom',
-  textSize = 'text-[clamp(1.6rem,4vw,3rem)]',
-  lineHeight = 'leading-[1.5]',
+  textSize = 'text-[clamp(2rem,4.8vw,3.75rem)]',
+  lineHeight = 'leading-[1.2]',
   fontWeight = 'font-semibold',
   margin = 'my-5'
 }) => {
@@ -44,7 +44,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     return text.split(/(\s+)/).map((word, index) => {
       if (word.match(/^\s+$/)) return word;
       return (
-        <span className="inline-block word" key={index}>
+        <span className="inline-block word whitespace-nowrap break-keep" key={index}>
           {word}
         </span>
       );
@@ -77,39 +77,26 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
 
     gsap.fromTo(
       wordElements,
-      { opacity: baseOpacity, willChange: 'opacity' },
+      { 
+        opacity: 0, 
+        y: 20, 
+        filter: enableBlur ? `blur(${blurStrength}px)` : 'none' 
+      },
       {
-        ease: 'none',
         opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 0.8,
+        ease: 'power3.out',
         stagger: 0.05,
         scrollTrigger: {
           trigger: el,
           scroller,
-          start: 'top bottom-=20%',
-          end: wordAnimationEnd,
-          scrub: true
+          start: 'top 85%',
+          once: true
         }
       }
     );
-
-    if (enableBlur) {
-      gsap.fromTo(
-        wordElements,
-        { filter: `blur(${blurStrength}px)` },
-        {
-          ease: 'none',
-          filter: 'blur(0px)',
-          stagger: 0.05,
-          scrollTrigger: {
-            trigger: el,
-            scroller,
-            start: 'top bottom-=20%',
-            end: wordAnimationEnd,
-            scrub: true
-          }
-        }
-      );
-    }
 
     return () => {
       // Only kill ScrollTriggers associated with this element

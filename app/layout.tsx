@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   title: "OZ Tech",
   description: "Navigating the maze of digital innovation - Where technology meets creativity",
   icons: {
-    icon: '/logo.png',
-    apple: '/logo.png',
+    icon: "/favicon.svg",
+    apple: "/favicon.svg",
   },
 };
 

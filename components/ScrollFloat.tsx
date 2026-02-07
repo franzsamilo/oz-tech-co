@@ -29,19 +29,28 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
   scrollStart = 'center bottom+=50%',
   scrollEnd = 'bottom bottom-=40%',
   stagger = 0.03,
-  textSize = 'text-[clamp(1.6rem,4vw,3rem)]',
-  lineHeight = 'leading-[1.5]',
+  textSize = 'text-[clamp(2rem,4.8vw,3.75rem)]',
+  lineHeight = 'leading-[1.2]',
   margin = 'my-5'
 }) => {
   const containerRef = useRef<HTMLHeadingElement>(null);
 
   const splitText = useMemo(() => {
     const text = typeof children === 'string' ? children : '';
-    return text.split('').map((char, index) => (
-      <span className="inline-block word" key={index}>
-        {char === ' ' ? '\u00A0' : char}
-      </span>
-    ));
+    const words = text.split(/(\s+)/);
+    return words.map((word, wordIndex) => {
+      if (word.match(/^\s+$/)) return word === ' ' ? '\u00A0' : word;
+      
+      return (
+        <span key={wordIndex} className="inline-block whitespace-nowrap">
+          {word.split('').map((char, charIndex) => (
+            <span className="inline-block char" key={charIndex}>
+              {char}
+            </span>
+          ))}
+        </span>
+      );
+    });
   }, [children]);
 
   useEffect(() => {
@@ -50,7 +59,7 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
 
     const scroller = scrollContainerRef && scrollContainerRef.current ? scrollContainerRef.current : window;
 
-    const charElements = el.querySelectorAll('.inline-block');
+    const charElements = el.querySelectorAll('.char');
 
     const animation = gsap.fromTo(
       charElements,
@@ -64,7 +73,7 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
       },
       {
         duration: animationDuration,
-        ease: ease,
+        ease: 'power3.out',
         opacity: 1,
         yPercent: 0,
         scaleY: 1,
@@ -73,9 +82,8 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
         scrollTrigger: {
           trigger: el,
           scroller,
-          start: scrollStart,
-          end: scrollEnd,
-          scrub: true
+          start: 'top 85%',
+          once: true
         }
       }
     );
