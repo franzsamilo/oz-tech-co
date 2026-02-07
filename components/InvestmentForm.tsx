@@ -2,6 +2,22 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import { applicationFields } from "@/data/seedPageContent";
+
+interface AppField {
+  label: string;
+  type: string;
+  name: string;
+  required: boolean;
+  placeholder?: string;
+  options?: string[];
+  helpText?: string;
+}
+
+interface AppSection {
+  section: string;
+  fields: AppField[];
+}
 
 export default function InvestmentForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -11,174 +27,121 @@ export default function InvestmentForm() {
     setSubmitted(true);
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: 16 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { staggerChildren: 0.08 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 12 },
-    show: { opacity: 1, y: 0 },
-  };
+  const sections = applicationFields as unknown as AppSection[];
 
   if (submitted) {
     return (
-      <div className="rounded-2xl border border-[#d4dce6] bg-white p-8 md:p-10 shadow-md">
-        <h3 className="text-2xl font-heading font-semibold text-[#0f172a]">
-          Thank You for Applying!
+      <div className="rounded-[40px] border-2 border-[#d4dce6]/60 bg-white p-12 md:p-16 shadow-2xl text-center">
+        <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-8">
+          <span className="text-4xl text-green-600">✓</span>
+        </div>
+        <h3 className="text-3xl md:text-4xl font-heading font-black text-[#0f172a] uppercase tracking-tighter">
+          Application Received
         </h3>
-        <p className="mt-3 text-base md:text-lg text-[#475569]">
-          We’ll review your application within 48 hours. If you’re a strategic
-          fit, we’ll email you to schedule a 30-minute Platform Audit call.
+        <p className="mt-4 text-lg text-[#475569] max-w-md mx-auto leading-relaxed">
+          We review all strategic applications within 48 hours. If there's an alignment, we'll reach out to schedule your Platform Audit.
         </p>
       </div>
     );
   }
 
   return (
-    <motion.form
-      onSubmit={handleSubmit}
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-50px" }}
-      className="space-y-8 rounded-2xl border border-[#d4dce6] bg-white p-8 md:p-10 shadow-md"
-    >
-      <motion.div variants={itemVariants}>
-        <h3 className="text-xl md:text-2xl font-heading font-semibold text-[#0f172a]">
-          Basic Information
-        </h3>
-        <div className="mt-4 grid gap-6 md:grid-cols-2">
-          <input
-            required
-            name="fullName"
-            placeholder="Full Name*"
-            className="w-full rounded-lg border border-[#d4dce6] px-5 py-4 text-base md:text-lg focus:border-[#c48a3f] focus:outline-none"
-          />
-          <input
-            required
-            type="email"
-            name="email"
-            placeholder="Email Address*"
-            className="w-full rounded-lg border border-[#d4dce6] px-5 py-4 text-base md:text-lg focus:border-[#c48a3f] focus:outline-none"
-          />
-          <input
-            name="phone"
-            placeholder="Phone Number (optional)"
-            className="w-full rounded-lg border border-[#d4dce6] px-5 py-4 text-base md:text-lg focus:border-[#c48a3f] focus:outline-none"
-          />
-          <input
-            type="url"
-            name="linkedin"
-            placeholder="LinkedIn Profile URL"
-            className="w-full rounded-lg border border-[#d4dce6] px-5 py-4 text-base md:text-lg focus:border-[#c48a3f] focus:outline-none"
-          />
-        </div>
-      </motion.div>
+    <form onSubmit={handleSubmit} className="text-left space-y-12">
+      {sections.map((section, sIdx) => (
+        <motion.div 
+          key={section.section}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: sIdx * 0.1 }}
+          viewport={{ once: true }}
+          className="bg-white p-8 md:p-12 rounded-[32px] border-2 border-[#d4dce6]/60 shadow-xl"
+        >
+          <div className="flex items-center gap-4 mb-8">
+            <span className="w-10 h-10 rounded-xl bg-[#1e3a5f] text-white flex items-center justify-center font-bold">0{sIdx + 1}</span>
+            <h3 className="text-2xl font-heading font-black text-[#0f172a] uppercase tracking-tighter">{section.section}</h3>
+          </div>
 
-      <motion.div variants={itemVariants}>
-        <h3 className="text-xl md:text-2xl font-heading font-semibold text-[#0f172a]">
-          Investor Qualification
-        </h3>
-        <div className="mt-3 space-y-3 text-base md:text-lg text-[#0f172a]">
-          <label className="flex items-start gap-2">
-            <input type="radio" name="accredited" required />
-            Yes - I have annual income of $200K+ or net worth of $1M+.
-          </label>
-          <label className="flex items-start gap-2">
-            <input type="radio" name="accredited" />
-            No - I do not meet accredited investor requirements.
-          </label>
-          <label className="flex items-start gap-2">
-            <input type="radio" name="accredited" />
-            Unsure - Please explain accredited investor requirements.
-          </label>
-        </div>
-      </motion.div>
+          <div className="grid gap-8">
+            {section.fields.map((field) => (
+              <div key={field.name} className="space-y-3">
+                <label className="block text-sm font-bold uppercase tracking-widest text-[#1e3a5f]/60">
+                  {field.label}
+                </label>
+                
+                {['text', 'email', 'tel', 'url'].includes(field.type) && (
+                  <input
+                    required={field.required}
+                    type={field.type}
+                    name={field.name}
+                    placeholder={field.placeholder || field.label}
+                    className="w-full h-14 rounded-xl border-2 border-[#d4dce6]/60 px-6 text-lg focus:border-[#c48a3f] focus:outline-none transition-colors"
+                  />
+                )}
 
-      <motion.div variants={itemVariants}>
-        <h3 className="text-xl md:text-2xl font-heading font-semibold text-[#0f172a]">
-          Investment Intent
-        </h3>
-        <div className="mt-3 grid gap-3 text-base md:text-lg text-[#0f172a]">
-          <label className="flex items-center gap-2">
-            <input type="radio" name="range" required />
-            $10,000
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="radio" name="range" />
-            $15,000
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="radio" name="range" />
-            $20,000
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="radio" name="range" />
-            $25,000
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="radio" name="range" />
-            Still exploring / want to learn more
-          </label>
-        </div>
-      </motion.div>
+                {field.type === 'textarea' && (
+                  <textarea
+                    required={field.required}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    rows={4}
+                    className="w-full rounded-xl border-2 border-[#d4dce6]/60 p-6 text-lg focus:border-[#c48a3f] focus:outline-none transition-colors"
+                  />
+                )}
 
-      <motion.div variants={itemVariants}>
-        <h3 className="text-xl md:text-2xl font-heading font-semibold text-[#0f172a]">Strategic Fit</h3>
-        <div className="mt-3 grid gap-3 text-base md:text-lg text-[#0f172a]">
-          {[
-            "The retainer business model",
-            "Technology sovereignty mission",
-            "SaaS growth potential",
-            "Team track record",
-            "Market opportunity",
-            "Values alignment",
-            "Personal connection to the problem",
-          ].map((item) => (
-            <label key={item} className="flex items-start gap-2">
-              <input type="checkbox" name="fit" />
-              {item}
-            </label>
-          ))}
-        </div>
-      </motion.div>
+                {field.type === 'radio' && (
+                  <div className="grid gap-3">
+                    {field.options?.map((opt) => (
+                      <label key={opt} className="flex items-center gap-3 p-4 rounded-xl border-2 border-[#d4dce6]/30 hover:border-[#c48a3f]/40 cursor-pointer transition-colors group">
+                        <input type="radio" name={field.name} required={field.required} value={opt} className="w-4 h-4 accent-[#c48a3f]" />
+                        <span className="text-base font-medium text-[#475569] group-hover:text-[#1e3a5f]">{opt}</span>
+                      </label>
+                    ))}
+                    {field.helpText && <p className="text-xs text-[#475569]/60 italic mt-2">{field.helpText}</p>}
+                  </div>
+                )}
 
-      <motion.div variants={itemVariants}>
-        <h3 className="text-xl md:text-2xl font-heading font-semibold text-[#0f172a]">
-          Value Beyond Capital
-        </h3>
-        <textarea
-          name="value"
-          rows={4}
-          placeholder="Beyond capital, what value can you bring to Oz Tech?"
-          className="mt-3 w-full rounded-lg border border-[#d4dce6] px-5 py-4 text-base md:text-lg focus:border-[#c48a3f] focus:outline-none"
-        />
-      </motion.div>
+                {field.type === 'select' && (
+                  <select name={field.name} required={field.required} className="w-full h-14 rounded-xl border-2 border-[#d4dce6]/60 px-6 text-lg focus:border-[#c48a3f] focus:outline-none bg-white">
+                    <option value="">Select option...</option>
+                    {field.options?.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                  </select>
+                )}
 
-      <motion.div variants={itemVariants}>
-        <h3 className="text-xl md:text-2xl font-heading font-semibold text-[#0f172a]">
-          Legal Acknowledgment
-        </h3>
-        <label className="mt-3 flex items-start gap-2 text-base md:text-lg text-[#0f172a]">
-          <input type="checkbox" required />
-          I understand and acknowledge this investment involves significant
-          risk, including loss of my entire investment, and is suitable for
-          accredited investors only.
-        </label>
-      </motion.div>
+                {field.type === 'checkbox' && (
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {field.options?.map((opt) => (
+                      <label key={opt} className="flex items-center gap-3 p-4 rounded-xl border-2 border-[#d4dce6]/30 hover:border-[#c48a3f]/40 cursor-pointer transition-colors group">
+                        <input type="checkbox" name={field.name} value={opt} className="w-4 h-4 accent-[#c48a3f]" />
+                        <span className="text-sm font-medium text-[#475569] group-hover:text-[#1e3a5f]">{opt}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+
+                {field.type === 'checkbox-group' && (
+                  <div className="space-y-3">
+                    {field.options?.map((opt) => (
+                      <label key={opt} className="flex items-start gap-4 p-4 rounded-xl border-2 border-[#d4dce6]/30 hover:border-[#1e3a5f]/20 cursor-pointer transition-colors group">
+                        <input type="checkbox" required={field.required} className="mt-1 w-4 h-4 accent-[#1e3a5f]" />
+                        <span className="text-sm font-semibold text-[#475569] group-hover:text-[#1e3a5f]">{opt}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      ))}
 
       <motion.button
-        variants={itemVariants}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
         type="submit"
-        className="w-full rounded-lg bg-[#1e3a5f] px-8 py-4 text-base md:text-lg font-semibold text-white transition hover:bg-[#162c4a] hover:shadow-[0_0_0_4px_rgba(196,138,63,0.25)]"
+        className="w-full h-20 rounded-[32px] bg-[#1e3a5f] text-white text-xl font-heading font-black uppercase tracking-widest shadow-2xl hover:bg-[#c48a3f] transition-all flex items-center justify-center gap-4"
       >
-        Submit My Application
+        Submit Initial Application <span className="text-2xl">→</span>
       </motion.button>
-    </motion.form>
+    </form>
   );
 }

@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 interface ScrollFloatProps {
   children: ReactNode;
   scrollContainerRef?: RefObject<HTMLElement>;
+  className?: string; // Add standard className support
   containerClassName?: string;
   textClassName?: string;
   animationDuration?: number;
@@ -22,6 +23,7 @@ interface ScrollFloatProps {
 const ScrollFloat: React.FC<ScrollFloatProps> = ({
   children,
   scrollContainerRef,
+  className = '',
   containerClassName = '',
   textClassName = '',
   animationDuration = 1,
@@ -99,7 +101,7 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
   }, [scrollContainerRef, animationDuration, ease, scrollStart, scrollEnd, stagger]);
 
   return (
-    <h2 ref={containerRef} className={`${margin} overflow-hidden ${containerClassName}`}>
+    <h2 ref={containerRef} className={`${margin} overflow-hidden ${className} ${containerClassName}`}>
       <span className={`inline-block ${textSize} ${lineHeight} ${textClassName}`}>{splitText}</span>
     </h2>
   );

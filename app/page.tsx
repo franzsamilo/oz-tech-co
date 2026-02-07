@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion } from "framer-motion"; // Corrected import from "motion/react" to "framer-motion"
 import { ChevronDown, ArrowRight } from "lucide-react";
 import StaggeredMenu from "@/components/StaggeredMenu";
 import PasswordLock from "@/components/PasswordLock";
@@ -36,19 +36,21 @@ const sections = [
   { id: "vision", label: "Vision" },
   { id: "system", label: "System" },
   { id: "proof", label: "Proof" },
-  { id: "showcase", label: "Showcase" },
-  { id: "business-model", label: "Model" },
-  { id: "investment", label: "Investment" },
+  { id: "model", label: "Model" },
+  { id: "opportunity", label: "Opportunity" },
+  { id: "investment", label: "Terms" },
+  { id: "investors", label: "Investors" },
   { id: "founders", label: "Founders" },
+  { id: "risks", label: "Risks" },
+  { id: "faq", label: "FAQ" },
   { id: "application", label: "Apply" },
 ];
 
 const headerLinks = [
   { id: "hero", label: "Home" },
-  { id: "proof", label: "Proof" },
+  { id: "model", label: "Model" },
   { id: "investment", label: "Investment" },
-  { id: "founders", label: "Founders" },
-  { id: "faq", label: "FAQ" },
+  { id: "investors", label: "Investors" },
   { id: "application", label: "Apply" },
 ];
 
@@ -214,9 +216,9 @@ export default function Home() {
             <div className="relative z-10 w-full mb-12 px-6 md:px-10">
               <div className="overflow-hidden rounded-3xl bg-white border border-[#1e3a5f]/10 shadow-xl">
                 <ScrollVelocity
-                  texts={["Fast Launch", "Ownership First", "AI Built", "No Retainers", "Real Profit", "Legacy Focused"]}
-                  velocity={20}
-                  className="text-2xl md:text-4xl font-display font-black text-[#1e3a5f]"
+                  texts={["Radical Transparency", "Technology Sovereignty", "Unlimited Build Method", "Zero Dependency", "Accredited Strategic Partners Only"]}
+                  velocity={15}
+                  className="text-2xl md:text-3xl font-display font-black text-[#1e3a5f]"
                   parallaxClassName="py-10"
                 />
               </div>
@@ -252,36 +254,71 @@ export default function Home() {
 
             {renderRest && (
               <>
-                {/* Vision / Model */}
-                <section id="vision" className="px-6 md:px-10 py-20 md:py-32 flex flex-col justify-center section-alt">
+                {/* Vision Section */}
+                <section id="vision" className="px-6 md:px-10 py-24 md:py-32 flex flex-col justify-center bg-white relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-1/3 h-full bg-[#f8fafc] -z-1" />
                   <div className="max-w-7xl mx-auto w-full">
                     <div className="flex justify-start mb-8">
-                      <span className="rounded-full bg-[#c48a3f]/10 px-6 py-2 text-sm font-bold uppercase tracking-widest text-[#c48a3f]">Model</span>
+                      <span className="rounded-full bg-[#c48a3f]/10 px-6 py-2 text-sm font-bold uppercase tracking-widest text-[#c48a3f]">The Vision</span>
                     </div>
                     <ScrollReveal textClassName="text-[#0f172a]" textSize="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-heading">
                       {visionSection.headline}
                     </ScrollReveal>
-                    <div className="mt-16 grid lg:grid-cols-2 gap-12">
-                      <div className="space-y-8">
-                        <motion.div {...cardMotion} className="bg-white p-6 md:p-10 rounded-3xl border border-[#d4dce6]/60 shadow-lg">
-                           <h3 className="text-2xl font-bold text-[#1e3a5f] mb-6">The Real Cost of Renting</h3>
-                           <div className="space-y-4">
-                             {visionSection.math.map((m, i) => (
-                               <div key={m} className={`flex flex-col sm:flex-row justify-between p-4 rounded-xl gap-2 ${i === visionSection.math.length - 1 ? 'bg-[#c48a3f]/10 border-2 border-[#c48a3f]/20 font-bold' : 'bg-[#f8fafc]'}`}>
-                                 <span className="text-sm md:text-base">{m.split(':')[0]}</span>
-                                 <span className="text-[#1e3a5f] font-black">{m.split(':')[1]}</span>
+                    
+                    <div className="mt-20 grid lg:grid-cols-[1.2fr_0.8fr] gap-20 items-start">
+                      <div className="space-y-16">
+                        <div className="grid md:grid-cols-2 gap-8">
+                          <div className="p-10 rounded-[40px] border-2 border-[#d4dce6]/60 bg-white shadow-xl">
+                            <h3 className="text-2xl font-bold text-[#1e3a5f] mb-6">The SaaS Renting Trap</h3>
+                            <ul className="space-y-4">
+                              {visionSection.renting.map(item => (
+                                <li key={item} className="flex gap-4 text-lg text-[#475569]">
+                                  <span className="text-red-500 font-bold">✕</span> {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="p-10 rounded-[40px] border-2 border-[#c48a3f]/20 bg-[#c48a3f]/5 shadow-xl">
+                            <h3 className="text-2xl font-bold text-[#c48a3f] mb-6">Our Approach</h3>
+                            <ul className="space-y-4">
+                              {visionSection.approach.map(item => (
+                                <li key={item} className="flex gap-4 text-lg text-[#1e3a5f] font-semibold">
+                                  <span className="text-green-600 font-bold">✓</span> {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div className="relative p-12 rounded-[40px] bg-[#0f172a] text-white shadow-2xl">
+                           <div className="absolute -left-4 top-10 bottom-10 w-2 bg-[#c48a3f]" />
+                           <h3 className="text-4xl font-heading font-black uppercase tracking-tighter mb-10 leading-none">
+                             {visionSection.visionTagline}
+                           </h3>
+                           <div className="grid sm:grid-cols-2 gap-8">
+                             {visionSection.visionBullets.map((bullet, i) => (
+                               <div key={bullet} className="flex gap-4">
+                                 <span className="text-2xl font-black text-[#c48a3f]">0{i+1}</span>
+                                 <p className="text-lg opacity-80 leading-relaxed">{bullet}</p>
                                </div>
                              ))}
                            </div>
-                        </motion.div>
+                        </div>
                       </div>
-                      <div className="grid grid-cols-2 gap-6">
-                        {visionSection.approach.map((a, i) => (
-                          <motion.div key={a} {...cardMotion} className="bg-white p-8 rounded-3xl border border-[#d4dce6]/40 shadow-xl flex flex-col items-center text-center">
-                            <span className="text-4xl mb-4 text-[#c48a3f]">★</span>
-                            <p className="font-bold text-xl md:text-2xl leading-tight text-[#0f172a]">{a}</p>
-                          </motion.div>
-                        ))}
+
+                      <div className="sticky top-32 space-y-8">
+                        <div className="p-10 rounded-[40px] border-2 border-[#1e3a5f]/10 bg-[#f8fafc] shadow-xl">
+                          <h4 className="text-xs font-bold uppercase tracking-widest text-[#1e3a5f]/40 mb-8 text-center">The Math (Annual Waste)</h4>
+                          <div className="space-y-4">
+                            {visionSection.math.map((line, i) => (
+                              <div key={i} className={`flex justify-between items-center py-3 ${i === visionSection.math.length - 1 ? 'border-t-2 border-[#1e3a5f]/10 mt-6 pt-6 font-bold text-xl text-[#1e3a5f]' : 'text-sm text-[#475569]/60'}`}>
+                                <span>{line.split(':')[0]}</span>
+                                <span className={i === visionSection.math.length - 1 ? 'text-[#c48a3f]' : ''}>{line.split(':')[1]}</span>
+                              </div>
+                            ))}
+                          </div>
+                          <p className="mt-8 text-xs text-center text-[#475569]/40 italic">"Most businesses own their car, their office, and their brand—but rent their engine."</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -433,25 +470,273 @@ export default function Home() {
                   </div>
                 </section>
 
+                {/* Business Model Section */}
+                <section id="model" className="py-24 bg-[#0f172a] text-white overflow-hidden">
+                  <div className="max-w-7xl mx-auto px-6">
+                    <ScrollFloat className="text-white mb-20">
+                      {businessModel.headline}
+                    </ScrollFloat>
+                    
+                    <div className="grid lg:grid-cols-3 gap-8">
+                      {/* Current State */}
+                      <motion.div {...cardMotion} className="bg-white/5 border border-white/10 p-10 rounded-[40px] space-y-8">
+                        <h3 className="text-2xl font-heading font-black text-[#c48a3f] uppercase tracking-tighter">Current State</h3>
+                        <div className="space-y-4">
+                          {businessModel.currentState.map(item => (
+                            <div key={item} className="flex gap-4 items-start">
+                              <div className="w-2 h-2 rounded-full bg-[#c48a3f] mt-2.5" />
+                              <p className="text-lg opacity-80">{item}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+
+                      {/* Unit Economics */}
+                      <motion.div {...cardMotion} className="bg-white p-10 rounded-[40px] space-y-8 shadow-2xl">
+                        <h3 className="text-2xl font-heading font-black text-[#0f172a] uppercase tracking-tighter">The Unit Math</h3>
+                        <div className="space-y-6">
+                           {businessModel.perClient.map(item => (
+                             <div key={item} className="p-4 bg-[#f8fafc] rounded-2xl border border-[#d4dce6]/60">
+                               <p className="text-sm font-bold uppercase tracking-widest text-[#1e3a5f]/40 mb-1">{item.split(':')[0]}</p>
+                               <p className="text-2xl font-black text-[#1e3a5f] tracking-tighter">{item.split(':')[1]}</p>
+                             </div>
+                           ))}
+                        </div>
+                        <div className="pt-6 border-t border-[#d4dce6]/60">
+                           <p className="text-xs font-bold uppercase tracking-widest text-[#c48a3f]">Capacity Buffer</p>
+                           <p className="mt-2 text-sm text-[#475569] font-medium leading-relaxed">
+                             Each founding member pays $3.5K/mo—locked in forever. 18-mo LTV is $63K.
+                           </p>
+                        </div>
+                      </motion.div>
+
+                      {/* Capacity & Exit */}
+                      <motion.div {...cardMotion} className="bg-[#1e3a5f] p-10 rounded-[40px] space-y-8 shadow-2xl">
+                        <h3 className="text-2xl font-heading font-black text-white uppercase tracking-tighter">Capacity & Exit</h3>
+                        <div className="space-y-4">
+                           {businessModel.capacity.map(item => (
+                             <p key={item} className="text-lg text-white/80 border-l-2 border-[#c48a3f] pl-4">{item}</p>
+                           ))}
+                        </div>
+                        <div className="pt-8 mt-8 border-t border-white/10">
+                          <h4 className="text-xs font-bold uppercase tracking-widest text-[#c48a3f] mb-4">5-7 Year Exit Plan</h4>
+                          <ul className="space-y-2 text-sm opacity-70">
+                            {businessModel.exitStrategy.slice(0, 3).map(s => <li key={s}>• {s}</li>)}
+                          </ul>
+                        </div>
+                      </motion.div>
+                    </div>
+
+                    {/* Projections Row */}
+                    <div className="mt-20 p-12 rounded-[40px] bg-linear-to-br from-white/5 to-white/[0.02] border border-white/10">
+                       <h3 className="text-3xl font-heading font-black text-center mb-16 uppercase tracking-widest">Growth Projections (MRR)</h3>
+                       <div className="grid md:grid-cols-3 gap-12 relative">
+                         {businessModel.projection.map((proj, i) => (
+                           <div key={proj} className="text-center relative">
+                             <div className="text-sm font-bold uppercase tracking-[0.4em] text-[#c48a3f] mb-4">{proj.split(':')[0]}</div>
+                             <div className="text-4xl md:text-5xl font-black tracking-tighter">{proj.split(':')[1]}</div>
+                             {i < 2 && <div className="hidden md:block absolute top-1/2 -right-6 transform -translate-y-1/2 text-[#c48a3f] text-2xl">→</div>}
+                           </div>
+                         ))}
+                       </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* Opportunity Section */}
+                <section id="opportunity" className="py-24 bg-white overflow-hidden">
+                  <div className="max-w-7xl mx-auto px-6">
+                    <ScrollFloat className="text-[#0f172a] mb-20 text-center">
+                      {opportunity.headline}
+                    </ScrollFloat>
+                    <div className="grid lg:grid-cols-3 gap-8 mb-20">
+                      {opportunity.pillars.map((pillar, i) => (
+                        <motion.div key={pillar.title} {...cardMotion} className="bg-[#f8fafc] p-10 rounded-[40px] border border-[#d4dce6]/60 flex flex-col items-center text-center">
+                           <div className="w-16 h-16 bg-[#1e3a5f] rounded-2xl flex items-center justify-center text-white font-bold text-2xl mb-8 transform rotate-3 hover:rotate-0 transition-transform shadow-xl">0{i+1}</div>
+                           <h3 className="text-2xl font-heading font-black text-[#0f172a] uppercase tracking-tighter mb-4">{pillar.title}</h3>
+                           <p className="text-lg text-[#475569] leading-relaxed">{pillar.description}</p>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Market & Advantages */}
+                    <div className="grid lg:grid-cols-2 gap-8">
+                       <div className="p-10 rounded-[40px] border-2 border-[#1e3a5f]/10 bg-white shadow-xl">
+                          <h3 className="text-2xl font-bold text-[#1e3a5f] mb-8">The Market Gap</h3>
+                          <ul className="space-y-4">
+                            {opportunity.marketSize.map(item => (
+                              <li key={item} className="flex gap-4 text-lg text-[#475569]">
+                                <span className="text-[#c48a3f] font-bold">●</span> {item}
+                              </li>
+                            ))}
+                          </ul>
+                       </div>
+                       <div className="p-10 rounded-[40px] bg-[#1e3a5f] text-white shadow-2xl relative overflow-hidden">
+                          <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-white/5 rounded-full" />
+                          <h3 className="text-2xl font-bold mb-8">Unfair Advantages</h3>
+                          <div className="grid sm:grid-cols-2 gap-6">
+                            {opportunity.advantages.map(adv => (
+                              <div key={adv} className="flex gap-3 text-sm font-medium">
+                                <span className="text-green-400 font-bold">✓</span> {adv}
+                              </div>
+                            ))}
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* Risks Section */}
+            <section id="risks" className="py-24 bg-white">
+              <div className="max-w-5xl mx-auto px-6">
+                <ScrollFloat className="text-4xl md:text-5xl font-heading font-black text-[#0f172a] uppercase tracking-tighter mb-16 text-center">
+                  What Could Go Wrong
+                </ScrollFloat>
+                <div className="grid md:grid-cols-2 gap-8">
+                  {(risks as any[]).map((risk, i) => (
+                    <motion.div key={risk.category} {...cardMotion} className="bg-[#f8fafc] p-8 rounded-[32px] border border-[#d4dce6]/40">
+                      <h3 className="text-xl font-bold text-[#1e3a5f] mb-4 flex items-center gap-2">
+                        <span className="w-8 h-8 rounded-full bg-[#1e3a5f]/5 flex items-center justify-center text-xs">0{i+1}</span>
+                        {risk.category}
+                      </h3>
+                      <ul className="space-y-3 mb-6">
+                        {risk.items.map((item: string) => (
+                          <li key={item} className="text-sm text-[#475569]/80 flex gap-2">
+                            <span className="text-red-500 mt-1">✕</span> {item}
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="pt-6 border-t border-[#d4dce6]/60">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#c48a3f] mb-3 block">Mitigation Strategy</span>
+                        <ul className="space-y-2">
+                          {(risk as any).mitigation.map((m: string) => (
+                            <li key={m} className="text-sm text-[#1e3a5f] font-semibold flex gap-2">
+                              <span className="text-green-600">✓</span> {m}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+                <div className="mt-12 p-6 bg-[#1e3a5f]/5 rounded-2xl text-center border border-[#1e3a5f]/10">
+                  <p className="text-sm font-medium text-[#1e3a5f]/60 italic">
+                    "Investing in early-stage companies involves significant risk, including loss of your entire investment. Honesty and transparency are our core values."
+                  </p>
+                </div>
+              </div>
+            </section>
+
                 {/* Investment Terms */}
-                <section id="investment" className="px-6 md:px-10 py-20 md:py-32 section-alt">
+                <section id="investment" className="px-6 md:px-10 py-20 md:py-32 bg-[#f8fafc] relative">
                   <div className="max-w-7xl mx-auto w-full">
                      <ScrollFloat textClassName="text-[#0f172a]" textSize="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-heading">
                       {investmentTerms.headline}
                     </ScrollFloat>
-                    <div className="mt-16 grid md:grid-cols-2 gap-8">
-                      <motion.div {...cardMotion} className="bg-white p-10 rounded-[32px] border-2 border-[#d4dce6]/60 shadow-xl">
-                        <h3 className="text-2xl font-bold text-[#1e3a5f] mb-8">SAFE Structure</h3>
-                        <ul className="space-y-4 text-xl text-[#475569]">
-                          {investmentTerms.terms.map(t => <li key={t}>• {t}</li>)}
-                        </ul>
-                      </motion.div>
-                      <motion.div {...cardMotion} className="bg-white p-10 rounded-[32px] border-2 border-[#c48a3f]/30 shadow-xl">
-                        <h3 className="text-2xl font-bold text-[#c48a3f] mb-8">Investor Perks</h3>
-                        <ul className="space-y-4 text-xl text-[#475569]">
-                          {investmentTerms.perks.map(p => <li key={p}>• {p}</li>)}
-                        </ul>
-                      </motion.div>
+                    
+                    <div className="mt-20 grid lg:grid-cols-2 gap-12">
+                      <div className="space-y-8">
+                        <motion.div {...cardMotion} className="bg-white p-12 rounded-[40px] border-2 border-[#d4dce6]/60 shadow-xl overflow-hidden relative">
+                          <div className="absolute top-0 right-0 p-8 opacity-5 text-9xl font-black">SAFE</div>
+                          <h3 className="text-3xl font-bold text-[#1e3a5f] mb-8">Instrument: {investmentTerms.instrument}</h3>
+                          <p className="text-lg text-[#475569] mb-10 leading-relaxed">{investmentTerms.instrumentDetail}</p>
+                          <ul className="space-y-4 text-xl text-[#0f172a] font-bold">
+                            {investmentTerms.terms.map((t: string) => <li key={t}>• {t}</li>)}
+                          </ul>
+                        </motion.div>
+
+                        <div className="p-12 rounded-[40px] bg-[#1e3a5f] text-white shadow-2xl">
+                          <h3 className="text-2xl font-bold mb-8 text-[#c48a3f]">Projected Returns (Simulation)</h3>
+                          <div className="space-y-6">
+                            {investmentTerms.returns.map(r => (
+                              <div key={r} className="p-6 bg-white/5 rounded-2xl border border-white/10">
+                                <p className="text-lg opacity-90">{r}</p>
+                              </div>
+                            ))}
+                          </div>
+                          <p className="mt-6 text-xs opacity-50 italic">"Figures based on $2.5M valuation cap. Past performance is not indicative of future results."</p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-8">
+                        <motion.div {...cardMotion} className="bg-white p-12 rounded-[40px] border-2 border-[#c48a3f]/20 shadow-xl">
+                          <h3 className="text-3xl font-bold text-[#c48a3f] mb-10">Investor Perks</h3>
+                          <div className="space-y-10">
+                            {(investmentTerms.perks as any[]).map((category) => (
+                              <div key={category.category}>
+                                <h4 className="text-sm font-bold uppercase tracking-[0.3em] text-[#1e3a5f]/40 mb-4">{category.category}</h4>
+                                <ul className="space-y-3">
+                                  {category.items.map((item: string) => (
+                                    <li key={item} className="text-xl text-[#475569] flex gap-4">
+                                      <span className="text-[#c48a3f]">★</span> {item}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                        </motion.div>
+
+                        <div className="p-10 rounded-[40px] border-2 border-red-500/10 bg-red-500/[0.02]">
+                           <h4 className="text-xs font-bold uppercase tracking-widest text-red-500 mb-6">Guarantees & Safeguards</h4>
+                           <ul className="space-y-3 text-sm text-red-900/60 font-medium">
+                              {investmentTerms.guarantee.map(g => <li key={g}>🛡️ {g}</li>)}
+                           </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* Who We're Looking For Section */}
+                <section id="investors" className="py-24 bg-[#f8fafc]">
+                  <div className="max-w-7xl mx-auto px-6">
+                    <ScrollFloat className="text-[#0f172a] mb-16 text-center">
+                      {investors.headline}
+                    </ScrollFloat>
+                    
+                    <div className="grid lg:grid-cols-2 gap-12">
+                       {/* Who We Want */}
+                       <div className="space-y-8">
+                         <h3 className="text-sm font-bold uppercase tracking-widest text-[#c48a3f] mb-6 flex items-center gap-4">
+                           <span className="w-12 h-[1px] bg-[#c48a3f]" /> Ideal Partner Profiles
+                         </h3>
+                         <div className="grid gap-4">
+                           {investors.want.map((profile: any) => (
+                             <motion.div key={profile.title} {...cardMotion} className="bg-white p-8 rounded-[32px] border border-[#d4dce6]/60 shadow-lg group hover:border-[#1e3a5f]/20 transition-all">
+                               <h4 className="text-xl font-bold text-[#1e3a5f] mb-2 group-hover:text-[#c48a3f] transition-colors">{profile.title}</h4>
+                               <p className="text-[#475569] leading-relaxed">{profile.detail}</p>
+                             </motion.div>
+                           ))}
+                         </div>
+                       </div>
+
+                       {/* Who We Don't Want & Values */}
+                       <div className="space-y-12">
+                         <div className="bg-[#1e3a5f] p-10 rounded-[40px] text-white shadow-2xl relative overflow-hidden">
+                           <div className="absolute -top-10 -right-10 w-48 h-48 bg-red-500/10 rounded-full" />
+                           <h3 className="text-2xl font-bold mb-8">Who This Is NOT For</h3>
+                           <ul className="space-y-4">
+                             {investors.dontWant.map((item: string) => (
+                               <li key={item} className="flex gap-4 text-white/70 italic">
+                                 <span className="text-red-400 font-bold">✕</span> {item}
+                               </li>
+                             ))}
+                           </ul>
+                         </div>
+
+                         <div className="p-10 rounded-[40px] border-2 border-[#1e3a5f]/10 bg-white shadow-xl">
+                            <h3 className="text-2xl font-bold text-[#1e3a5f] mb-8">Our Core Values</h3>
+                            <div className="grid sm:grid-cols-2 gap-6">
+                              {investors.values.map((val: any) => (
+                                <div key={val.title} className="space-y-1">
+                                  <h4 className="font-bold text-[#1e3a5f] text-sm uppercase tracking-wider">{val.title}</h4>
+                                  <p className="text-xs text-[#475569]">{val.detail}</p>
+                                </div>
+                              ))}
+                            </div>
+                         </div>
+                       </div>
                     </div>
                   </div>
                 </section>
@@ -504,17 +789,6 @@ export default function Home() {
                 {/* Risks & FAQ */}
                 <section className="px-6 md:px-10 py-20 md:py-32 bg-[#0f172a] text-white">
                   <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-20">
-                    <div>
-                      <h2 className="text-4xl md:text-5xl font-heading font-black mb-12">The Risks</h2>
-                      <div className="space-y-6">
-                        {risks.map((r, i) => (
-                          <motion.div key={i} {...cardMotion} className="flex gap-4 p-6 rounded-2xl bg-white/5 border border-white/10">
-                            <span className="text-red-500 font-bold">⚠️</span>
-                            <p className="text-xl opacity-80">{r}</p>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
                     <div>
                       <h2 className="text-4xl md:text-5xl font-heading font-black mb-12">FAQ</h2>
                       <div className="space-y-4">
