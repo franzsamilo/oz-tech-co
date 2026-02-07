@@ -300,18 +300,18 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             onClick={toggleMenu}
             type="button"
           >
-            <span className="relative h-[2.5em] overflow-hidden flex items-center">
+            <span className="relative h-[1.8em] overflow-hidden flex items-center">
                <span ref={textInnerRef} className="flex flex-col">
                  {textLines.map((l, i) => (
-                   <span key={i} className="h-[2.5em] flex items-center justify-center pt-[2.4em]">
+                   <span key={i} className="h-[1.8em] flex items-center justify-center pt-[0.15em] leading-none">
                      {l}
                    </span>
                  ))}
                </span>
             </span>
-            <span ref={iconRef} className="relative w-7 h-7 flex items-center justify-center">
-               <span ref={plusHRef} className="absolute w-full h-[3px] bg-current rounded-full" />
-               <span ref={plusVRef} className="absolute w-full h-[3px] bg-current rounded-full" />
+            <span ref={iconRef} className="relative w-6 h-6 flex items-center justify-center">
+               <span ref={plusHRef} className="absolute w-full h-[2.5px] bg-current rounded-full" />
+               <span ref={plusVRef} className="absolute w-full h-[2.5px] bg-current rounded-full" />
             </span>
           </button>
         </header>
