@@ -31,14 +31,14 @@ export interface StaggeredMenuProps {
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   position = "right",
-  colors = ["#0f172a", "#1e3a5f", "#c48a3f"],
+  colors = ["#021f0d", "#006c40", "#5df3c2"],
   items = [],
   socialItems = [],
   displaySocials = true,
   displayItemNumbering = true,
   className,
-  menuButtonColor = "#0f172a",
-  accentColor = "#c48a3f",
+  menuButtonColor = "#021f0d",
+  accentColor = "#5df3c2",
   isFixed = false,
   closeOnClickAway = true,
   onMenuOpen,
@@ -322,7 +322,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                <li key={idx} className="overflow-hidden">
                  <a 
                    href={it.link} 
-                   className="sm-panel-item block text-white text-5xl font-heading font-black uppercase tracking-tighter hover:text-[#c48a3f] transition-colors"
+                  className="sm-panel-item block text-white text-5xl font-heading font-black uppercase tracking-tighter hover:text-[#5df3c2] transition-colors"
                    onClick={() => {
                      if (it.link.startsWith("#")) setTimeout(toggleMenu, 300);
                    }}
@@ -345,7 +345,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           top: 0;
           right: -1.5em;
           font-size: 0.2em;
-          color: #c48a3f;
+          color: #5df3c2;
         }
         @media (max-width: 768px) {
           .sm-scope .staggered-menu-panel, .sm-scope .sm-prelayers { width: 100%; right: 0; left: 0; }

@@ -25,13 +25,13 @@ export default function CaseStudyCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4 }}
-      className="rounded-2xl border border-[#d4dce6]/60 border-l-4 border-l-[#c48a3f] bg-white backdrop-blur-sm p-6 md:p-8 shadow-md hover:shadow-xl transition-shadow"
+      className="rounded-2xl border border-[#d4dce6]/60 border-l-4 border-l-[#5df3c2] bg-white backdrop-blur-sm p-6 md:p-8 shadow-md hover:shadow-xl transition-shadow"
     >
-      <h3 className="text-xl md:text-2xl font-heading font-semibold text-[#0f172a]">
+      <h3 className="text-xl md:text-2xl font-heading font-semibold text-[#021f0d]">
         {title}
       </h3>
-      <p className="mt-2 text-base md:text-lg text-[#475569]">{client}</p>
-      <div className="mt-4 space-y-3 text-base md:text-lg text-[#1f2937]">
+      <p className="mt-2 text-base md:text-lg text-[#021f0d]/70">{client}</p>
+      <div className="mt-4 space-y-3 text-base md:text-lg text-[#021f0d]">
         <p>
           <span className="font-semibold">Challenge:</span> {challenge}
         </p>

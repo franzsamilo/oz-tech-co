@@ -45,10 +45,10 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
   if (isUnlocked) return null;
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-[#05080f] px-4 overflow-hidden">
+    <div className="fixed inset-0 z-200 flex items-center justify-center bg-[#021f0d] px-4 overflow-hidden">
       {/* Decorative Background Elements */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#1e3a5f]/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#c48a3f]/10 rounded-full blur-[80px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#006c40]/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#5df3c2]/10 rounded-full blur-[80px] pointer-events-none" />
       
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -56,7 +56,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative w-full max-w-[440px]"
       >
-        <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-3xl rounded-[40px] border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.5)]" />
+        <div className="absolute inset-0 bg-white/2 backdrop-blur-3xl rounded-[40px] border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.5)]" />
         
         <div className="relative p-10 md:p-14 flex flex-col items-center">
           <motion.div 
@@ -65,8 +65,8 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
             transition={{ delay: 0.2 }}
             className="mb-10"
           >
-            <div className="rounded-2xl bg-[#1e3a5f] p-3 shadow-[0_0_30px_rgba(30,58,95,0.4)]">
-              <OzLogo size={48} />
+            <div className="rounded-2xl bg-[#021f0d] p-3 shadow-[0_0_30px_rgba(0,108,64,0.4)] oz-glow">
+              <OzLogo size={48} variant="main" />
             </div>
           </motion.div>
 
@@ -77,7 +77,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
             className="text-center mb-10"
           >
             <h1 className="text-2xl md:text-3xl font-heading font-black text-white uppercase tracking-tighter mb-3">
-              Seed Access <span className="text-[#c48a3f]">Portal</span>
+              Seed Access <span className="text-[#5df3c2]">Portal</span>
             </h1>
             <p className="text-white/50 text-sm md:text-base leading-relaxed max-w-[280px] mx-auto">
               Welcome to the OZ Tech Sovereignty Round. Please enter your terminal code.
@@ -87,7 +87,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
           <form onSubmit={handleSubmit} className="w-full space-y-6">
             <div className="relative">
               <div 
-                className={`absolute inset-0 bg-[#c48a3f]/5 rounded-2xl transition-opacity duration-300 ${isFocused ? 'opacity-100' : 'opacity-0'}`} 
+                className={`absolute inset-0 bg-[#5df3c2]/10 rounded-2xl transition-opacity duration-300 ${isFocused ? 'opacity-100' : 'opacity-0'}`} 
               />
               <div className="relative">
                  <input
@@ -97,7 +97,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
                   onChange={(e) => setPassword(e.target.value)}
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setIsFocused(false)}
-                  className="w-full h-14 rounded-2xl border border-white/10 bg-white/5 px-12 text-center text-white font-mono tracking-[0.3em] placeholder:text-white/20 placeholder:font-sans placeholder:tracking-normal focus:border-[#c48a3f]/50 focus:outline-none transition-all"
+                  className="w-full h-14 rounded-2xl border border-white/10 bg-white/5 px-12 text-center text-white font-mono tracking-[0.3em] placeholder:text-white/20 placeholder:font-sans placeholder:tracking-normal focus:border-[#5df3c2]/60 focus:outline-none transition-all"
                   placeholder="CODE"
                   autoComplete="current-password"
                 />
@@ -111,7 +111,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
                 animate={{ opacity: 1, x: 0 }}
                 className="text-center"
               >
-                <span className="text-xs font-bold text-red-500 uppercase tracking-widest bg-red-500/10 px-4 py-2 rounded-full border border-red-500/20">
+                <span className="text-xs font-bold text-[#fe5858] uppercase tracking-widest bg-[#fe5858]/10 px-4 py-2 rounded-full border border-[#fe5858]/30">
                   {error}
                 </span>
               </motion.div>
@@ -119,7 +119,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
 
             <button
               type="submit"
-              className="group relative w-full h-14 rounded-2xl bg-[#c48a3f] text-white font-bold uppercase tracking-[0.2em] text-xs transition-all hover:bg-[#b07b38] active:scale-[0.98] shadow-[0_10px_30px_rgba(196,138,63,0.3)] overflow-hidden"
+              className="group relative w-full h-14 rounded-2xl bg-[#effc5f] text-[#021f0d] font-bold uppercase tracking-[0.2em] text-xs transition-all hover:bg-[#d7e851] active:scale-[0.98] shadow-[0_10px_30px_rgba(239,252,95,0.25)] overflow-hidden oz-button-glow"
             >
               <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <span className="relative flex items-center justify-center gap-2">
@@ -132,7 +132,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-12 flex items-center gap-2 text-[10px] uppercase font-bold tracking-[0.1em] text-white/20"
+            className="mt-12 flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest text-white/20"
           >
             <div className="h-px w-8 bg-white/10" />
             Technology Sovereignty v1.0

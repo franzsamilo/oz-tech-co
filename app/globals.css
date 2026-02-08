@@ -6,10 +6,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-brand-body);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-orbitron);
-  --font-heading: var(--font-rajdhani);
+  --font-display: var(--font-brand-display);
+  --font-heading: var(--font-brand-display);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -51,24 +51,36 @@
 :root {
   --radius: 0.625rem;
   
-  /* OZ Tech Green Color System - Based on Logo */
-  --oz-green-primary: #5EE414;        /* Bright electric lime green - main accent */
-  --oz-green-secondary: #87D32E;     /* Vibrant lime green */
-  --oz-green-tertiary: #7EF52C;      /* Electric green */
-  --oz-green-highlight: #ADCB14;     /* Yellowish-green highlight */
-  --oz-green-gold: #B8D01C;          /* Goldish-green */
-  --oz-green-dark: #15443B;          /* Deep dark forest green */
-  --oz-green-dark-alt: #1E5C4E;      /* Dark teal-green */
-  --oz-green-glow: rgba(94, 228, 20, 0.5);  /* Glow effect */
-  --oz-green-glow-strong: rgba(94, 228, 20, 0.8);
-  --oz-green-glow-weak: rgba(94, 228, 20, 0.2);
+  /* Brand Typography */
+  --font-brand-display: "Pragmatica Extended", "Pragmatica", var(--font-geist-sans), "Segoe UI", Arial, sans-serif;
+  --font-brand-body: "Pragmatica", var(--font-geist-sans), "Segoe UI", Arial, sans-serif;
+
+  /* OZ Tech Brand Color System */
+  --oz-dark-green: #021f0d;
+  --oz-medium-green: #006c40;
+  --oz-mint: #5df3c2;
+  --oz-button: #effc5f;
+  --oz-accent-red: #fe5858;
+
+  /* Legacy aliases (mapped to brand kit) */
+  --oz-green-primary: var(--oz-mint);
+  --oz-green-secondary: var(--oz-medium-green);
+  --oz-green-tertiary: var(--oz-dark-green);
+  --oz-green-highlight: var(--oz-button);
+  --oz-green-gold: var(--oz-button);
+  --oz-green-dark: var(--oz-dark-green);
+  --oz-green-dark-alt: var(--oz-medium-green);
+  --oz-green-glow: rgba(93, 243, 194, 0.5);
+  --oz-green-glow-strong: rgba(93, 243, 194, 0.8);
+  --oz-green-glow-weak: rgba(93, 243, 194, 0.2);
+
   --background: #f8fafc;
-  --foreground: #0f172a;
+  --foreground: var(--oz-dark-green);
   --card: #ffffff;
-  --card-foreground: #0f172a;
-  --oz-accent-primary: #1e3a5f;
-  --oz-accent-warm: #c48a3f;
-  --oz-surface-alt: #f4f1ea;
+  --card-foreground: var(--oz-dark-green);
+  --oz-accent-primary: var(--oz-medium-green);
+  --oz-accent-warm: var(--oz-button);
+  --oz-surface-alt: #f5fbf7;
   --oz-border-soft: #d4dce6;
   --oz-shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
   --popover: oklch(1 0 0);
@@ -102,10 +114,10 @@
 
 body {
   background-color: #f8fafc;
-  color: #0f172a;
+  color: var(--oz-dark-green);
   background-image:
-    radial-gradient(1200px 600px at 15% -10%, rgba(196, 138, 63, 0.12), transparent 60%),
-    radial-gradient(1000px 600px at 85% 0%, rgba(30, 58, 95, 0.08), transparent 60%),
+    radial-gradient(1200px 600px at 15% -10%, rgba(93, 243, 194, 0.12), transparent 60%),
+    radial-gradient(1000px 600px at 85% 0%, rgba(0, 108, 64, 0.08), transparent 60%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
   background-repeat: no-repeat, no-repeat, repeat;
   background-size: auto, auto, 180px 180px;
@@ -302,12 +314,12 @@ html {
   height: 100%;
   background: 
     /* Depth gradients */
-    radial-gradient(circle at 20% 30%, rgba(94, 228, 20, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(94, 228, 20, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 20% 30%, rgba(93, 243, 194, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(93, 243, 194, 0.04) 0%, transparent 50%),
     radial-gradient(circle at 50% 50%, rgba(10, 10, 10, 0.6) 0%, transparent 70%),
     /* Subtle scanlines */
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(94, 228, 20, 0.015) 2px, rgba(94, 228, 20, 0.015) 4px),
-    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(94, 228, 20, 0.01) 2px, rgba(94, 228, 20, 0.01) 4px);
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(93, 243, 194, 0.015) 2px, rgba(93, 243, 194, 0.015) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(93, 243, 194, 0.01) 2px, rgba(93, 243, 194, 0.01) 4px);
   background-size: 100% 100%, 100% 100%, 100% 100%, 20px 20px, 20px 20px;
   pointer-events: none;
   z-index: 1;
@@ -318,8 +330,8 @@ html {
 /* Maze pattern background */
 .maze-bg {
   background-image: 
-    linear-gradient(90deg, rgba(94, 228, 20, 0.03) 1px, transparent 1px),
-    linear-gradient(rgba(94, 228, 20, 0.03) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(93, 243, 194, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(93, 243, 194, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
   position: relative;
 }
@@ -332,8 +344,8 @@ html {
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 20% 30%, rgba(94, 228, 20, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(94, 228, 20, 0.08) 0%, transparent 50%);
+    radial-gradient(circle at 20% 30%, rgba(93, 243, 194, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(93, 243, 194, 0.08) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
@@ -341,8 +353,8 @@ html {
 /* Tech grid overlay */
 .tech-grid {
   background-image: 
-    linear-gradient(rgba(94, 228, 20, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(94, 228, 20, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(93, 243, 194, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 243, 194, 0.1) 1px, transparent 1px);
   background-size: 100px 100px;
   opacity: 0.3;
 }
@@ -358,6 +370,157 @@ html {
   text-shadow: 0 0 10px rgba(255, 107, 53, 0.5),
                0 0 20px rgba(255, 107, 53, 0.3),
                0 0 30px rgba(255, 107, 53, 0.2);
+}
+
+/* Brand glow utilities */
+.oz-glow {
+  box-shadow:
+    0 0 18px rgba(93, 243, 194, 0.25),
+    0 0 36px rgba(93, 243, 194, 0.2),
+    0 0 60px rgba(93, 243, 194, 0.12);
+}
+
+.oz-glow-strong {
+  box-shadow:
+    0 0 24px rgba(93, 243, 194, 0.35),
+    0 0 60px rgba(93, 243, 194, 0.25),
+    0 0 90px rgba(93, 243, 194, 0.18);
+}
+
+.oz-text-glow {
+  text-shadow:
+    0 0 10px rgba(93, 243, 194, 0.5),
+    0 0 20px rgba(93, 243, 194, 0.35),
+    0 0 30px rgba(93, 243, 194, 0.25);
+}
+
+.oz-button-glow {
+  box-shadow:
+    0 0 20px rgba(239, 252, 95, 0.35),
+    0 0 40px rgba(239, 252, 95, 0.25),
+    0 0 70px rgba(239, 252, 95, 0.18);
+}
+
+/* Wizard of Oz visual language */
+.oz-emerald-card {
+  position: relative;
+  background: linear-gradient(145deg, #021f0d 0%, #04301b 45%, #006c40 100%);
+  border: 1px solid #5df3c2;
+  box-shadow:
+    inset 0 0 22px rgba(93, 243, 194, 0.18),
+    0 20px 60px rgba(2, 31, 13, 0.45);
+}
+
+.oz-emerald-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(93, 243, 194, 0.35);
+  pointer-events: none;
+}
+
+.oz-glass-card {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(245, 251, 247, 0.7));
+  border: 1px solid rgba(0, 108, 64, 0.15);
+  box-shadow: 0 18px 50px rgba(2, 31, 13, 0.12);
+}
+
+.oz-frame {
+  position: relative;
+}
+
+.oz-frame::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border-radius: inherit;
+  border: 1px solid rgba(93, 243, 194, 0.2);
+  pointer-events: none;
+}
+
+.oz-gold-line {
+  position: relative;
+}
+
+.oz-gold-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 64px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(239, 252, 95, 0.8), rgba(239, 252, 95, 0));
+}
+
+.oz-vignette {
+  position: relative;
+}
+
+.oz-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(93, 243, 194, 0.08), rgba(2, 31, 13, 0.18) 70%);
+  pointer-events: none;
+}
+
+.oz-skew-frame {
+  position: relative;
+}
+
+.oz-skew-frame::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  border: 1px solid rgba(93, 243, 194, 0.35);
+  transform: rotate(-0.4deg);
+  pointer-events: none;
+}
+
+.oz-sparkle-bg {
+  position: relative;
+}
+
+.oz-sparkle-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(239, 252, 95, 0.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 75% 30%, rgba(93, 243, 194, 0.2) 0 1px, transparent 2px),
+    radial-gradient(circle at 35% 70%, rgba(239, 252, 95, 0.12) 0 1px, transparent 2px),
+    radial-gradient(circle at 85% 80%, rgba(93, 243, 194, 0.18) 0 1px, transparent 2px);
+  background-size: 120px 120px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.oz-gem-corners {
+  position: relative;
+}
+
+.oz-gem-corners::before,
+.oz-gem-corners::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(93, 243, 194, 0.7);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.oz-gem-corners::before {
+  top: 12px;
+  left: 12px;
+}
+
+.oz-gem-corners::after {
+  bottom: 12px;
+  right: 12px;
 }
 
 /* Custom Tech Fonts */
@@ -421,14 +584,14 @@ html {
 }
 
 .cracked-text::before {
-  color: rgba(94, 228, 20, 0.3);
+  color: rgba(93, 243, 194, 0.3);
   clip-path: polygon(0 0, 45% 0, 45% 100%, 0 100%);
   transform: translate(-2px, -3px);
   z-index: -1;
 }
 
 .cracked-text::after {
-  color: rgba(94, 228, 20, 0.2);
+  color: rgba(93, 243, 194, 0.2);
   clip-path: polygon(55% 0, 100% 0, 100% 100%, 55% 100%);
   transform: translate(2px, 1px);
   z-index: -1;
@@ -596,19 +759,19 @@ html {
 /* Cracked Border Effect */
 .cracked-border {
   position: relative;
-  border: 2px solid rgba(94, 228, 20, 0.3);
+  border: 2px solid rgba(93, 243, 194, 0.3);
 }
 
 /* ProfileCard Theme Overrides - Green theme */
 .profile-card-theme h3 {
-  background-image: linear-gradient(to bottom, #5EE414, #87D32E) !important;
+  background-image: linear-gradient(to bottom, var(--oz-mint), var(--oz-medium-green)) !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
 }
 
 .profile-card-theme p {
-  background-image: linear-gradient(to bottom, #5EE414, #ADCB14) !important;
+  background-image: linear-gradient(to bottom, var(--oz-mint), var(--oz-button)) !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
@@ -655,23 +818,23 @@ html {
       0deg,
       transparent,
       transparent 2px,
-      rgba(94, 228, 20, 0.03) 2px,
-      rgba(94, 228, 20, 0.03) 4px
+      rgba(93, 243, 194, 0.03) 2px,
+      rgba(93, 243, 194, 0.03) 4px
     ),
     repeating-linear-gradient(
       90deg,
       transparent,
       transparent 2px,
-      rgba(94, 228, 20, 0.03) 2px,
-      rgba(94, 228, 20, 0.03) 4px
+      rgba(93, 243, 194, 0.03) 2px,
+      rgba(93, 243, 194, 0.03) 4px
     ),
     /* Scanline effect */
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 1px,
-      rgba(94, 228, 20, 0.05) 1px,
-      rgba(94, 228, 20, 0.05) 2px
+      rgba(93, 243, 194, 0.05) 1px,
+      rgba(93, 243, 194, 0.05) 2px
     );
   background-size: 100% 100%, 50px 50px, 50px 50px, 100% 3px;
   animation: hackerScan 8s linear infinite;
@@ -685,9 +848,9 @@ html {
   inset: 0;
   background: 
     /* Glitch effect overlay */
-    radial-gradient(circle at 20% 30%, rgba(94, 228, 20, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(94, 228, 20, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(94, 228, 20, 0.05) 0%, transparent 60%);
+    radial-gradient(circle at 20% 30%, rgba(93, 243, 194, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(93, 243, 194, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(93, 243, 194, 0.05) 0%, transparent 60%);
   animation: hackerGlow 4s ease-in-out infinite alternate;
   pointer-events: none;
 }
@@ -701,7 +864,7 @@ html {
     repeating-linear-gradient(
       0deg,
       transparent 0px,
-      rgba(94, 228, 20, 0.02) 1px,
+      rgba(93, 243, 194, 0.02) 1px,
       transparent 2px,
       transparent 8px
     );

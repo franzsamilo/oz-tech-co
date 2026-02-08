@@ -50,7 +50,7 @@ export default function StatCounter({
 
   return (
     <div ref={ref} className={className}>
-      <span className="font-semibold text-[#0f172a]">
+      <span className="font-semibold text-[#021f0d]">
         {displayValue}
         {suffix}
       </span>
