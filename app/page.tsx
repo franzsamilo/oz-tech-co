@@ -49,9 +49,13 @@ const sections = [
 
 const headerLinks = [
   { id: "hero", label: "Home" },
+  { id: "truth", label: "Story" },
+  { id: "system", label: "System" },
+  { id: "proof", label: "Proof" },
   { id: "model", label: "Model" },
-  { id: "investment", label: "Investment" },
-  { id: "investors", label: "Investors" },
+  { id: "investment", label: "Terms" },
+  { id: "founders", label: "Team" },
+  { id: "faq", label: "FAQ" },
   { id: "application", label: "Apply" },
 ];
 
@@ -157,7 +161,9 @@ export default function Home() {
 
   const pillNavItems = [
     { label: "Home", href: "#hero" },
-    ...headerLinks.map((link) => ({ label: link.label, href: `#${link.id}` })),
+    ...headerLinks
+      .filter((link) => link.id !== "hero")
+      .map((link) => ({ label: link.label, href: `#${link.id}` })),
   ];
 
   useEffect(() => {
@@ -186,19 +192,26 @@ export default function Home() {
 
   useEffect(() => {
     if (!renderRest) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          // Identify the section that is most prominent in the top 40% of the screen
           if (entry.isIntersecting) {
             setActiveSection(`#${entry.target.id}`);
           }
         });
       },
-      { threshold: 0.2, rootMargin: "-10% 0px -70% 0px" }
+      {
+        threshold: 0,
+        // Wide detection zone centered in the upper half of the screen
+        rootMargin: "-15% 0px -55% 0px",
+      }
     );
 
-    sections.forEach((section) => {
-      const el = document.getElementById(section.id);
+    // Only observe sections that have a corresponding navigation link
+    headerLinks.forEach((navLink) => {
+      const el = document.getElementById(navLink.id);
       if (el) observer.observe(el);
     });
 
@@ -218,7 +231,6 @@ export default function Home() {
                 <div className="origin-top scale-[1.6]">
                   <PillNav
                     items={pillNavItems}
-                    activeHref={activeSection}
                     embedded={true}
                     showLogo={true}
                     logo="/ozlogo.png"
