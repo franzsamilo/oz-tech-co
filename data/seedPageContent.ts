@@ -4,7 +4,7 @@ export const heroContent = {
     "Most businesses pay $500-$2,000/month for software they'll never own. We build custom software for the same price—except you own it forever.",
   statement:
     "We're raising $100,000 to scale from 5 clients to 50. We're looking for 4-10 investors who believe businesses should own their tools, not rent them.",
-  cta: "Read Our Story & Apply Below ↓",
+  cta: "Read Our Story ↓\n& Apply Below",
   trustLine:
     "100+ projects delivered. $100M+ generated for clients. 10-person team. Real results.",
 };

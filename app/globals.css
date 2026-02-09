@@ -523,6 +523,144 @@ html {
   right: 12px;
 }
 
+/* Vine + maze accents */
+.oz-vine-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.oz-vine-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 8% 18%, rgba(93, 243, 194, 0.6) 0 1px, transparent 2px),
+    radial-gradient(circle at 92% 18%, rgba(93, 243, 194, 0.6) 0 1px, transparent 2px),
+    radial-gradient(circle at 8% 82%, rgba(93, 243, 194, 0.6) 0 1px, transparent 2px),
+    radial-gradient(circle at 92% 82%, rgba(93, 243, 194, 0.6) 0 1px, transparent 2px),
+    linear-gradient(90deg, rgba(93, 243, 194, 0.2), rgba(93, 243, 194, 0) 30%, rgba(93, 243, 194, 0.2) 70%, rgba(93, 243, 194, 0)),
+    linear-gradient(0deg, rgba(93, 243, 194, 0.2), rgba(93, 243, 194, 0) 30%, rgba(93, 243, 194, 0.2) 70%, rgba(93, 243, 194, 0));
+  opacity: 0.7;
+  mix-blend-mode: screen;
+}
+
+.oz-vine-border::after {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border-radius: inherit;
+  border: 1px dashed rgba(93, 243, 194, 0.25);
+  pointer-events: none;
+}
+
+.oz-maze-overlay {
+  position: relative;
+}
+
+.oz-maze-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, rgba(93, 243, 194, 0.05) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(93, 243, 194, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 243, 194, 0.03) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(93, 243, 194, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px, 64px 64px, 16px 16px, 16px 16px;
+  opacity: 0.35;
+}
+
+.oz-sparkle-icon {
+  filter: drop-shadow(0 0 10px rgba(93, 243, 194, 0.6));
+}
+
+.oz-hero-magic {
+  position: relative;
+  overflow: hidden;
+}
+
+.oz-hero-magic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(93, 243, 194, 0.12), transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(239, 252, 95, 0.12), transparent 45%),
+    radial-gradient(circle at 50% 85%, rgba(93, 243, 194, 0.08), transparent 50%),
+    repeating-linear-gradient(0deg, transparent, transparent 6px, rgba(93, 243, 194, 0.03) 6px, rgba(93, 243, 194, 0.03) 12px),
+    repeating-linear-gradient(90deg, transparent, transparent 6px, rgba(93, 243, 194, 0.02) 6px, rgba(93, 243, 194, 0.02) 12px);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.oz-hero-magic::after {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  background:
+    conic-gradient(from 120deg, rgba(93, 243, 194, 0.15), transparent 40%, rgba(239, 252, 95, 0.12), transparent 70%);
+  filter: blur(40px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.oz-hero-aurora {
+  position: relative;
+}
+
+.oz-hero-aurora::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(93, 243, 194, 0.08), rgba(239, 252, 95, 0.06), transparent 60%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Victorian/vine border for nav and frames */
+.oz-victorian-border {
+  position: relative;
+}
+
+.oz-victorian-border::before {
+  content: none;
+}
+
+.oz-victorian-border::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 12px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='12' viewBox='0 0 80 12'%3E%3Cpath d='M8 6c5-6 12-6 17 0-5 6-12 6-17 0Z' fill='%235df3c2' fill-opacity='0.55'/%3E%3Cpath d='M24 6c5-6 12-6 17 0-5 6-12 6-17 0Z' fill='%235df3c2' fill-opacity='0.4'/%3E%3Cpath d='M40 6c5-6 12-6 17 0-5 6-12 6-17 0Z' fill='%235df3c2' fill-opacity='0.55'/%3E%3Ccircle cx='4' cy='6' r='1.2' fill='%235df3c2' fill-opacity='0.4'/%3E%3Ccircle cx='76' cy='6' r='1.2' fill='%235df3c2' fill-opacity='0.4'/%3E%3C/svg%3E");
+  background-size: 80px 12px;
+  opacity: 0.85;
+  box-shadow: 0 -1px 8px rgba(93, 243, 194, 0.25);
+  pointer-events: none;
+}
+
+.oz-hero-bg {
+  position: relative;
+}
+
+.oz-hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(93, 243, 194, 0.18), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(239, 252, 95, 0.15), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(93, 243, 194, 0.12), transparent 50%),
+    repeating-linear-gradient(45deg, rgba(93, 243, 194, 0.03) 0, rgba(93, 243, 194, 0.03) 2px, transparent 2px, transparent 8px);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
 /* Custom Tech Fonts */
 .font-tech {
   font-family: var(--font-orbitron), monospace;

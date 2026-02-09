@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { gsap } from 'gsap';
+import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { gsap } from "gsap";
 
 export type PillNavItem = {
   label: string;
@@ -21,28 +21,34 @@ export interface PillNavProps {
   ease?: string;
   baseColor?: string;
   pillColor?: string;
+  hoverPillBgColor?: string;
   hoveredPillTextColor?: string;
   pillTextColor?: string;
   onMobileMenuClick?: () => void;
   initialLoadAnimation?: boolean;
+  embedded?: boolean;
+  showLogo?: boolean;
 }
 
 const PillNav: React.FC<PillNavProps> = ({
   logo,
-  logoAlt = 'OZTech Logo',
+  logoAlt = "OZTech Logo",
   items,
   activeHref,
-  className = '',
-  ease = 'power3.easeOut',
-  baseColor = '#0a0a0a',
-  pillColor = '#ff6b35',
-  hoveredPillTextColor = '#0a0a0a',
+  className = "",
+  ease = "power3.easeOut",
+  baseColor = "#0a0a0a",
+  pillColor = "#ff6b35",
+  hoverPillBgColor,
+  hoveredPillTextColor = "#0a0a0a",
   pillTextColor,
   onMobileMenuClick,
-  initialLoadAnimation = true
+  initialLoadAnimation = true,
+  embedded = false,
+  showLogo = true,
 }) => {
   const pathname = usePathname();
-  const resolvedPillTextColor = pillTextColor ?? '#e5e5e5';
+  const resolvedPillTextColor = pillTextColor ?? "#e5e5e5";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const circleRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const tlRefs = useRef<Array<gsap.core.Timeline | null>>([]);
@@ -58,7 +64,7 @@ const PillNav: React.FC<PillNavProps> = ({
 
   useEffect(() => {
     const layout = () => {
-      circleRefs.current.forEach(circle => {
+      circleRefs.current.forEach((circle) => {
         if (!circle?.parentElement) return;
 
         const pill = circle.parentElement as HTMLElement;
@@ -66,7 +72,8 @@ const PillNav: React.FC<PillNavProps> = ({
         const { width: w, height: h } = rect;
         const R = ((w * w) / 4 + h * h) / (2 * h);
         const D = Math.ceil(2 * R) + 2;
-        const delta = Math.ceil(R - Math.sqrt(Math.max(0, R * R - (w * w) / 4))) + 1;
+        const delta =
+          Math.ceil(R - Math.sqrt(Math.max(0, R * R - (w * w) / 4))) + 1;
         const originY = D - delta;
 
         circle.style.width = `${D}px`;
@@ -76,11 +83,11 @@ const PillNav: React.FC<PillNavProps> = ({
         gsap.set(circle, {
           xPercent: -50,
           scale: 0,
-          transformOrigin: `50% ${originY}px`
+          transformOrigin: `50% ${originY}px`,
         });
 
-        const label = pill.querySelector<HTMLElement>('.pill-label');
-        const white = pill.querySelector<HTMLElement>('.pill-label-hover');
+        const label = pill.querySelector<HTMLElement>(".pill-label");
+        const white = pill.querySelector<HTMLElement>(".pill-label-hover");
 
         if (label) gsap.set(label, { y: 0 });
         if (white) gsap.set(white, { y: h + 12, opacity: 0 });
@@ -91,15 +98,27 @@ const PillNav: React.FC<PillNavProps> = ({
         tlRefs.current[index]?.kill();
         const tl = gsap.timeline({ paused: true });
 
-        tl.to(circle, { scale: 1.2, xPercent: -50, duration: 2, ease, overwrite: 'auto' }, 0);
+        tl.to(
+          circle,
+          { scale: 1.2, xPercent: -50, duration: 2, ease, overwrite: "auto" },
+          0,
+        );
 
         if (label) {
-          tl.to(label, { y: -(h + 8), duration: 2, ease, overwrite: 'auto' }, 0);
+          tl.to(
+            label,
+            { y: -(h + 8), duration: 2, ease, overwrite: "auto" },
+            0,
+          );
         }
 
         if (white) {
           gsap.set(white, { y: Math.ceil(h + 100), opacity: 0 });
-          tl.to(white, { y: 0, opacity: 1, duration: 2, ease, overwrite: 'auto' }, 0);
+          tl.to(
+            white,
+            { y: 0, opacity: 1, duration: 2, ease, overwrite: "auto" },
+            0,
+          );
         }
 
         tlRefs.current[index] = tl;
@@ -109,7 +128,7 @@ const PillNav: React.FC<PillNavProps> = ({
     layout();
 
     const onResize = () => layout();
-    window.addEventListener('resize', onResize);
+    window.addEventListener("resize", onResize);
 
     if (document.fonts) {
       document.fonts.ready.then(layout).catch(() => {});
@@ -117,7 +136,7 @@ const PillNav: React.FC<PillNavProps> = ({
 
     const menu = mobileMenuRef.current;
     if (menu) {
-      gsap.set(menu, { visibility: 'hidden', opacity: 0, scaleY: 1, y: 0 });
+      gsap.set(menu, { visibility: "hidden", opacity: 0, scaleY: 1, y: 0 });
     }
 
     if (initialLoadAnimation) {
@@ -129,21 +148,21 @@ const PillNav: React.FC<PillNavProps> = ({
         gsap.to(logoEl, {
           scale: 1,
           duration: 0.6,
-          ease
+          ease,
         });
       }
 
       if (navItems) {
-        gsap.set(navItems, { width: 0, overflow: 'hidden' });
+        gsap.set(navItems, { width: 0, overflow: "hidden" });
         gsap.to(navItems, {
-          width: 'auto',
+          width: "auto",
           duration: 0.6,
-          ease
+          ease,
         });
       }
     }
 
-    return () => window.removeEventListener('resize', onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, [items, ease, initialLoadAnimation]);
 
   const handleEnter = (i: number) => {
@@ -153,7 +172,7 @@ const PillNav: React.FC<PillNavProps> = ({
     activeTweenRefs.current[i] = tl.tweenTo(tl.duration(), {
       duration: 0.3,
       ease,
-      overwrite: 'auto'
+      overwrite: "auto",
     });
   };
 
@@ -164,7 +183,7 @@ const PillNav: React.FC<PillNavProps> = ({
     activeTweenRefs.current[i] = tl.tweenTo(0, {
       duration: 0.2,
       ease,
-      overwrite: 'auto'
+      overwrite: "auto",
     });
   };
 
@@ -177,7 +196,7 @@ const PillNav: React.FC<PillNavProps> = ({
       rotate: 360,
       duration: 0.2,
       ease,
-      overwrite: 'auto'
+      overwrite: "auto",
     });
   };
 
@@ -189,7 +208,7 @@ const PillNav: React.FC<PillNavProps> = ({
     const menu = mobileMenuRef.current;
 
     if (hamburger) {
-      const lines = hamburger.querySelectorAll('.hamburger-line');
+      const lines = hamburger.querySelectorAll(".hamburger-line");
       if (newState) {
         gsap.to(lines[0], { rotation: 45, y: 3, duration: 0.3, ease });
         gsap.to(lines[1], { rotation: -45, y: -3, duration: 0.3, ease });
@@ -201,7 +220,7 @@ const PillNav: React.FC<PillNavProps> = ({
 
     if (menu) {
       if (newState) {
-        gsap.set(menu, { visibility: 'visible' });
+        gsap.set(menu, { visibility: "visible" });
         gsap.fromTo(
           menu,
           { opacity: 0, y: 10, scaleY: 1 },
@@ -211,8 +230,8 @@ const PillNav: React.FC<PillNavProps> = ({
             scaleY: 1,
             duration: 0.3,
             ease,
-            transformOrigin: 'top center'
-          }
+            transformOrigin: "top center",
+          },
         );
       } else {
         gsap.to(menu, {
@@ -221,10 +240,10 @@ const PillNav: React.FC<PillNavProps> = ({
           scaleY: 1,
           duration: 0.2,
           ease,
-          transformOrigin: 'top center',
+          transformOrigin: "top center",
           onComplete: () => {
-            gsap.set(menu, { visibility: 'hidden' });
-          }
+            gsap.set(menu, { visibility: "hidden" });
+          },
         });
       }
     }
@@ -233,93 +252,112 @@ const PillNav: React.FC<PillNavProps> = ({
   };
 
   const isExternalLink = (href: string) =>
-    href.startsWith('http://') ||
-    href.startsWith('https://') ||
-    href.startsWith('//') ||
-    href.startsWith('mailto:') ||
-    href.startsWith('tel:') ||
-    href.startsWith('#');
+    href.startsWith("http://") ||
+    href.startsWith("https://") ||
+    href.startsWith("//") ||
+    href.startsWith("mailto:") ||
+    href.startsWith("tel:") ||
+    href.startsWith("#");
 
   const cssVars = {
-    ['--base']: baseColor,
-    ['--pill-bg']: pillColor,
-    ['--hover-text']: hoveredPillTextColor,
-    ['--pill-text']: resolvedPillTextColor,
-    ['--nav-h']: '42px',
-    ['--logo']: '36px',
-    ['--pill-pad-x']: '18px',
-    ['--pill-gap']: '3px'
+    ["--base"]: baseColor,
+    ["--pill-bg"]: pillColor,
+    ["--hover-bg"]: hoverPillBgColor ?? baseColor,
+    ["--hover-text"]: hoveredPillTextColor,
+    ["--pill-text"]: resolvedPillTextColor,
+    ["--nav-h"]: "42px",
+    ["--logo"]: "36px",
+    ["--pill-pad-x"]: "18px",
+    ["--pill-gap"]: "3px",
   } as React.CSSProperties;
 
   return (
-    <div className="absolute top-[1em] z-1000 w-full left-0 md:w-auto md:left-auto">
+    <div
+      className={
+        embedded
+          ? "relative w-full"
+          : "absolute top-[1em] z-1000 w-full left-0 md:w-auto md:left-auto"
+      }
+    >
       <nav
         className={`w-full md:w-max flex items-center justify-between md:justify-start box-border px-4 md:px-0 ${className}`}
         aria-label="Primary"
         style={cssVars}
       >
-        {logo ? (
-          <Link
-            href={items[0]?.href || '/'}
-            aria-label="Home"
-            onMouseEnter={handleLogoEnter}
-            role="menuitem"
-            ref={el => {
-              logoRef.current = el;
-            }}
-            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden"
-            style={{
-              width: 'var(--nav-h)',
-              height: 'var(--nav-h)',
-              background: 'var(--base, #000)'
-            }}
-          >
-            <div ref={logoImgRef as React.RefObject<HTMLDivElement>} className="w-full h-full">
-              <Image src={logo} alt={logoAlt} width={36} height={36} className="w-full h-full object-cover block" />
-            </div>
-          </Link>
-        ) : (
-          <Link
-            href={items[0]?.href || '/'}
-            aria-label="Home"
-            onMouseEnter={handleLogoEnter}
-            ref={el => {
-              logoRef.current = el;
-            }}
-            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden font-bold text-orange-500"
-            style={{
-              width: 'var(--nav-h)',
-              height: 'var(--nav-h)',
-              background: 'var(--base, #000)',
-              fontSize: '18px'
-            }}
-          >
-            OZ
-          </Link>
-        )}
+        {showLogo &&
+          (logo ? (
+            <Link
+              href={items[0]?.href || "/"}
+              aria-label="Home"
+              onMouseEnter={handleLogoEnter}
+              role="menuitem"
+              ref={(el) => {
+                logoRef.current = el;
+              }}
+              className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden"
+              style={{
+                width: "var(--nav-h)",
+                height: "var(--nav-h)",
+                background: "var(--base, #000)",
+              }}
+            >
+              <div
+                ref={logoImgRef as React.RefObject<HTMLDivElement>}
+                className="w-full h-full"
+              >
+                <Image
+                  src={logo}
+                  alt={logoAlt}
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-cover block"
+                />
+              </div>
+            </Link>
+          ) : (
+            <Link
+              href={items[0]?.href || "/"}
+              aria-label="Home"
+              onMouseEnter={handleLogoEnter}
+              ref={(el) => {
+                logoRef.current = el;
+              }}
+              className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden font-bold text-orange-500"
+              style={{
+                width: "var(--nav-h)",
+                height: "var(--nav-h)",
+                background: "var(--base, #000)",
+                fontSize: "18px",
+              }}
+            >
+              OZ
+            </Link>
+          ))}
 
         <div
           ref={navItemsRef}
           className="relative items-center rounded-full hidden md:flex ml-2"
           style={{
-            height: 'var(--nav-h)',
-            background: 'var(--base, #000)'
+            height: "var(--nav-h)",
+            background: "var(--base, #000)",
           }}
         >
           <ul
             role="menubar"
             className="list-none flex items-stretch m-0 p-[3px] h-full"
-            style={{ gap: 'var(--pill-gap)' }}
+            style={{ gap: "var(--pill-gap)" }}
           >
             {items.slice(1).map((item, i) => {
               const isActive = currentActiveHref === item.href;
 
               const pillStyle: React.CSSProperties = {
-                background: isActive ? pillColor : 'transparent',
+                background: isActive ? pillColor : "transparent",
                 color: isActive ? hoveredPillTextColor : resolvedPillTextColor,
-                paddingLeft: 'var(--pill-pad-x)',
-                paddingRight: 'var(--pill-pad-x)',
-                border: isActive ? `1px solid ${pillColor}` : `1px solid transparent`
+                paddingLeft: "var(--pill-pad-x)",
+                paddingRight: "var(--pill-pad-x)",
+                border: isActive
+                  ? `1px solid ${pillColor}`
+                  : `1px solid transparent`,
               };
 
               const PillContent = (
@@ -327,23 +365,21 @@ const PillNav: React.FC<PillNavProps> = ({
                   <span
                     className="hover-circle absolute left-1/2 bottom-0 rounded-full z-1 block pointer-events-none will-change-transform"
                     style={{
-                      background: 'var(--base, #000)'
+                      background: "var(--hover-bg, var(--base, #000))",
                     }}
                     aria-hidden="true"
-                    ref={el => {
+                    ref={(el) => {
                       circleRefs.current[i] = el;
                     }}
                   />
                   <span className="label-stack relative inline-block leading-none z-2">
-                    <span
-                      className="pill-label relative z-2 inline-block leading-none will-change-transform"
-                    >
+                    <span className="pill-label relative z-2 inline-block leading-none will-change-transform">
                       {item.label}
                     </span>
                     <span
                       className="pill-label-hover absolute left-0 top-0 z-3 inline-block will-change-[transform,opacity]"
                       style={{
-                        color: 'var(--hover-text, #fff)'
+                        color: "var(--hover-text, #fff)",
                       }}
                       aria-hidden="true"
                     >
@@ -361,7 +397,7 @@ const PillNav: React.FC<PillNavProps> = ({
               );
 
               const basePillClasses =
-                'relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[16px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0 transition-all duration-200';
+                "relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[16px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0 transition-all duration-200";
 
               return (
                 <li key={item.href} role="none" className="flex h-full">
@@ -403,9 +439,9 @@ const PillNav: React.FC<PillNavProps> = ({
           aria-expanded={isMobileMenuOpen}
           className="md:hidden rounded-full border-0 flex flex-col items-center justify-center gap-1 cursor-pointer p-0 relative"
           style={{
-            width: 'var(--nav-h)',
-            height: 'var(--nav-h)',
-            background: 'var(--base, #000)'
+            width: "var(--nav-h)",
+            height: "var(--nav-h)",
+            background: "var(--base, #000)",
           }}
         >
           <span
@@ -424,28 +460,34 @@ const PillNav: React.FC<PillNavProps> = ({
         className="md:hidden absolute top-[3em] left-4 right-4 rounded-[27px] shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-998 origin-top backdrop-blur-md border border-orange-500/20"
         style={{
           ...cssVars,
-          background: 'rgba(10, 10, 10, 0.95)'
+          background: "rgba(10, 10, 10, 0.95)",
         }}
       >
         <ul className="list-none m-0 p-[3px] flex flex-col gap-[3px]">
-          {items.slice(1).map(item => {
+          {items.slice(1).map((item) => {
             const isActive = currentActiveHref === item.href;
             const defaultStyle: React.CSSProperties = {
-              background: isActive ? pillColor : 'rgba(255, 107, 53, 0.1)',
+              background: isActive ? pillColor : "rgba(255, 107, 53, 0.1)",
               color: isActive ? hoveredPillTextColor : resolvedPillTextColor,
-              border: isActive ? `1px solid ${pillColor}` : '1px solid transparent'
+              border: isActive
+                ? `1px solid ${pillColor}`
+                : "1px solid transparent",
             };
             const hoverIn = (e: React.MouseEvent<HTMLAnchorElement>) => {
               e.currentTarget.style.background = pillColor;
               e.currentTarget.style.color = hoveredPillTextColor;
             };
             const hoverOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
-              e.currentTarget.style.background = isActive ? pillColor : 'rgba(255, 107, 53, 0.1)';
-              e.currentTarget.style.color = isActive ? hoveredPillTextColor : resolvedPillTextColor;
+              e.currentTarget.style.background = isActive
+                ? pillColor
+                : "rgba(255, 107, 53, 0.1)";
+              e.currentTarget.style.color = isActive
+                ? hoveredPillTextColor
+                : resolvedPillTextColor;
             };
 
             const linkClasses =
-              'block py-3 px-4 text-[16px] font-medium rounded-[50px] transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]';
+              "block py-3 px-4 text-[16px] font-medium rounded-[50px] transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]";
 
             return (
               <li key={item.href}>

@@ -31,7 +31,7 @@ export default function InvestmentForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-[40px] border-2 border-[#d4dce6]/60 bg-white p-12 md:p-16 shadow-2xl text-center">
+        <div className="rounded-[40px] border-2 border-[#d4dce6]/60 bg-white p-12 md:p-16 shadow-2xl text-center oz-glass-card oz-skew-frame oz-vine-border">
         <div className="w-20 h-20 bg-[#5df3c2]/15 rounded-full flex items-center justify-center mx-auto mb-8">
           <span className="text-4xl text-[#006c40]">✓</span>
         </div>
@@ -54,7 +54,7 @@ export default function InvestmentForm() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: sIdx * 0.1 }}
           viewport={{ once: true }}
-          className="bg-white p-8 md:p-12 rounded-[32px] border-2 border-[#d4dce6]/60 shadow-xl"
+          className="bg-white p-8 md:p-12 rounded-[32px] border-2 border-[#d4dce6]/60 shadow-xl oz-glass-card oz-skew-frame oz-vine-border"
         >
           <div className="flex items-center gap-4 mb-8">
             <span className="w-10 h-10 rounded-xl bg-[#021f0d] text-white flex items-center justify-center font-bold">0{sIdx + 1}</span>
