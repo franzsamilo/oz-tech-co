@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 interface StatCounterProps {
   value: number;
+  prefix?: string;
   suffix?: string;
   durationMs?: number;
   className?: string;
@@ -11,6 +12,7 @@ interface StatCounterProps {
 
 export default function StatCounter({
   value,
+  prefix = "",
   suffix = "",
   durationMs = 1200,
   className = "",
@@ -49,9 +51,10 @@ export default function StatCounter({
   }, [value, durationMs]);
 
   return (
-    <div ref={ref} className={className}>
-      <span className="font-semibold text-[#021f0d]">
-        {displayValue}
+    <div ref={ref} className="inline-block">
+      <span className={className}>
+        {prefix}
+        {displayValue.toLocaleString()}
         {suffix}
       </span>
     </div>

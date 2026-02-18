@@ -4,7 +4,7 @@ export const heroContent = {
     "Most businesses pay $500-$2,000/month for software they'll never own. We build custom software for the same price—except you own it forever.",
   statement:
     "We're raising $100,000 to scale from 5 clients to 50. We're looking for 4-10 investors who believe businesses should own their tools, not rent them.",
-  cta: "Read Our Story ↓\n& Apply Below",
+  cta: "Become an Investor",
   trustLine:
     "100+ projects delivered. $100M+ generated for clients. 10-person team. Real results.",
 };
@@ -130,6 +130,7 @@ export const caseStudies = [
     built: "AI-powered assessment tool",
     result: "50+ qualified leads in 3 days, zero ad spend",
     timeline: "3 weeks from concept to launch",
+    url: "https://tne-rwhh.vercel.app"
   },
   {
     title: "Mentoria Youth Platform",
@@ -138,6 +139,7 @@ export const caseStudies = [
     built: "AI platform with 25+ implementations",
     result: "Serving thousands of users across multiple organizations",
     timeline: "Ongoing partnership, continuous improvement",
+    url: "https://project-mentoria.vercel.app/"
   },
   {
     title: "Civy Payment Infrastructure",
@@ -146,6 +148,7 @@ export const caseStudies = [
     built: "Enterprise-grade payment system",
     result: "Processing thousands of transactions, zero downtime",
     timeline: "Mission-critical infrastructure, 18+ month partnership",
+    url: "https://payments.civy.ph/"
   },
   {
     title: "Rare Philippines Dashboard",
@@ -154,6 +157,7 @@ export const caseStudies = [
     built: "Real-time monitoring dashboard",
     result: "70% faster load times, data-driven decisions",
     timeline: "Built and optimized over 12 months",
+    url: "https://er-rare-dashboard.vercel.app/"
   },
 ];
 
