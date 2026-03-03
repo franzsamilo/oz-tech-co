@@ -253,25 +253,30 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="hidden md:block relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[60px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(2,31,13,0.3)] border-[16px] border-white oz-frame oz-skew-frame">
-                    <Image
-                      src="/software-team.jpg"
-                      alt="The OZ Tech Team"
-                      fill
-                      className="object-cover transition-transform duration-10000 hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-[#021f0d]/80 via-transparent to-transparent" />
-                    <div className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8">
-                      <div className="p-4 md:p-6 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
-                        <div className="flex items-center gap-3 mb-2">
-                           <div className="w-2 h-2 rounded-full bg-[#5df3c2] animate-pulse" />
-                           <p className="text-xs md:text-sm font-bold text-white uppercase tracking-widest">The OZ Tech Team</p>
+                  <div className="hidden md:flex flex-col gap-6">
+                    {/* Manifesto Block */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.3 }}
+                      className="relative p-10 lg:p-12 rounded-[48px] bg-[#021f0d] text-white shadow-[0_40px_100px_-20px_rgba(2,31,13,0.3)] overflow-hidden oz-emerald-card oz-maze-overlay"
+                    >
+                      <div className="absolute top-0 right-0 w-48 h-48 bg-[#5df3c2]/10 rounded-full -mr-24 -mt-24 blur-3xl" />
+                      <div className="relative z-10">
+                        <div className="flex items-center gap-3 mb-6">
+                          <div className="w-2 h-2 rounded-full bg-[#5df3c2] animate-pulse" />
+                          <p className="text-[10px] font-black text-[#5df3c2] uppercase tracking-[0.4em]">Our Manifesto</p>
                         </div>
-                        <p className="text-lg md:text-xl text-white font-black leading-tight uppercase tracking-tighter">
-                          Building <span className="text-[#5df3c2]">Digital Sovereignty</span>
+                        <p className="text-2xl lg:text-3xl font-heading font-black leading-tight tracking-tight text-white/90 italic">
+                          "Software isn't magic. AI isn't magic. It's just{" "}
+                          <span className="text-[#5df3c2] not-italic">systematic problem-solving</span>{" "}
+                          with code — and you should{" "}
+                          <span className="text-[#effc5f] not-italic">own every line of it.</span>"
                         </p>
                       </div>
-                    </div>
+                    </motion.div>
+
+
                   </div>
                 </div>
 
