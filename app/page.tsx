@@ -5,8 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion"; // Corrected import from "motion/react" to "framer-motion"
 import { ChevronDown, ArrowRight } from "lucide-react";
-import StaggeredMenu from "@/components/StaggeredMenu";
-import PillNav from "@/components/PillNav";
 import PasswordLock from "@/components/PasswordLock";
 import CaseStudyCard from "@/components/CaseStudyCard";
 import InvestmentForm from "@/components/InvestmentForm";
@@ -32,33 +30,7 @@ import {
   testimonials,
 } from "@/data/seedPageContent";
 
-const sections = [
-  { id: "hero", label: "Home" },
-  { id: "truth", label: "Truth" },
-  { id: "vision", label: "Vision" },
-  { id: "system", label: "System" },
-  { id: "proof", label: "Proof" },
-  { id: "model", label: "Model" },
-  { id: "opportunity", label: "Opportunity" },
-  { id: "investment", label: "Terms" },
-  { id: "investors", label: "Investors" },
-  { id: "founders", label: "Founders" },
-  { id: "risks", label: "Risks" },
-  { id: "faq", label: "FAQ" },
-  { id: "application", label: "Apply" },
-];
-
-const headerLinks = [
-  { id: "hero", label: "Home" },
-  { id: "truth", label: "Story" },
-  { id: "system", label: "System" },
-  { id: "proof", label: "Proof" },
-  { id: "model", label: "Model" },
-  { id: "investment", label: "Terms" },
-  { id: "founders", label: "Team" },
-  { id: "faq", label: "FAQ" },
-  { id: "application", label: "Apply" },
-];
+// Navigation removed per CCD Absolute Focus principle — no nav distractions on conversion page
 
 const teamMembers = [
   {
@@ -151,7 +123,6 @@ export default function Home() {
   const [renderRest, setRenderRest] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [currentMemberIndex, setCurrentMemberIndex] = useState(0);
-  const [activeSection, setActiveSection] = useState("#hero");
 
   const cardMotion = {
     initial: { opacity: 0, y: 20 },
@@ -159,13 +130,6 @@ export default function Home() {
     viewport: { once: true, margin: "-50px" },
     transition: { duration: 0.4 },
   };
-
-  const pillNavItems = [
-    { label: "Home", href: "#hero" },
-    ...headerLinks
-      .filter((link) => link.id !== "hero")
-      .map((link) => ({ label: link.label, href: `#${link.id}` })),
-  ];
 
   useEffect(() => {
     const stored = localStorage.getItem("oztech_seed_access");
@@ -191,33 +155,7 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [renderRest]);
 
-  useEffect(() => {
-    if (!renderRest) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // Identify the section that is most prominent in the top 40% of the screen
-          if (entry.isIntersecting) {
-            setActiveSection(`#${entry.target.id}`);
-          }
-        });
-      },
-      {
-        threshold: 0,
-        // Wide detection zone centered in the upper half of the screen
-        rootMargin: "-15% 0px -55% 0px",
-      }
-    );
-
-    // Only observe sections that have a corresponding navigation link
-    headerLinks.forEach((navLink) => {
-      const el = document.getElementById(navLink.id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [renderRest]);
+  // IntersectionObserver for nav active state removed — nav removed per CCD
 
   return (
     <div className="bg-[#f8fafc] text-[#021f0d] overflow-x-hidden">
@@ -225,120 +163,69 @@ export default function Home() {
 
       {isUnlocked && (
         <div className="relative">
-          {/* Premium Header */}
-          <header className="fixed top-0 left-0 right-0 z-100 pointer-events-none">
-            <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-16 md:px-10">
-              <div className="hidden lg:flex items-center pointer-events-auto rounded-full">
-                <div className="origin-left">
-                  <PillNav
-                    items={pillNavItems}
-                    embedded={true}
-                    showLogo={true}
-                    logo="/ozlogo.png"
-                    logoAlt="OZ Tech"
-                    baseColor="#021f0d"
-                    pillColor="#5df3c2"
-                    hoverPillBgColor="#5df3c2"
-                    hoveredPillTextColor="#021f0d"
-                    pillTextColor="#5df3c2"
-                    className="gap-2"
-                    initialLoadAnimation={false}
-                  />
-                </div>
-              </div>
-              <div className="md:hidden flex items-center pointer-events-auto">
-                <StaggeredMenu
-                  isFixed={true}
-                  position="right"
-                  activeLink={activeSection}
-                  items={sections.map((s) => ({
-                    label: s.label,
-                    ariaLabel: s.label,
-                    link: `#${s.id}`,
-                  }))}
-                  colors={["#021f0d", "#006c40", "#5df3c2"]}
-                  accentColor="#5df3c2"
-                  menuButtonColor="#006c40"
-                />
-              </div>
-            </div>
-          </header>
-
           <main className="relative">
-            {/* Hero Section */}
+            {/* Hero Section — CCD: No nav, absolute focus on conversion */}
             <section
               id="hero"
-              className="px-6 md:px-10 pt-24 pb-16 md:pt-32 md:pb-24 min-h-screen flex flex-col justify-center relative overflow-hidden bg-[#f9fafb] oz-maze-overlay oz-hero-magic oz-hero-bg"
+              className="px-6 md:px-10 pt-16 pb-12 md:pt-24 md:pb-20 min-h-screen flex flex-col justify-center relative overflow-hidden bg-[#f9fafb] oz-maze-overlay oz-hero-magic oz-hero-bg"
             >
               <div className="relative z-10 max-w-7xl mx-auto w-full">
+                {/* Minimal brand mark — no nav, just logo */}
+                <div className="flex items-center gap-3 mb-10 md:mb-16">
+                  <Image src="/ozlogo.png" alt="OZ Tech" width={36} height={36} className="rounded-lg" />
+                  <span className="text-sm font-black uppercase tracking-[0.3em] text-[#006c40]">OZ Tech</span>
+                </div>
+
                 <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-20 items-center">
-                  <div className="space-y-10">
-                    <motion.div
-                      initial="hidden"
-                      animate="visible"
-                      variants={{
-                        visible: { transition: { staggerChildren: 0.12 } },
-                      }}
-                    >
-                      <motion.h1 
-                        variants={{
-                          hidden: { opacity: 0, y: 20 },
-                          visible: { opacity: 1, y: 0 }
-                        }}
-                        className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-black text-[#021f0d] leading-[0.95] tracking-tighter uppercase oz-gold-line"
-                      >
+                  <div className="space-y-8">
+                    <div>
+                      {/* Fundraise badge — CCD: surface the core pitch immediately */}
+                      <div>
+                        <span className="inline-flex items-center gap-2 rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-5 py-2 text-xs font-black uppercase tracking-[0.3em] text-[#006c40]">
+                          <span className="w-2 h-2 rounded-full bg-[#5df3c2] animate-pulse" />
+                          {heroContent.statement?.split(".")[0] || "Raising $100,000 to scale"}
+                        </span>
+                      </div>
+
+                      <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-black text-[#021f0d] leading-[0.95] tracking-tighter uppercase oz-gold-line">
                         We're Pulling Back the{" "}
                         <span className="text-[#006c40] bg-clip-text text-transparent bg-linear-to-r from-[#006c40] to-[#5df3c2] oz-hero-aurora">
                           Curtain
                         </span>{" "}
                         on Software
-                      </motion.h1>
+                      </h1>
                       
-                      <motion.p 
-                        variants={{
-                          hidden: { opacity: 0, y: 20 },
-                          visible: { opacity: 1, y: 0 }
-                        }}
-                        className="mt-8 text-xl md:text-2xl text-[#021f0d]/80 max-w-2xl leading-relaxed font-medium"
-                      >
+                      <p className="mt-6 text-xl md:text-2xl text-[#021f0d]/80 max-w-2xl leading-relaxed font-medium">
                         {heroContent.subheadline}
-                      </motion.p>
+                      </p>
                       
-                      <motion.div 
-                        variants={{
-                          hidden: { opacity: 0, scale: 0.95 },
-                          visible: { opacity: 1, scale: 1 }
-                        }}
-                        className="mt-12 flex flex-col sm:flex-row items-center gap-8"
-                      >
+                      {/* CCD: Encapsulated CTA zone with visual boundary */}
+                      <div className="mt-10 p-6 md:p-8 rounded-[32px] bg-white/60 backdrop-blur-sm border-2 border-[#006c40]/10 shadow-[0_20px_60px_-20px_rgba(2,31,13,0.12)] oz-cta-encapsulation">
                         <a
                           href="#application"
-                          className="oz-btn-primary w-full sm:w-auto min-w-[280px] shadow-2xl hover:shadow-[#effc5f]/40"
+                          className="oz-btn-primary w-full sm:w-auto min-w-[280px] shadow-2xl hover:shadow-[#effc5f]/40 text-lg flex items-center justify-center gap-3"
                         >
                           {heroContent.cta}
+                          <ArrowRight size={20} strokeWidth={3} />
                         </a>
-                        <div className="flex flex-col">
-                          <p className="text-[#006c40] font-black text-lg tracking-tight uppercase">
-                            Investor Trust Proof
-                          </p>
-                          <div className="flex gap-4 mt-1">
-                            <div className="flex -space-x-2">
-                              {[1,2,3,4].map(i => (
-                                <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
-                                  <div className="w-full h-full bg-linear-to-br from-[#006c40] to-[#5df3c2] opacity-40" />
-                                </div>
-                              ))}
-                            </div>
-                            <p className="text-xs font-bold text-[#021f0d]/60 leading-none flex items-center uppercase tracking-widest">
-                              100+ Projects <br/> Delivered
-                            </p>
+                        {/* Trust proof — below CTA, not competing beside it */}
+                        <div className="mt-5 flex items-center gap-4">
+                          <div className="flex -space-x-2">
+                            {[1,2,3,4].map(i => (
+                              <div key={i} className="w-7 h-7 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+                                <div className="w-full h-full bg-linear-to-br from-[#006c40] to-[#5df3c2] opacity-40" />
+                              </div>
+                            ))}
                           </div>
+                          <p className="text-xs font-bold text-[#021f0d]/50 uppercase tracking-widest">
+                            100+ Projects Delivered · $100M+ Revenue Generated
+                          </p>
                         </div>
-                      </motion.div>
-                    </motion.div>
+                      </div>
+                    </div>
 
-                    {/* Value Prop Animated Stats Section */}
-                    <div className="pt-8 border-t border-[#021f0d]/5 grid grid-cols-2 md:grid-cols-3 gap-8">
+                    {/* Value Prop Stats — hidden on mobile for above-the-fold CTA */}
+                    <div className="hidden md:grid pt-8 border-t border-[#021f0d]/5 grid-cols-3 gap-8">
                       <div>
                         <div className="text-3xl md:text-4xl font-black text-[#006c40] tracking-tighter flex items-baseline">
                           <StatCounter value={100} suffix="+" />
@@ -355,7 +242,7 @@ export default function Home() {
                           Revenue Generated
                         </p>
                       </div>
-                      <div className="hidden md:block">
+                      <div>
                         <div className="text-3xl md:text-4xl font-black text-[#006c40] tracking-tighter flex items-baseline">
                           <StatCounter value={4} suffix=" Wks" />
                         </div>
@@ -366,12 +253,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8, x: 20 }}
-                    animate={{ opacity: 1, scale: 1, x: 0 }}
-                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[60px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(2,31,13,0.3)] border-[16px] border-white oz-frame oz-skew-frame"
-                  >
+                  <div className="hidden md:block relative aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[60px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(2,31,13,0.3)] border-[16px] border-white oz-frame oz-skew-frame">
                     <Image
                       src="/software-team.jpg"
                       alt="The OZ Tech Team"
@@ -383,14 +265,21 @@ export default function Home() {
                       <div className="p-4 md:p-6 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
                         <div className="flex items-center gap-3 mb-2">
                            <div className="w-2 h-2 rounded-full bg-[#5df3c2] animate-pulse" />
-                           <p className="text-xs md:text-sm font-bold text-white uppercase tracking-widest">The Asset Engine</p>
+                           <p className="text-xs md:text-sm font-bold text-white uppercase tracking-widest">The OZ Tech Team</p>
                         </div>
                         <p className="text-lg md:text-xl text-white font-black leading-tight uppercase tracking-tighter">
-                          Building <span className="text-[#5df3c2]">Digital Sovereignty</span> <br/> For Market Leaders.
+                          Building <span className="text-[#5df3c2]">Digital Sovereignty</span>
                         </p>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
+                </div>
+
+                {/* Directional cue — CCD: guide eye toward content below */}
+                <div className="flex justify-center mt-12 md:mt-16">
+                  <a href="#truth" className="oz-scroll-cue">
+                    <ChevronDown size={28} strokeWidth={2} className="text-[#006c40]/40 animate-bounce" />
+                  </a>
                 </div>
               </div>
             </section>
