@@ -15,40 +15,47 @@ export default function OpportunitySection() {
   return (
     <section
       id="opportunity"
-      className="px-6 md:px-10 py-16 md:py-20 min-h-screen flex items-center justify-center bg-white relative overflow-hidden"
+      className="px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-white relative overflow-hidden"
     >
       <div className="max-w-5xl mx-auto w-full text-center">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-6 py-2 text-xs font-black uppercase tracking-[0.4em] text-[#006c40] mb-12"
+          className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#006c40] mb-6 md:mb-10"
         >
           The Market Gap
         </motion.div>
 
-        <ScrollFloat className="text-[#021f0d] text-center" textSize="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-black tracking-tighter leading-none uppercase">
+        <ScrollFloat className="text-[#021f0d] text-center" textSize="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-none uppercase">
           {opportunity.headline}
         </ScrollFloat>
 
-        <div className="mt-16 grid md:grid-cols-3 gap-8 text-left">
+        <div className="mt-8 md:mt-10 grid md:grid-cols-3 gap-4 md:gap-7 text-left">
           {opportunity.pillars.map((pillar, i) => (
             <motion.div
               key={pillar.title}
               {...cardMotion}
               transition={{ ...cardMotion.transition, delay: i * 0.1 }}
-              className="p-8 md:p-10 rounded-[40px] bg-[#f9fafb] border-2 border-[#021f0d]/5 shadow-lg hover:border-[#006c40]/20 transition-all"
+              className="p-4 md:p-7 rounded-3xl bg-[#f9fafb] border-2 border-[#021f0d]/5 shadow-lg hover:border-[#006c40]/20 transition-all"
             >
-              <span className="w-10 h-10 rounded-xl bg-[#5df3c2]/20 text-[#006c40] flex items-center justify-center font-black mb-6 text-sm">0{i+1}</span>
-              <h4 className="text-xl font-heading font-black text-[#021f0d] uppercase tracking-tighter mb-3">{pillar.title}</h4>
-              <p className="text-base text-[#021f0d]/60 font-medium leading-relaxed">{pillar.description}</p>
+              <span className="w-8 h-8 rounded-xl bg-[#5df3c2]/20 text-[#006c40] flex items-center justify-center font-black mb-3 text-xs">0{i+1}</span>
+              <h4 className="text-base md:text-xl font-heading font-black text-[#021f0d] uppercase tracking-tighter mb-2">{pillar.title}</h4>
+              <p className="text-xs md:text-base text-[#021f0d]/60 font-medium leading-relaxed">{pillar.description}</p>
             </motion.div>
           ))}
         </div>
 
-        <div className="mt-12 flex flex-wrap gap-3 justify-center">
-          {opportunity.advantages.slice(0, 5).map((adv) => (
-            <span key={adv} className="px-5 py-2.5 rounded-2xl bg-[#021f0d] text-white font-bold text-xs uppercase tracking-widest shadow-lg">
+        <div className="mt-6 md:mt-11 flex flex-wrap gap-2 md:gap-3 justify-center">
+          {opportunity.advantages
+            .filter(
+              (adv) =>
+                adv !== "System: Proven 9-step method (not custom chaos every time)" &&
+                adv !== "Integrity: We pull back the curtain (industry mystifies)"
+            )
+            .slice(0, 5)
+            .map((adv) => (
+            <span key={adv} className="px-3 md:px-5 py-2 rounded-xl md:rounded-2xl bg-[#021f0d] text-white font-bold text-[10px] md:text-xs uppercase tracking-wide md:tracking-widest shadow-lg">
               {adv}
             </span>
           ))}

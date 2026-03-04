@@ -11,17 +11,17 @@ export default function FaqSection() {
   return (
     <section
       id="faq"
-      className="px-6 md:px-10 py-16 md:py-20 min-h-screen flex items-center justify-center bg-[#f9fafb]"
+      className="px-6 md:px-10 py-12 md:py-16 min-h-screen bg-[#f9fafb]"
     >
       <div className="max-w-3xl mx-auto w-full text-center">
         <ScrollReveal
           textClassName="text-[#021f0d] text-center"
-          textSize="text-4xl sm:text-6xl md:text-7xl font-heading font-black tracking-tighter leading-[0.95] uppercase"
+          textSize="text-3xl sm:text-5xl md:text-6xl font-heading font-black tracking-tighter leading-[0.95] uppercase"
         >
           Addressing The Skeptics.
         </ScrollReveal>
 
-        <div className="mt-16 space-y-4 text-left">
+        <div className="mt-8 md:mt-10 space-y-3 text-left">
           {faqs.map((faq, i) => (
             <motion.div
               key={i}
@@ -32,17 +32,17 @@ export default function FaqSection() {
             >
               <button
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className={`w-full text-left p-8 rounded-[32px] border-2 transition-all ${
+                className={`w-full text-left p-4 md:p-6 rounded-2xl md:rounded-[32px] border-2 transition-all ${
                   openFaq === i
                     ? "bg-white border-[#5df3c2] shadow-xl"
                     : "bg-white border-[#021f0d]/5 hover:border-[#006c40]/20"
                 }`}
               >
                 <div className="flex justify-between items-center w-full gap-4">
-                  <h3 className="text-xl md:text-2xl font-heading font-black uppercase tracking-tighter text-[#021f0d]">
+                  <h3 className="text-sm md:text-xl font-heading font-black uppercase tracking-tighter text-[#021f0d]">
                     {faq.q}
                   </h3>
-                  <span className={`text-3xl font-black transition-transform duration-500 shrink-0 ${openFaq === i ? 'rotate-45 text-[#5df3c2]' : 'text-[#021f0d]/20'}`}>
+                  <span className={`text-xl md:text-3xl font-black transition-transform duration-500 shrink-0 ${openFaq === i ? 'rotate-45 text-[#5df3c2]' : 'text-[#021f0d]/20'}`}>
                     +
                   </span>
                 </div>
@@ -50,9 +50,9 @@ export default function FaqSection() {
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
-                    className="overflow-hidden mt-6"
+                    className="overflow-hidden mt-3 md:mt-5"
                   >
-                    <p className="text-lg text-[#021f0d]/60 leading-relaxed font-medium">
+                    <p className="text-xs md:text-base text-[#021f0d]/60 leading-relaxed font-medium">
                       {faq.a}
                     </p>
                   </motion.div>
