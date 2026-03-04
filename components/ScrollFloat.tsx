@@ -26,11 +26,11 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
   className = '',
   containerClassName = '',
   textClassName = '',
-  animationDuration = 1,
+  animationDuration = 0.5,
   ease = 'back.inOut(2)',
   scrollStart = 'center bottom+=50%',
   scrollEnd = 'bottom bottom-=40%',
-  stagger = 0.03,
+  stagger = 0.015,
   textSize = 'text-[clamp(2rem,4.8vw,3.75rem)]',
   lineHeight = 'leading-[1.2]',
   margin = 'my-5'
@@ -68,9 +68,9 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
       {
         willChange: 'opacity, transform',
         opacity: 0,
-        yPercent: 120,
-        scaleY: 2.3,
-        scaleX: 0.7,
+        yPercent: 60,
+        scaleY: 1.5,
+        scaleX: 0.85,
         transformOrigin: '50% 0%'
       },
       {

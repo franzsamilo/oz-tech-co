@@ -79,16 +79,16 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
       wordElements,
       { 
         opacity: 0, 
-        y: 20, 
+        y: 10, 
         filter: enableBlur ? `blur(${blurStrength}px)` : 'none' 
       },
       {
         opacity: 1,
         y: 0,
         filter: 'blur(0px)',
-        duration: 0.8,
-        ease: 'power3.out',
-        stagger: 0.05,
+        duration: 0.4,
+        ease: 'power2.out',
+        stagger: 0.02,
         scrollTrigger: {
           trigger: el,
           scroller,
