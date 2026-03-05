@@ -6,10 +6,12 @@ import InvestmentForm from "@/components/InvestmentForm";
 
 export default function ApplicationSection() {
   const [showForm, setShowForm] = useState(false);
+  const [activePath, setActivePath] = useState<"form" | "calendar">("form");
   const formRef = useRef<HTMLDivElement | null>(null);
 
   const handleStartIntake = () => {
     setShowForm(true);
+    setActivePath("form");
     setTimeout(() => {
       formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
@@ -60,9 +62,56 @@ export default function ApplicationSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="mt-8 md:mt-10 p-6 md:p-10 rounded-3xl md:rounded-[40px] bg-white text-[#021f0d] shadow-2xl text-left"
+            className="mt-8 md:mt-10 p-4 md:p-6 rounded-3xl md:rounded-[40px] bg-white text-[#021f0d] shadow-2xl text-left"
           >
-            <InvestmentForm />
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+              <div>
+                <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-[#006c40]">
+                  Choose Your Path
+                </p>
+                <p className="text-sm md:text-base text-[#021f0d]/70 font-medium">
+                  Complete the form or book a call directly.
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setActivePath("form")}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border transition-all ${
+                    activePath === "form"
+                      ? "bg-[#021f0d] text-white border-[#021f0d]"
+                      : "bg-white text-[#021f0d] border-[#d4dce6]/60"
+                  }`}
+                >
+                  Form
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActivePath("calendar")}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border transition-all ${
+                    activePath === "calendar"
+                      ? "bg-[#021f0d] text-white border-[#021f0d]"
+                      : "bg-white text-[#021f0d] border-[#d4dce6]/60"
+                  }`}
+                >
+                  Calendar
+                </button>
+              </div>
+            </div>
+
+            {activePath === "form" ? (
+              <InvestmentForm />
+            ) : (
+              <div className="rounded-2xl border border-[#d4dce6]/60 bg-[#f9fafb] p-6 text-center">
+                <p className="text-sm font-bold text-[#021f0d]/70">
+                  GHL Calendar Embed Placeholder
+                </p>
+                <p className="text-xs text-[#021f0d]/50 mt-2">
+                  Drop in the GHL calendar embed snippet when ready.
+                </p>
+                <div className="mt-4 h-[320px] rounded-xl border-2 border-dashed border-[#d4dce6]/60 bg-white/60" />
+              </div>
+            )}
           </motion.div>
         )}
       </div>

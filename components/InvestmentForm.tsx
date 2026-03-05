@@ -21,10 +21,53 @@ interface AppSection {
 
 export default function InvestmentForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    const form = e.currentTarget as HTMLFormElement;
+    const formData = new FormData(form);
+    const entries = Object.fromEntries(formData.entries());
+
+    const payload = {
+      firstName: (entries.fullName as string | undefined)?.split(" ")[0] || "",
+      lastName:
+        (entries.fullName as string | undefined)?.split(" ").slice(1).join(" ") || "",
+      email: entries.email || "",
+      phone: entries.phone || "",
+      source: entries.source || "Landing Page",
+      tags: ["OZ Tech Seed Round", "Investor Intake"],
+      customFields: entries,
+    };
+
+    const baseUrl = process.env.NEXT_PUBLIC_GHL_BASE_URL;
+    const locationId = process.env.NEXT_PUBLIC_GHL_LOCATION_ID;
+    const apiKey = process.env.NEXT_PUBLIC_GHL_API_KEY;
+
+    if (!baseUrl || !locationId || !apiKey) {
+      console.warn("GHL env vars missing; skipping lead POST.");
+      setSubmitted(true);
+      setSubmitting(false);
+      return;
+    }
+
+    try {
+      await fetch(`${baseUrl}/contacts/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({ locationId, ...payload }),
+      });
+      setSubmitted(true);
+    } catch (error) {
+      console.error("GHL lead capture failed:", error);
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const sections = applicationFields as unknown as AppSection[];
@@ -138,9 +181,10 @@ export default function InvestmentForm() {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         type="submit"
-        className="w-full h-20 rounded-[32px] bg-[#effc5f] text-[#021f0d] text-xl font-heading font-black uppercase tracking-widest shadow-2xl hover:bg-[#d7e851] transition-all flex items-center justify-center gap-4 oz-button-glow"
+        disabled={submitting}
+        className="w-full h-20 rounded-[32px] bg-[#effc5f] text-[#021f0d] text-xl font-heading font-black uppercase tracking-widest shadow-2xl hover:bg-[#d7e851] transition-all flex items-center justify-center gap-4 oz-button-glow disabled:opacity-60"
       >
-        Submit Initial Application <span className="text-2xl">→</span>
+        {submitting ? "Submitting..." : "Submit Initial Application"} <span className="text-2xl">→</span>
       </motion.button>
     </form>
   );

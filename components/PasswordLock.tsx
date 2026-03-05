@@ -100,6 +100,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
                   className="w-full h-14 rounded-2xl border border-white/10 bg-white/5 px-12 text-center text-white font-mono tracking-[0.3em] placeholder:text-white/20 placeholder:font-sans placeholder:tracking-normal focus:border-[#5df3c2]/60 focus:outline-none transition-all"
                   placeholder="CODE"
                   autoComplete="current-password"
+                  suppressHydrationWarning
                 />
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
               </div>
@@ -120,6 +121,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
             <button
               type="submit"
               className="group relative w-full h-14 rounded-2xl bg-[#effc5f] text-[#021f0d] font-bold uppercase tracking-[0.2em] text-xs transition-all hover:bg-[#d7e851] active:scale-[0.98] shadow-[0_10px_30px_rgba(239,252,95,0.25)] overflow-hidden oz-button-glow"
+              suppressHydrationWarning
             >
               <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <span className="relative flex items-center justify-center gap-2">
