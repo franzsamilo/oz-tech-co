@@ -41,7 +41,7 @@ export default function VisionSection() {
           <motion.div {...cardMotion} className="p-5 md:p-8 rounded-3xl bg-[#021f0d] text-white shadow-2xl oz-emerald-card">
             <h3 className="text-lg md:text-2xl font-heading font-black text-[#5df3c2] uppercase tracking-tighter leading-none mb-4 md:mb-6">The SaaS Renting Trap</h3>
             <div className="space-y-2 md:space-y-4">
-              {visionSection.renting.slice(0, 2).map((item) => (
+              {visionSection.renting.map((item) => (
                 <div key={item} className="flex gap-3 items-start">
                   <span className="w-5 h-5 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">✕</span>
                   <p className="text-sm md:text-base font-medium text-white/80">{item}</p>
@@ -53,7 +53,7 @@ export default function VisionSection() {
           <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.1 }} className="p-5 md:p-8 rounded-3xl bg-white border-2 border-[#006c40]/20 shadow-2xl">
             <h3 className="text-lg md:text-2xl font-heading font-black text-[#006c40] uppercase tracking-tighter leading-none mb-4 md:mb-6">Our Approach</h3>
             <div className="space-y-2 md:space-y-4">
-              {visionSection.approach.slice(0, 2).map((item) => (
+              {visionSection.approach.map((item) => (
                 <div key={item} className="flex gap-3 items-start">
                   <span className="w-5 h-5 rounded-full bg-[#5df3c2] text-[#006c40] flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">✓</span>
                   <p className="text-sm md:text-base font-black text-[#006c40]">{item}</p>

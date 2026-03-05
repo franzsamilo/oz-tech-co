@@ -23,22 +23,22 @@ export default function SocialProofSection() {
           </span>
         </motion.div>
 
-        <div className="grid grid-cols-3 gap-3 md:gap-8">
-          <motion.div {...cardMotion} className="p-4 sm:p-6 md:p-10 rounded-3xl md:rounded-[40px] bg-white border-2 border-[#021f0d]/5 shadow-xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
+          <motion.div {...cardMotion} className="p-4 sm:p-6 md:p-8 rounded-3xl md:rounded-[36px] bg-white border-2 border-[#021f0d]/5 shadow-xl">
             <div className="text-4xl sm:text-5xl md:text-7xl font-heading font-black text-[#021f0d] tracking-tighter leading-none">
               <StatCounter value={100} suffix="+" />
             </div>
             <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-[#006c40] mt-3 md:mt-4">Projects Delivered</p>
           </motion.div>
 
-          <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.1 }} className="p-4 sm:p-6 md:p-10 rounded-3xl md:rounded-[40px] bg-[#021f0d] text-white shadow-2xl oz-emerald-card">
+          <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.1 }} className="p-4 sm:p-6 md:p-8 rounded-3xl md:rounded-[36px] bg-[#021f0d] text-white shadow-2xl oz-emerald-card">
             <div className="text-4xl sm:text-5xl md:text-7xl font-heading font-black tracking-tighter leading-none">
               <StatCounter value={100} suffix="M+" className="text-white" />
             </div>
             <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-[#5df3c2] mt-3 md:mt-4">Revenue Generated</p>
           </motion.div>
 
-          <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.2 }} className="p-4 sm:p-6 md:p-10 rounded-3xl md:rounded-[40px] bg-red-500 text-white shadow-[0_20px_50px_-10px_rgba(239,68,68,0.3)] relative overflow-hidden">
+          <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.2 }} className="p-4 sm:p-6 md:p-8 rounded-3xl md:rounded-[36px] bg-red-500 text-white shadow-[0_20px_50px_-10px_rgba(239,68,68,0.3)] relative overflow-hidden">
             <div className="absolute inset-0 bg-linear-to-br from-red-600 to-red-400 opacity-50" />
             <div className="relative z-10">
               <p className="text-4xl sm:text-5xl md:text-7xl font-heading font-black tracking-tighter leading-none uppercase">Zero</p>

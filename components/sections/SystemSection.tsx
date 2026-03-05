@@ -43,7 +43,7 @@ export default function SystemSection() {
               </span>
               <h3 className="text-base md:text-xl font-heading font-black uppercase tracking-tighter text-white group-hover:text-[#5df3c2] transition-colors mb-2 md:mb-3">{stage.title}</h3>
               <div className="space-y-2">
-                {stage.steps.slice(0, 2).map((step) => (
+                {stage.steps.map((step) => (
                   <p key={step.title} className="text-xs md:text-sm text-white/60 font-medium leading-relaxed">
                     <span className="text-[#5df3c2] font-bold">{step.title.replace(/Step \d+: /, '')}</span> — {step.detail.split('.')[0]}.
                   </p>

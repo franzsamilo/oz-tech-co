@@ -8,7 +8,7 @@ export default function RisksSection() {
   return (
     <section
       id="risks"
-      className="px-6 md:px-10 py-6 md:py-8 section-viewport flex items-center justify-center bg-[#021f0d] text-white relative overflow-hidden"
+      className="px-6 md:px-10 py-5 md:py-8 section-viewport flex items-center justify-center bg-[#021f0d] text-white relative overflow-hidden"
     >
       <div className="max-w-5xl mx-auto w-full text-center">
         <motion.div
@@ -22,7 +22,7 @@ export default function RisksSection() {
           The Risk Realities
         </ScrollFloat>
 
-        <div className="mt-6 md:mt-8 grid md:grid-cols-2 gap-3 md:gap-4 text-left">
+        <div className="mt-5 md:mt-8 grid md:grid-cols-2 gap-3 md:gap-4 text-left">
           {(risks as any[]).map((risk, i) => (
             <motion.div
               key={risk.category}

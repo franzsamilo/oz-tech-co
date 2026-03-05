@@ -38,7 +38,7 @@ export default function TruthSection() {
         </ScrollFloat>
 
         <div className="mt-8 md:mt-10 grid sm:grid-cols-2 gap-4 md:gap-6 text-left">
-          {truthSection.bullets.slice(0, 2).map((b, i) => (
+          {truthSection.bullets.map((b, i) => (
             <motion.div
               key={b}
               initial={{ opacity: 0, y: 20 }}

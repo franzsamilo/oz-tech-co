@@ -22,13 +22,13 @@ export default function InvestorsSection() {
           {investors.headline}
         </ScrollFloat>
 
-        <div className="mt-8 md:mt-10 grid md:grid-cols-3 gap-4 md:gap-6 text-left">
-          {investors.want.slice(0, 3).map((profile, i) => (
+        <div className="mt-8 md:mt-10 grid gap-4 md:flex md:flex-wrap md:justify-center md:gap-6 text-left">
+          {investors.want.map((profile, i) => (
             <motion.div
               key={profile.title}
               {...cardMotion}
               transition={{ ...cardMotion.transition, delay: i * 0.1 }}
-              className="p-4 md:p-7 rounded-3xl md:rounded-[38px] bg-white border-2 border-[#021f0d]/5 shadow-lg hover:border-[#006c40]/20 transition-all group"
+              className="p-4 md:p-7 rounded-3xl md:rounded-[38px] bg-white border-2 border-[#021f0d]/5 shadow-lg hover:border-[#006c40]/20 transition-all group md:w-[300px] lg:w-[320px]"
             >
               <span className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-[#5df3c2]/20 text-[#006c40] flex items-center justify-center font-black mb-3 md:mb-6 text-xs md:text-sm">0{i+1}</span>
               <h4 className="text-base md:text-xl font-heading font-black text-[#021f0d] uppercase tracking-tighter mb-2 md:mb-3 group-hover:text-[#006c40] transition-colors">{profile.title}</h4>

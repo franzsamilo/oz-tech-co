@@ -53,7 +53,6 @@ export default function OpportunitySection() {
                 adv !== "System: Proven 9-step method (not custom chaos every time)" &&
                 adv !== "Integrity: We pull back the curtain (industry mystifies)"
             )
-            .slice(0, 5)
             .map((adv) => (
             <span key={adv} className="px-3 md:px-5 py-2 rounded-xl md:rounded-2xl bg-[#021f0d] text-white font-bold text-[10px] md:text-xs uppercase tracking-wide md:tracking-widest shadow-lg">
               {adv}

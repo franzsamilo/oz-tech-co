@@ -12,8 +12,8 @@ export default function Footer() {
         &quot;We don&apos;t build software for rent. We engineer assets for ownership.&quot;
       </p>
       <div className="flex gap-8 mb-8">
-        <Link href="/" className="text-[10px] font-black uppercase tracking-widest text-[#021f0d]/40 hover:text-[#006c40] transition-colors">Home</Link>
-        <Link href="/team" className="text-[10px] font-black uppercase tracking-widest text-[#021f0d]/40 hover:text-[#006c40] transition-colors">The Team</Link>
+        <Link href="/" className="hidden md:inline text-[10px] font-black uppercase tracking-widest text-[#021f0d]/40 hover:text-[#006c40] transition-colors">Home</Link>
+        <Link href="/team" className="hidden md:inline text-[10px] font-black uppercase tracking-widest text-[#021f0d]/40 hover:text-[#006c40] transition-colors">The Team</Link>
         <a href="#application" className="text-[10px] font-black uppercase tracking-widest text-[#021f0d]/40 hover:text-[#006c40] transition-colors">Back the Machine</a>
       </div>
       <div className="text-[10px] font-black uppercase tracking-widest text-[#021f0d]/20">

@@ -72,7 +72,7 @@ export default function CaseStudiesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className={`${idx === 1 ? "hidden md:block" : ""} p-5 md:p-8 rounded-3xl md:rounded-[40px] bg-[#021f0d] text-white shadow-2xl relative overflow-hidden oz-emerald-card`}
+              className={`${idx === 1 ? "hidden md:block" : ""} p-4 md:p-7 rounded-3xl md:rounded-[36px] bg-[#021f0d] text-white shadow-2xl relative overflow-hidden oz-emerald-card`}
             >
               <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#5df3c2] mb-3 md:mb-4">
                 {study.client}
