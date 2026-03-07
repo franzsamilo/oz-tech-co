@@ -501,6 +501,26 @@ export const applicationFields = [
       options: ["Direct email", "Network referral", "LinkedIn post", "Twitter/X post", "Search engine", "Other"]
     }
   ]},
+  { section: "Consent & Privacy", fields: [
+    {
+      label: "Privacy Agreement*",
+      type: "checkbox-group",
+      name: "privacyConsent",
+      required: true,
+      options: [
+        "I agree to the Privacy Policy and Terms of Service, and consent to processing of my information for this application."
+      ]
+    },
+    {
+      label: "Promotional Consent (Optional)",
+      type: "checkbox",
+      name: "marketingConsent",
+      required: false,
+      options: [
+        "I agree to receive promotional updates and invitations from Oz Tech."
+      ]
+    }
+  ]},
   { section: "Legal Acknowledgment", fields: [
     {
       label: "I understand and acknowledge:*",

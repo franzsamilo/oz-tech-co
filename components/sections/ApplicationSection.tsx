@@ -3,15 +3,22 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import InvestmentForm from "@/components/InvestmentForm";
+import Script from "next/script";
 
 export default function ApplicationSection() {
   const [showForm, setShowForm] = useState(false);
   const [activePath, setActivePath] = useState<"form" | "calendar">("form");
+  const [showModal, setShowModal] = useState(false);
   const formRef = useRef<HTMLDivElement | null>(null);
 
   const handleStartIntake = () => {
+    setShowModal(true);
+  };
+
+  const handleSelectPath = (path: "form" | "calendar") => {
     setShowForm(true);
-    setActivePath("form");
+    setActivePath(path);
+    setShowModal(false);
     setTimeout(() => {
       formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
@@ -20,7 +27,7 @@ export default function ApplicationSection() {
   return (
     <section
       id="application"
-      className="px-6 md:px-10 py-12 md:py-16 min-h-screen bg-[#021f0d] text-white relative overflow-hidden"
+      className="px-6 md:px-10 py-12 md:py-16 min-h-screen bg-[#021f0d] text-white relative overflow-hidden oz-section-glow"
     >
       <div className="max-w-4xl mx-auto w-full relative z-10 text-center">
         <motion.div
@@ -55,6 +62,58 @@ export default function ApplicationSection() {
             Start Strategic Partner Intake
           </button>
         </div>
+
+        {showModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#021f0d]/80 backdrop-blur-sm px-6"
+            onClick={() => setShowModal(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.25 }}
+              className="w-full max-w-lg rounded-3xl bg-white text-[#021f0d] shadow-2xl p-6 md:p-8 text-left oz-glass-card oz-skew-frame oz-vine-border relative"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 w-10 h-10 rounded-full border border-[#d4dce6]/60 text-[#021f0d]/70 hover:text-[#021f0d] hover:border-[#006c40]/30 transition"
+                aria-label="Close modal"
+              >
+                ✕
+              </button>
+              <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-[#006c40] mb-3">
+                Quick Choice
+              </p>
+              <h3 className="text-2xl md:text-3xl font-heading font-black uppercase tracking-tighter mb-3">
+                Want to Book a Call Instead?
+              </h3>
+              <p className="text-sm md:text-base text-[#021f0d]/70 leading-relaxed mb-6">
+                If you’re ready to talk, book a call now. Prefer to qualify first? Continue to the intake form.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  type="button"
+                  onClick={() => handleSelectPath("calendar")}
+                  className="oz-btn-primary w-full justify-center text-xs md:text-sm"
+                >
+                  Book a Call
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSelectPath("form")}
+                  className="oz-btn-secondary w-full justify-center text-xs md:text-sm"
+                >
+                  Continue to Form
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
 
         {showForm && (
           <motion.div
@@ -102,14 +161,20 @@ export default function ApplicationSection() {
             {activePath === "form" ? (
               <InvestmentForm />
             ) : (
-              <div className="rounded-2xl border border-[#d4dce6]/60 bg-[#f9fafb] p-6 text-center">
-                <p className="text-sm font-bold text-[#021f0d]/70">
-                  GHL Calendar Embed Placeholder
-                </p>
-                <p className="text-xs text-[#021f0d]/50 mt-2">
-                  Drop in the GHL calendar embed snippet when ready.
-                </p>
-                <div className="mt-4 h-[320px] rounded-xl border-2 border-dashed border-[#d4dce6]/60 bg-white/60" />
+              <div className="rounded-2xl border border-[#d4dce6]/60 bg-[#f9fafb] p-4 md:p-6">
+                <div className="rounded-xl overflow-hidden border border-[#d4dce6]/60 bg-white">
+                  <iframe
+                    src="https://connect.civy.ph/widget/booking/6wcV7lvcjOxdBntDuIGj"
+                    style={{ width: "100%", border: "none", overflow: "hidden" }}
+                    scrolling="no"
+                    id="iOnZgkuDwzd0FqcU9roG_1772876686888"
+                    title="Book a call"
+                  />
+                </div>
+                <Script
+                  src="https://connect.civy.ph/js/form_embed.js"
+                  strategy="afterInteractive"
+                />
               </div>
             )}
           </motion.div>

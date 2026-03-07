@@ -23,6 +23,7 @@ import Footer from "@/components/sections/Footer";
 export default function Home() {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [renderRest, setRenderRest] = useState(false);
+  const [showEntrance, setShowEntrance] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem("oztech_seed_access");
@@ -35,12 +36,32 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, [isUnlocked]);
 
+  useEffect(() => {
+    if (!isUnlocked) return;
+    const firstVisitKey = "oztech_first_visit_done";
+    const stored = localStorage.getItem(firstVisitKey);
+    if (stored === "true") return;
+    setShowEntrance(true);
+    localStorage.setItem(firstVisitKey, "true");
+    const timer = setTimeout(() => setShowEntrance(false), 2200);
+    return () => clearTimeout(timer);
+  }, [isUnlocked]);
+
   return (
-    <div className="bg-[#f8fafc] text-[#021f0d] overflow-x-hidden">
+    <div className="bg-[#f8fafc] text-[#021f0d] overflow-x-hidden oz-landing-shell">
       <PasswordLock onUnlock={() => setIsUnlocked(true)} />
 
       {isUnlocked && (
         <div className="relative">
+          {showEntrance && (
+            <div className="oz-entrance-overlay">
+              <div className="oz-entrance-content">
+                <p className="oz-entrance-kicker">Welcome to Oz Tech</p>
+                <h2 className="oz-entrance-title">The Curtain Opens</h2>
+                <p className="oz-entrance-subtitle">Step into technology sovereignty.</p>
+              </div>
+            </div>
+          )}
           <main className="relative">
             <HeroSection />
             <SocialProofSection />

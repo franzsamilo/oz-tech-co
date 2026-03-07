@@ -22,10 +22,12 @@ interface AppSection {
 export default function InvestmentForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setSubmitError(null);
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
     const entries = Object.fromEntries(formData.entries());
@@ -41,30 +43,24 @@ export default function InvestmentForm() {
       customFields: entries,
     };
 
-    const baseUrl = process.env.NEXT_PUBLIC_GHL_BASE_URL;
-    const locationId = process.env.NEXT_PUBLIC_GHL_LOCATION_ID;
-    const apiKey = process.env.NEXT_PUBLIC_GHL_API_KEY;
-
-    if (!baseUrl || !locationId || !apiKey) {
-      console.warn("GHL env vars missing; skipping lead POST.");
-      setSubmitted(true);
-      setSubmitting(false);
-      return;
-    }
-
     try {
-      await fetch(`${baseUrl}/contacts/`, {
+      const response = await fetch("/api/ghl-contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
         },
-        body: JSON.stringify({ locationId, ...payload }),
+        body: JSON.stringify(payload),
       });
+      if (!response.ok) {
+        const errorText = await response.text();
+        setSubmitError("Submission failed. Please try again.");
+        console.error("GHL lead capture failed:", errorText);
+        return;
+      }
       setSubmitted(true);
     } catch (error) {
       console.error("GHL lead capture failed:", error);
-      setSubmitted(true);
+      setSubmitError("Submission failed. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -165,7 +161,13 @@ export default function InvestmentForm() {
                   <div className="space-y-3">
                     {field.options?.map((opt) => (
                       <label key={opt} className="flex items-start gap-4 p-4 rounded-xl border-2 border-[#d4dce6]/30 hover:border-[#006c40]/20 cursor-pointer transition-colors group">
-                        <input type="checkbox" required={field.required} className="mt-1 w-4 h-4 accent-[#006c40]" />
+                        <input
+                          type="checkbox"
+                          name={field.name}
+                          value={opt}
+                          required={field.required}
+                          className="mt-1 w-4 h-4 accent-[#006c40]"
+                        />
                         <span className="text-sm font-semibold text-[#021f0d]/70 group-hover:text-[#006c40]">{opt}</span>
                       </label>
                     ))}
@@ -186,6 +188,11 @@ export default function InvestmentForm() {
       >
         {submitting ? "Submitting..." : "Submit Initial Application"} <span className="text-2xl">→</span>
       </motion.button>
+      {submitError && (
+        <p className="text-sm text-red-600 font-semibold text-center">
+          {submitError}
+        </p>
+      )}
     </form>
   );
 }

@@ -8,9 +8,9 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="px-6 md:px-10 pt-5 md:pt-8 pb-8 md:pb-12 section-viewport flex flex-col items-center justify-center relative overflow-hidden bg-[#f9fafb] oz-maze-overlay oz-hero-magic oz-hero-bg"
+      className="px-6 md:px-10 pt-5 md:pt-8 pb-8 md:pb-12 section-viewport flex flex-col items-center justify-center relative overflow-hidden bg-[#f9fafb] oz-maze-overlay oz-hero-magic oz-hero-bg oz-hero-gradient"
     >
-      <div className="relative z-10 max-w-4xl mx-auto w-full flex flex-col items-center text-center">
+      <div className="relative z-10 max-w-4xl mx-auto w-full flex flex-col items-center text-center oz-hero-entrance">
         <div className="flex items-center gap-3 mb-4 md:mb-9">
           <Image src="/ozlogo.png" alt="OZ Tech" width={36} height={36} className="rounded-lg" />
           <span className="text-sm font-black uppercase tracking-[0.3em] text-[#006c40]">OZ Tech</span>
