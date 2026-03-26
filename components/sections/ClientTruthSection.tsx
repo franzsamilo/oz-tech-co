@@ -15,7 +15,7 @@ export default function ClientTruthSection() {
   return (
     <section
       id="client-truth"
-      className="px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#021f0d] text-white relative overflow-hidden oz-maze-overlay"
+      className="px-4 sm:px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#021f0d] text-white relative overflow-hidden oz-maze-overlay"
     >
       <div className="absolute top-0 left-0 w-full h-full bg-linear-to-b from-transparent via-[#021f0d]/50 to-[#021f0d] z-0" />
       <div className="relative z-10 max-w-5xl mx-auto w-full text-center">
@@ -25,14 +25,14 @@ export default function ClientTruthSection() {
           viewport={{ once: true }}
           className="mb-6 md:mb-10"
         >
-          <span className="inline-block rounded-full bg-[#5df3c2]/10 border border-[#5df3c2]/20 px-6 py-2 text-xs font-black uppercase tracking-[0.4em] text-[#5df3c2]">
+          <span className="inline-block rounded-full bg-[#5df3c2]/10 border border-[#5df3c2]/20 px-4 sm:px-6 py-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] sm:tracking-[0.4em] text-[#5df3c2] max-w-[95vw]">
             The Harsh Reality
           </span>
         </motion.div>
 
         <ScrollFloat
           textClassName="text-white text-center"
-          textSize="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter uppercase leading-[0.95]"
+          textSize="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter uppercase leading-[0.95] px-1"
         >
           {clientTruth.headline}
         </ScrollFloat>

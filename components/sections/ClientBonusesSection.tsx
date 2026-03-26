@@ -15,7 +15,7 @@ export default function ClientBonusesSection() {
   return (
     <section
       id="client-bonuses"
-      className="px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#021f0d] text-white relative overflow-hidden"
+      className="px-4 sm:px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#021f0d] text-white relative overflow-hidden"
     >
       <div className="relative z-10 max-w-6xl mx-auto w-full text-center">
         <span className="inline-block rounded-full bg-[#5df3c2]/10 border border-[#5df3c2]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#5df3c2] mb-6 md:mb-10">
@@ -23,7 +23,7 @@ export default function ClientBonusesSection() {
         </span>
         <ScrollFloat
           textClassName="text-white text-center"
-          textSize="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter uppercase leading-[0.95]"
+          textSize="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter uppercase leading-[0.95] px-1"
         >
           {clientBonuses.headline}
         </ScrollFloat>

@@ -15,7 +15,7 @@ export default function ClientGuaranteeSection() {
   return (
     <section
       id="client-guarantee"
-      className="px-6 md:px-10 py-5 md:py-8 section-viewport flex items-center justify-center bg-[#021f0d] text-white relative overflow-hidden oz-maze-overlay"
+      className="px-4 sm:px-6 md:px-10 py-5 md:py-8 section-viewport flex items-center justify-center bg-[#021f0d] text-white relative overflow-hidden oz-maze-overlay"
     >
       <div className="relative z-10 max-w-5xl mx-auto w-full text-center">
         <motion.div
@@ -28,7 +28,7 @@ export default function ClientGuaranteeSection() {
         </motion.div>
         <ScrollFloat
           textClassName="text-white text-center"
-          textSize="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter uppercase leading-[0.95]"
+          textSize="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter uppercase leading-[0.95] px-1"
         >
           {clientGuarantee.headline}
         </ScrollFloat>

@@ -15,7 +15,7 @@ export default function ClientFitSection() {
   return (
     <section
       id="client-fit"
-      className="px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#f9fafb]"
+      className="px-4 sm:px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#f9fafb]"
     >
       <div className="max-w-6xl mx-auto w-full text-center">
         <span className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#006c40] mb-6 md:mb-10">
@@ -23,7 +23,7 @@ export default function ClientFitSection() {
         </span>
         <ScrollFloat
           textClassName="text-[#021f0d] text-center"
-          textSize="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[0.95] uppercase"
+          textSize="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[0.95] uppercase px-1"
         >
           {clientFit.headline}
         </ScrollFloat>

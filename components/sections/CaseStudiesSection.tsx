@@ -40,10 +40,10 @@ export default function CaseStudiesSection() {
   return (
     <section
       id="proof"
-      className="px-6 md:px-10 py-10 md:py-12 min-h-screen section-viewport flex items-center justify-center bg-white relative overflow-hidden"
+      className="px-4 sm:px-6 md:px-10 py-8 sm:py-10 md:py-12 min-h-screen section-viewport flex items-center justify-center bg-white relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto w-full">
-        <div className="flex flex-col lg:flex-row lg:items-stretch gap-6 lg:gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-stretch gap-5 sm:gap-6 lg:gap-8">
           <div className="lg:w-[65%]">
             <div className="flex items-center justify-start gap-3 mb-4 md:mb-6">
               <span className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#006c40]">
@@ -58,7 +58,7 @@ export default function CaseStudiesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4 }}
-                className="rounded-3xl md:rounded-[36px] bg-[#021f0d] text-white shadow-2xl relative overflow-hidden oz-emerald-card h-[45vh] min-h-[320px] lg:h-[70vh]"
+                className="rounded-3xl md:rounded-[36px] bg-[#021f0d] text-white shadow-2xl relative overflow-hidden oz-emerald-card h-[42vh] min-h-[280px] sm:min-h-[320px] sm:h-[45vh] lg:h-[70vh]"
               >
                 {(study as any).url && iframeStatus[(study as any).url] !== "failed" && (
                   <div className="absolute inset-0">
@@ -108,7 +108,7 @@ export default function CaseStudiesSection() {
               <button
                 type="button"
                 onClick={goPrev}
-                className="inline-flex items-center gap-1.5 px-3 py-2 md:px-4 md:py-2 rounded-xl border border-[#021f0d]/15 text-xs md:text-sm font-bold text-[#021f0d]/70 hover:text-[#006c40] hover:border-[#006c40]/30 transition-colors"
+                className="inline-flex min-h-11 min-w-[5.5rem] items-center justify-center gap-1.5 px-4 py-2.5 md:px-4 md:py-2 rounded-xl border border-[#021f0d]/15 text-xs md:text-sm font-bold text-[#021f0d]/70 hover:text-[#006c40] hover:border-[#006c40]/30 transition-colors touch-manipulation"
                 aria-label="Previous case study"
               >
                 <ChevronLeft size={16} />
@@ -117,7 +117,7 @@ export default function CaseStudiesSection() {
               <button
                 type="button"
                 onClick={goNext}
-                className="inline-flex items-center gap-1.5 px-3 py-2 md:px-4 md:py-2 rounded-xl border border-[#021f0d]/15 text-xs md:text-sm font-bold text-[#021f0d]/70 hover:text-[#006c40] hover:border-[#006c40]/30 transition-colors"
+                className="inline-flex min-h-11 min-w-[5.5rem] items-center justify-center gap-1.5 px-4 py-2.5 md:px-4 md:py-2 rounded-xl border border-[#021f0d]/15 text-xs md:text-sm font-bold text-[#021f0d]/70 hover:text-[#006c40] hover:border-[#006c40]/30 transition-colors touch-manipulation"
                 aria-label="Next case study"
               >
                 Next
@@ -134,7 +134,7 @@ export default function CaseStudiesSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4 }}
-                className="bg-white rounded-3xl md:rounded-[32px] border border-[#d4dce6]/60 shadow-xl p-5 md:p-6"
+                className="bg-white rounded-3xl md:rounded-[32px] border border-[#d4dce6]/60 shadow-xl p-4 sm:p-5 md:p-6"
               >
                 <ScrollReveal
                   textClassName="text-[#021f0d]"
@@ -164,7 +164,7 @@ export default function CaseStudiesSection() {
                     href={(study as any).url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="oz-btn-primary w-full justify-center text-xs md:text-sm"
+                    className="oz-btn-primary w-full min-h-11 justify-center text-xs md:text-sm touch-manipulation"
                   >
                     View Live Project <ArrowRight size={16} strokeWidth={3} />
                   </a>

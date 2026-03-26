@@ -15,7 +15,7 @@ export default function ClientHowItWorksSection() {
   return (
     <section
       id="client-how"
-      className="px-6 md:px-10 py-10 md:py-14 section-viewport flex items-center justify-center bg-[#021f0d] text-white relative overflow-hidden"
+      className="px-4 sm:px-6 md:px-10 py-10 md:py-14 section-viewport flex items-center justify-center bg-[#021f0d] text-white relative overflow-hidden"
     >
       <div className="relative z-10 max-w-5xl mx-auto w-full text-center">
         <span className="inline-block rounded-full bg-[#5df3c2]/10 border border-[#5df3c2]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#5df3c2] mb-6 md:mb-10">
@@ -23,7 +23,7 @@ export default function ClientHowItWorksSection() {
         </span>
         <ScrollFloat
           textClassName="text-white text-center"
-          textSize="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter uppercase leading-[0.95]"
+          textSize="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter uppercase leading-[0.95] px-1"
         >
           {clientHowItWorks.headline}
         </ScrollFloat>
@@ -62,7 +62,7 @@ export default function ClientHowItWorksSection() {
             <p className="text-2xl sm:text-3xl md:text-4xl font-heading font-black tracking-tighter uppercase leading-none">
               Two Active Builds. Unlimited Queue. Ship Fast.
             </p>
-            <a href="#client-application" className="oz-btn-secondary mt-5 md:mt-8 px-6 md:px-10 text-sm md:text-lg inline-flex">
+            <a href="#application" className="oz-btn-secondary mt-5 md:mt-8 px-6 md:px-10 text-sm md:text-lg inline-flex min-h-11 items-center justify-center touch-manipulation w-full max-w-md mx-auto sm:w-auto">
               Request This Machine
             </a>
           </div>

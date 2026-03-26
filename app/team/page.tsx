@@ -241,13 +241,18 @@ export default function TeamPage() {
                 </div>
               </div>
 
-              <div className="pt-5 lg:pt-8 border-t border-white/10 flex flex-wrap gap-5 lg:gap-8 items-center pb-8 lg:pb-0">
-                <a href="/#application" className="oz-btn-primary px-6 lg:px-12 text-xs sm:text-sm lg:text-base group whitespace-nowrap">
-                  Back the Team <ArrowRight className="inline-block ml-2 lg:ml-4 group-hover:translate-x-2 transition-transform" />
+              <div className="pt-5 lg:pt-8 border-t border-white/10 flex flex-wrap gap-4 sm:gap-5 lg:gap-8 items-center pb-8 lg:pb-0">
+                <a href="/#application" className="oz-btn-primary px-6 lg:px-12 text-xs sm:text-sm lg:text-base group whitespace-nowrap min-h-11 inline-flex items-center justify-center touch-manipulation">
+                  Apply with Oz <ArrowRight className="inline-block ml-2 lg:ml-4 group-hover:translate-x-2 transition-transform" />
                 </a>
-                <Link href="/" className="text-white/40 hover:text-white font-black uppercase tracking-widest text-[10px] lg:text-xs transition-colors flex items-center gap-3 whitespace-nowrap">
-                  <ArrowLeft size={14} /> Back to Deck
-                </Link>
+                <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+                  <Link href="/" className="text-white/40 hover:text-white font-black uppercase tracking-widest text-[10px] lg:text-xs transition-colors flex items-center gap-3 whitespace-nowrap min-h-11 touch-manipulation">
+                    <ArrowLeft size={14} /> Back home
+                  </Link>
+                  <Link href="/invest" className="text-white/35 hover:text-[#5df3c2] font-black uppercase tracking-widest text-[10px] lg:text-xs transition-colors whitespace-nowrap min-h-11 inline-flex items-center touch-manipulation">
+                    Investor deck
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>

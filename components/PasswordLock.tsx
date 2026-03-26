@@ -45,7 +45,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
   if (isUnlocked) return null;
 
   return (
-    <div className="fixed inset-0 z-200 flex items-center justify-center bg-[#021f0d] px-4 overflow-hidden">
+    <div className="fixed inset-0 z-[9999] flex min-h-[100dvh] items-center justify-center bg-[#021f0d] px-4 py-6 overflow-y-auto overflow-x-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#006c40]/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#5df3c2]/10 rounded-full blur-[80px] pointer-events-none" />

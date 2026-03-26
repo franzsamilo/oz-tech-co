@@ -33,7 +33,7 @@ export default function ClientAudienceSection() {
   return (
     <section
       id="client-audience"
-      className="px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#f9fafb] relative overflow-hidden"
+      className="px-4 sm:px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#f9fafb] relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(93,243,194,0.12),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(239,252,95,0.12),transparent_32%)]" />
       <div className="max-w-5xl mx-auto w-full text-center">
@@ -42,7 +42,7 @@ export default function ClientAudienceSection() {
         </span>
         <ScrollFloat
           textClassName="text-[#021f0d] text-center"
-          textSize="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[0.95] uppercase"
+          textSize="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[0.95] uppercase px-1"
         >
           {clientAudience.headline}
         </ScrollFloat>
@@ -52,7 +52,7 @@ export default function ClientAudienceSection() {
           className="mt-6 md:mt-8 max-w-4xl mx-auto rounded-[32px] border border-[#006c40]/10 bg-white/85 backdrop-blur-sm shadow-xl overflow-hidden"
         >
           <div className="h-1.5 w-full bg-linear-to-r from-[#006c40] via-[#5df3c2] to-[#effc5f]" />
-          <div className="p-5 md:p-8">
+          <div className="p-4 sm:p-5 md:p-8">
             <p className="text-[11px] md:text-xs font-black uppercase tracking-[0.25em] text-[#006c40]/70">
               You already see the opportunity
             </p>
@@ -90,7 +90,7 @@ export default function ClientAudienceSection() {
 
         <motion.div
           {...cardMotion}
-          className="mt-8 md:mt-10 max-w-4xl mx-auto rounded-[32px] bg-[#021f0d] text-white p-6 md:p-8 shadow-2xl oz-emerald-card"
+          className="mt-8 md:mt-10 max-w-4xl mx-auto rounded-[28px] sm:rounded-[32px] bg-[#021f0d] text-white p-5 sm:p-6 md:p-8 shadow-2xl oz-emerald-card"
         >
           <p className="text-[11px] md:text-xs font-black uppercase tracking-[0.28em] text-[#5df3c2]">
             The real takeaway

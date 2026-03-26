@@ -76,7 +76,7 @@ export default function ClientApplicationForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-[40px] border-2 border-[#d4dce6]/60 bg-white p-10 md:p-14 shadow-2xl text-center oz-glass-card oz-skew-frame oz-vine-border">
+      <div className="rounded-[28px] sm:rounded-[40px] border-2 border-[#d4dce6]/60 bg-white p-6 sm:p-10 md:p-14 shadow-2xl text-center oz-glass-card oz-skew-frame oz-vine-border">
         <div className="w-20 h-20 bg-[#5df3c2]/15 rounded-full flex items-center justify-center mx-auto mb-8">
           <span className="text-4xl text-[#006c40]">✓</span>
         </div>
@@ -102,7 +102,7 @@ export default function ClientApplicationForm() {
             type="button"
             onClick={handlePrev}
             disabled={step === 0}
-            className="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border border-[#d4dce6]/60 text-[#021f0d]/70 disabled:opacity-40"
+            className="min-h-11 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border border-[#d4dce6]/60 text-[#021f0d]/70 disabled:opacity-40 touch-manipulation"
           >
             Back
           </button>
@@ -110,7 +110,7 @@ export default function ClientApplicationForm() {
             <button
               type="button"
               onClick={handleNext}
-              className="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border border-[#021f0d] bg-[#021f0d] text-white"
+              className="min-h-11 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border border-[#021f0d] bg-[#021f0d] text-white touch-manipulation"
             >
               Next
             </button>
@@ -125,13 +125,13 @@ export default function ClientApplicationForm() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: sIdx * 0.1 }}
           viewport={{ once: true }}
-          className="bg-white p-6 md:p-10 rounded-[32px] border-2 border-[#d4dce6]/60 shadow-xl oz-glass-card oz-skew-frame oz-vine-border"
+          className="bg-white p-4 sm:p-6 md:p-10 rounded-[28px] sm:rounded-[32px] border-2 border-[#d4dce6]/60 shadow-xl oz-glass-card oz-skew-frame oz-vine-border"
         >
           <div className="flex items-center gap-4 mb-6">
             <span className="w-10 h-10 rounded-xl bg-[#021f0d] text-white flex items-center justify-center font-bold">
               0{step + 1}
             </span>
-            <h3 className="text-2xl font-heading font-black text-[#021f0d] uppercase tracking-tighter">
+            <h3 className="text-lg sm:text-2xl font-heading font-black text-[#021f0d] uppercase tracking-tighter leading-tight">
               {section.section}
             </h3>
           </div>
@@ -149,7 +149,7 @@ export default function ClientApplicationForm() {
                     type={field.type}
                     name={field.name}
                     placeholder={field.placeholder || field.label}
-                    className="w-full h-14 rounded-xl border-2 border-[#d4dce6]/60 px-6 text-lg focus:border-[#006c40] focus:outline-none transition-colors"
+                    className="w-full h-12 sm:h-14 rounded-xl border-2 border-[#d4dce6]/60 px-4 sm:px-6 text-base sm:text-lg focus:border-[#006c40] focus:outline-none transition-colors"
                   />
                 )}
 
@@ -159,7 +159,7 @@ export default function ClientApplicationForm() {
                     name={field.name}
                     placeholder={field.placeholder}
                     rows={4}
-                    className="w-full rounded-xl border-2 border-[#d4dce6]/60 p-6 text-lg focus:border-[#006c40] focus:outline-none transition-colors"
+                    className="w-full rounded-xl border-2 border-[#d4dce6]/60 p-4 sm:p-6 text-base sm:text-lg focus:border-[#006c40] focus:outline-none transition-colors"
                   />
                 )}
 
@@ -168,7 +168,7 @@ export default function ClientApplicationForm() {
                     {field.options?.map((opt) => (
                       <label
                         key={opt}
-                        className="flex items-center gap-3 p-4 rounded-xl border-2 border-[#d4dce6]/30 hover:border-[#5df3c2]/40 cursor-pointer transition-colors group"
+                        className="flex min-h-12 items-center gap-3 p-3 sm:p-4 rounded-xl border-2 border-[#d4dce6]/30 hover:border-[#5df3c2]/40 cursor-pointer transition-colors group touch-manipulation"
                       >
                         <input
                           type="radio"
@@ -189,7 +189,7 @@ export default function ClientApplicationForm() {
                   <select
                     name={field.name}
                     required={field.required}
-                    className="w-full h-14 rounded-xl border-2 border-[#d4dce6]/60 px-6 text-lg focus:border-[#006c40] focus:outline-none bg-white"
+                    className="w-full h-12 sm:h-14 rounded-xl border-2 border-[#d4dce6]/60 px-4 sm:px-6 text-base sm:text-lg focus:border-[#006c40] focus:outline-none bg-white"
                   >
                     <option value="">Select option...</option>
                     {field.options?.map((opt) => (
@@ -205,7 +205,7 @@ export default function ClientApplicationForm() {
                     {field.options?.map((opt) => (
                       <label
                         key={opt}
-                        className="flex items-center gap-3 p-4 rounded-xl border-2 border-[#d4dce6]/30 hover:border-[#5df3c2]/40 cursor-pointer transition-colors group"
+                        className="flex min-h-12 items-center gap-3 p-3 sm:p-4 rounded-xl border-2 border-[#d4dce6]/30 hover:border-[#5df3c2]/40 cursor-pointer transition-colors group touch-manipulation"
                       >
                         <input
                           type="checkbox"
@@ -226,7 +226,7 @@ export default function ClientApplicationForm() {
                     {field.options?.map((opt) => (
                       <label
                         key={opt}
-                        className="flex items-start gap-4 p-4 rounded-xl border-2 border-[#d4dce6]/30 hover:border-[#006c40]/20 cursor-pointer transition-colors group"
+                        className="flex min-h-12 items-start gap-4 p-3 sm:p-4 rounded-xl border-2 border-[#d4dce6]/30 hover:border-[#006c40]/20 cursor-pointer transition-colors group touch-manipulation"
                       >
                         <input
                           type="checkbox"
@@ -254,7 +254,7 @@ export default function ClientApplicationForm() {
           whileTap={{ scale: 0.98 }}
           type="submit"
           disabled={submitting}
-          className="w-full h-20 rounded-[32px] bg-[#effc5f] text-[#021f0d] text-xl font-heading font-black uppercase tracking-widest shadow-2xl hover:bg-[#d7e851] transition-all flex items-center justify-center gap-4 oz-button-glow disabled:opacity-60"
+          className="w-full min-h-[4.5rem] sm:h-20 rounded-[28px] sm:rounded-[32px] bg-[#effc5f] text-[#021f0d] text-base sm:text-xl font-heading font-black uppercase tracking-widest shadow-2xl hover:bg-[#d7e851] transition-all flex items-center justify-center gap-4 oz-button-glow disabled:opacity-60 touch-manipulation px-4"
         >
           {submitting ? "Submitting..." : "Submit My Application"}{" "}
           <span className="text-2xl">→</span>

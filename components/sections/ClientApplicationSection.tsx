@@ -26,8 +26,8 @@ export default function ClientApplicationSection() {
 
   return (
     <section
-      id="client-application"
-      className="px-6 md:px-10 py-12 md:py-16 min-h-screen bg-[#021f0d] text-white relative overflow-hidden oz-section-glow"
+      id="application"
+      className="px-4 sm:px-6 md:px-10 py-10 sm:py-12 md:py-16 min-h-screen bg-[#021f0d] text-white relative overflow-hidden oz-section-glow pb-[max(2.5rem,env(safe-area-inset-bottom))]"
     >
       <div className="max-w-5xl mx-auto w-full relative z-10 text-center">
         <motion.div
@@ -37,14 +37,14 @@ export default function ClientApplicationSection() {
         >
           Ready to Apply
         </motion.div>
-        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-none uppercase mb-4 md:mb-6">
+        <h2 className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[1.05] uppercase mb-4 md:mb-6 px-1">
           Apply for a Founding Member Spot.
         </h2>
         <p className="text-sm md:text-lg font-medium text-white/50 max-w-2xl mx-auto leading-relaxed italic mb-8 md:mb-10">
           If you have a clear vision, revenue validation, and the budget to move fast, apply below. We review within 48 hours.
         </p>
 
-        <div className="p-6 md:p-8 rounded-3xl md:rounded-[40px] bg-white text-[#021f0d] shadow-2xl text-left max-w-4xl mx-auto">
+        <div className="p-4 sm:p-6 md:p-8 rounded-3xl md:rounded-[40px] bg-white text-[#021f0d] shadow-2xl text-left max-w-4xl mx-auto">
           <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-[#006c40] mb-3">
             Fast Qualification
           </p>
@@ -57,7 +57,7 @@ export default function ClientApplicationSection() {
           <button
             type="button"
             onClick={handleStartIntake}
-            className="oz-btn-primary w-full justify-center text-xs md:text-sm"
+            className="oz-btn-primary w-full justify-center text-xs md:text-sm min-h-12 touch-manipulation"
           >
             Start Founding Member Intake
           </button>
@@ -68,14 +68,14 @@ export default function ClientApplicationSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#021f0d]/80 backdrop-blur-sm px-6"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#021f0d]/80 backdrop-blur-sm px-4 pb-6 pt-10 sm:p-6 sm:pb-6"
             onClick={() => setShowModal(false)}
           >
             <motion.div
               initial={{ opacity: 0, y: 16, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.25 }}
-              className="w-full max-w-lg rounded-3xl bg-white text-[#021f0d] shadow-2xl p-6 md:p-8 text-left oz-glass-card oz-skew-frame oz-vine-border relative"
+              className="w-full max-w-lg max-h-[min(90dvh,720px)] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-white text-[#021f0d] shadow-2xl p-5 sm:p-6 md:p-8 text-left oz-glass-card oz-skew-frame oz-vine-border relative"
               onClick={(event) => event.stopPropagation()}
             >
               <button
@@ -99,14 +99,14 @@ export default function ClientApplicationSection() {
                 <button
                   type="button"
                   onClick={() => handleSelectPath("calendar")}
-                  className="oz-btn-primary w-full justify-center text-xs md:text-sm"
+                  className="oz-btn-primary w-full justify-center text-xs md:text-sm min-h-12 touch-manipulation"
                 >
                   Book a Call
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectPath("form")}
-                  className="oz-btn-secondary w-full justify-center text-xs md:text-sm"
+                  className="oz-btn-secondary w-full justify-center text-xs md:text-sm min-h-12 touch-manipulation"
                 >
                   Continue to Form
                 </button>
@@ -136,7 +136,7 @@ export default function ClientApplicationSection() {
                 <button
                   type="button"
                   onClick={() => setActivePath("form")}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border transition-all ${
+                  className={`min-h-11 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border transition-all touch-manipulation ${
                     activePath === "form"
                       ? "bg-[#021f0d] text-white border-[#021f0d]"
                       : "bg-white text-[#021f0d] border-[#d4dce6]/60"
@@ -147,7 +147,7 @@ export default function ClientApplicationSection() {
                 <button
                   type="button"
                   onClick={() => setActivePath("calendar")}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border transition-all ${
+                  className={`min-h-11 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest border transition-all touch-manipulation ${
                     activePath === "calendar"
                       ? "bg-[#021f0d] text-white border-[#021f0d]"
                       : "bg-white text-[#021f0d] border-[#d4dce6]/60"
@@ -161,11 +161,12 @@ export default function ClientApplicationSection() {
             {activePath === "form" ? (
               <ClientApplicationForm />
             ) : (
-              <div className="rounded-2xl border border-[#d4dce6]/60 bg-[#f9fafb] p-4 md:p-6">
-                <div className="rounded-xl overflow-hidden border border-[#d4dce6]/60 bg-white">
+              <div className="rounded-2xl border border-[#d4dce6]/60 bg-[#f9fafb] p-3 sm:p-4 md:p-6">
+                <div className="rounded-xl overflow-hidden border border-[#d4dce6]/60 bg-white min-h-[480px] sm:min-h-[560px] md:min-h-[600px]">
                   <iframe
                     src="https://connect.civy.ph/widget/booking/6wcV7lvcjOxdBntDuIGj"
-                    style={{ width: "100%", border: "none", overflow: "hidden" }}
+                    className="min-h-[480px] sm:min-h-[560px] md:min-h-[600px] w-full"
+                    style={{ border: "none", overflow: "hidden" }}
                     scrolling="no"
                     id="iOnZgkuDwzd0FqcU9roG_1772876686888"
                     title="Book a call"

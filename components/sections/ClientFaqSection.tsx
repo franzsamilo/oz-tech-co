@@ -18,7 +18,7 @@ export default function ClientFaqSection() {
   return (
     <section
       id="client-faq"
-      className="px-5 md:px-10 py-10 md:py-16 min-h-screen bg-[#f9fafb]"
+      className="px-4 sm:px-6 md:px-10 py-10 md:py-16 min-h-screen bg-[#f9fafb] pb-[max(2.5rem,env(safe-area-inset-bottom))]"
     >
       <div className="max-w-3xl mx-auto w-full text-center">
         <span className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#006c40] mb-6 md:mb-10">
@@ -26,7 +26,7 @@ export default function ClientFaqSection() {
         </span>
         <ScrollReveal
           textClassName="text-[#021f0d] text-center"
-          textSize="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[0.95] uppercase"
+          textSize="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[0.95] uppercase px-1"
         >
           Questions You Probably Have (Answered Honestly)
         </ScrollReveal>
@@ -41,8 +41,9 @@ export default function ClientFaqSection() {
               transition={{ delay: i * 0.05 }}
             >
               <button
+                type="button"
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className={`w-full text-left p-3.5 md:p-6 rounded-2xl md:rounded-[32px] border-2 transition-all ${
+                className={`w-full min-h-12 text-left p-3.5 md:p-6 rounded-2xl md:rounded-[32px] border-2 transition-all touch-manipulation ${
                   openFaq === i
                     ? "bg-white border-[#5df3c2] shadow-xl"
                     : "bg-white border-[#021f0d]/5 hover:border-[#006c40]/20"

@@ -15,7 +15,7 @@ export default function ClientComparisonSection() {
   return (
     <section
       id="client-comparison"
-      className="px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#f9fafb]"
+      className="px-4 sm:px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#f9fafb]"
     >
       <div className="max-w-6xl mx-auto w-full text-center">
         <span className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#006c40] mb-6 md:mb-10">
@@ -23,7 +23,7 @@ export default function ClientComparisonSection() {
         </span>
         <ScrollReveal
           textClassName="text-[#021f0d] text-center"
-          textSize="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[0.95] uppercase"
+          textSize="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[0.95] uppercase px-1"
         >
           {clientComparison.headline}
         </ScrollReveal>
@@ -61,24 +61,52 @@ export default function ClientComparisonSection() {
           </table>
         </div>
 
-        <div className="mt-8 grid gap-4 md:hidden text-left">
-          {clientComparison.columns.map((col, colIdx) => (
-            <div key={col} className={`rounded-3xl border border-[#d4dce6]/60 shadow-xl p-5 ${colIdx === 0 ? "bg-[#021f0d] text-white" : "bg-white"}`}>
-              <p className={`text-xs uppercase tracking-[0.25em] font-black mb-4 ${colIdx === 0 ? "text-[#5df3c2]" : "text-[#006c40]/70"}`}>
-                {col}
-              </p>
-              <div className="grid gap-3">
-                {clientComparison.rows.map((row) => (
-                  <div key={`${col}-${row.label}`} className={`rounded-2xl border p-3 ${colIdx === 0 ? "border-white/10 bg-white/10" : "border-[#d4dce6]/60 bg-[#f9fafb]"}`}>
-                    <p className={`text-[10px] uppercase tracking-[0.3em] font-black mb-1 ${colIdx === 0 ? "text-[#5df3c2]/80" : "text-[#006c40]/60"}`}>
-                      {row.label}
-                    </p>
-                    <p className={`text-sm ${colIdx === 0 ? "text-white/80" : "text-[#021f0d]/70"}`}>{row.values[colIdx]}</p>
-                  </div>
-                ))}
+        <div className="mt-6 md:hidden w-full text-left">
+          <p className="text-center text-[10px] font-black uppercase tracking-[0.2em] text-[#021f0d]/45 mb-3">
+            Swipe to compare each option
+          </p>
+          <div
+            className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-3 pt-1 -mx-1 px-1 [scrollbar-width:thin] touch-pan-x"
+            style={{ WebkitOverflowScrolling: "touch" }}
+          >
+            {clientComparison.columns.map((col, colIdx) => (
+              <div
+                key={col}
+                className={`min-w-[min(100%,18rem)] w-[85vw] max-w-sm shrink-0 snap-center rounded-3xl border border-[#d4dce6]/60 shadow-xl p-4 sm:p-5 ${
+                  colIdx === 0 ? "bg-[#021f0d] text-white" : "bg-white"
+                }`}
+              >
+                <p
+                  className={`text-[11px] sm:text-xs uppercase tracking-[0.2em] font-black mb-3 line-clamp-2 ${
+                    colIdx === 0 ? "text-[#5df3c2]" : "text-[#006c40]/70"
+                  }`}
+                >
+                  {col}
+                </p>
+                <div className="grid gap-2.5 max-h-[55vh] overflow-y-auto [scrollbar-width:thin] pr-1">
+                  {clientComparison.rows.map((row) => (
+                    <div
+                      key={`${col}-${row.label}`}
+                      className={`rounded-2xl border p-3 ${
+                        colIdx === 0 ? "border-white/10 bg-white/10" : "border-[#d4dce6]/60 bg-[#f9fafb]"
+                      }`}
+                    >
+                      <p
+                        className={`text-[10px] uppercase tracking-[0.25em] font-black mb-1 ${
+                          colIdx === 0 ? "text-[#5df3c2]/80" : "text-[#006c40]/60"
+                        }`}
+                      >
+                        {row.label}
+                      </p>
+                      <p className={`text-sm leading-snug ${colIdx === 0 ? "text-white/85" : "text-[#021f0d]/75"}`}>
+                        {row.values[colIdx]}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
