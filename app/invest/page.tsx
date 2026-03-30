@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useState } from "react";
 import PasswordLock from "@/components/PasswordLock";
+import SectionDivider from "@/components/SectionDivider";
 
 // Section components
 import HeroSection from "@/components/sections/HeroSection";
@@ -22,8 +23,8 @@ import Footer from "@/components/sections/Footer";
 
 /** Session-only: same behavior as client home intro */
 const INVEST_ENTRANCE_SESSION_KEY = "oztech_invest_entrance_shown";
-/** Must match `.oz-entrance-overlay--invest` / `--client` CSS (5.2s) */
-const ENTRANCE_MS = 5200;
+/** Must match `.oz-entrance-overlay--invest` / `--client` CSS */
+const ENTRANCE_MS = 4000;
 
 export default function InvestLandingPage() {
   const [isUnlocked, setIsUnlocked] = useState(false);
@@ -79,7 +80,7 @@ export default function InvestLandingPage() {
   }, [isUnlocked]);
 
   const shellLight =
-    "bg-[#f8fafc] text-[#021f0d] overflow-x-hidden oz-landing-shell";
+    "bg-[#021f0d] text-white overflow-x-hidden";
 
   return (
     <>
@@ -102,6 +103,7 @@ export default function InvestLandingPage() {
 
             {showIntro ? (
               <div className="oz-entrance-overlay oz-entrance-overlay--invest">
+                <div className="oz-entrance-glow" />
                 <div className="oz-entrance-content">
                   <p className="oz-entrance-kicker">Welcome to Oz Tech</p>
                   <h2 className="oz-entrance-title">The Curtain Opens</h2>
@@ -116,21 +118,30 @@ export default function InvestLandingPage() {
               <div className="relative oz-landing-reveal">
                 <main className="relative">
                   <HeroSection />
+                  <SectionDivider type="dark-to-light" />
                   <SocialProofSection />
+                  <SectionDivider type="light-to-dark" />
                   <TruthSection />
 
                   {renderRest && (
                     <>
+                      <SectionDivider type="dark-to-light" />
                       <VisionSection />
+                      <SectionDivider type="light-to-dark" />
                       <SystemSection />
+                      <SectionDivider type="dark-to-light" />
                       <CaseStudiesSection />
                       <BusinessModelSection />
                       <OpportunitySection />
+                      <SectionDivider type="light-to-dark" />
                       <RisksSection />
+                      <SectionDivider type="dark-line" />
                       <InvestmentSection />
+                      <SectionDivider type="dark-to-light" />
                       <InvestorsSection />
                       <TeamSection />
                       <FaqSection />
+                      <SectionDivider type="light-to-dark" />
                       <ApplicationSection />
                     </>
                   )}

@@ -18,11 +18,12 @@ export default function InvestmentSection() {
   return (
     <section
       id="investment"
-      className="px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-white relative overflow-hidden"
+      data-theme="dark"
+      className="oz-section-secondary bg-[#021f0d] text-white relative overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto w-full text-center">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full text-center">
         <ScrollReveal
-          textClassName="text-[#021f0d] text-center"
+          textClassName="text-white text-center"
           textSize="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[0.95] uppercase"
         >
           {investmentTerms.headline}
@@ -30,12 +31,12 @@ export default function InvestmentSection() {
 
         <motion.div
           {...cardMotion}
-          className="mt-8 md:mt-10 bg-[#021f0d] text-white p-4 md:p-10 rounded-3xl md:rounded-[48px] shadow-2xl relative overflow-hidden oz-emerald-card text-left hidden md:block"
+          className="mt-8 md:mt-10 oz-forest-card p-4 md:p-10 text-left hidden md:block relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 p-6 md:p-12 text-[14vw] font-black opacity-5 select-none leading-none">SAFE</div>
           <div className="relative z-10">
-            <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-[#5df3c2] mb-3 md:mb-5">Primary Instrument</p>
-            <h3 className="text-2xl md:text-5xl font-heading font-black uppercase tracking-tighter mb-3 md:mb-5 leading-none">
+            <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-[#effc5f] mb-3 md:mb-5">Primary Instrument</p>
+            <h3 className="text-2xl md:text-5xl font-heading font-black uppercase tracking-tighter mb-3 md:mb-5 leading-none text-white">
               {investmentTerms.instrument}
             </h3>
             <p className="text-sm md:text-lg text-white/60 font-medium leading-relaxed mb-4 md:mb-8">{investmentTerms.instrumentDetail}</p>
@@ -55,9 +56,9 @@ export default function InvestmentSection() {
           </div>
         </motion.div>
 
-        <div className="mt-6 md:hidden text-left bg-[#021f0d] text-white rounded-3xl p-4 shadow-2xl oz-emerald-card">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#5df3c2] mb-3">Primary Instrument</p>
-          <h3 className="text-xl font-heading font-black uppercase tracking-tighter mb-3 leading-tight">
+        <div className="mt-6 md:hidden text-left oz-forest-card p-4">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#effc5f] mb-3">Primary Instrument</p>
+          <h3 className="text-xl font-heading font-black uppercase tracking-tighter mb-3 leading-tight text-white">
             {investmentTerms.instrument}
           </h3>
           <p className="text-xs text-white/70 font-medium leading-relaxed mb-4">
@@ -68,7 +69,7 @@ export default function InvestmentSection() {
             <button
               type="button"
               onClick={() => setOpenPanel(openPanel === "terms" ? null : "terms")}
-              className="w-full text-left flex items-center justify-between rounded-2xl border border-white/10 px-3 py-2 font-bold uppercase tracking-[0.2em] text-[10px]"
+              className="w-full text-left flex items-center justify-between rounded-2xl border border-white/10 px-3 py-2 font-bold uppercase tracking-[0.2em] text-[10px] text-white"
             >
               Terms
               <span className="text-xs">{openPanel === "terms" ? "−" : "+"}</span>
@@ -76,7 +77,7 @@ export default function InvestmentSection() {
             {openPanel === "terms" && (
               <div className="flex flex-wrap gap-2 px-1 pb-2">
                 {investmentTerms.terms.map((t: string) => (
-                  <span key={t} className="px-3 py-2 rounded-xl bg-white/10 border border-white/20 font-bold text-[10px] uppercase tracking-wide">
+                  <span key={t} className="px-3 py-2 rounded-xl bg-white/10 border border-white/20 font-bold text-[10px] uppercase tracking-wide text-white">
                     {t}
                   </span>
                 ))}
@@ -86,7 +87,7 @@ export default function InvestmentSection() {
             <button
               type="button"
               onClick={() => setOpenPanel(openPanel === "returns" ? null : "returns")}
-              className="w-full text-left flex items-center justify-between rounded-2xl border border-white/10 px-3 py-2 font-bold uppercase tracking-[0.2em] text-[10px]"
+              className="w-full text-left flex items-center justify-between rounded-2xl border border-white/10 px-3 py-2 font-bold uppercase tracking-[0.2em] text-[10px] text-white"
             >
               Projected Returns
               <span className="text-xs">{openPanel === "returns" ? "−" : "+"}</span>
@@ -102,7 +103,7 @@ export default function InvestmentSection() {
             <button
               type="button"
               onClick={() => setOpenPanel(openPanel === "guarantee" ? null : "guarantee")}
-              className="w-full text-left flex items-center justify-between rounded-2xl border border-white/10 px-3 py-2 font-bold uppercase tracking-[0.2em] text-[10px]"
+              className="w-full text-left flex items-center justify-between rounded-2xl border border-white/10 px-3 py-2 font-bold uppercase tracking-[0.2em] text-[10px] text-white"
             >
               Guarantees
               <span className="text-xs">{openPanel === "guarantee" ? "−" : "+"}</span>

@@ -24,10 +24,11 @@ export default function TeamSection() {
   return (
     <section
       id="founders"
-      className="px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center relative overflow-hidden bg-white"
+      data-theme="light"
+      className="oz-section-secondary bg-[#f9fafb] text-[#021f0d] relative overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto w-full text-center">
-        <span className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#006c40] mb-6 md:mb-10">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full text-center">
+        <span className="oz-badge oz-badge-green mb-6 md:mb-10">
           The Human Engine
         </span>
         <ScrollReveal
