@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import ScrollReveal from "@/components/ScrollReveal";
 import { clientFaqs } from "@/data/clientPageContent";
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientFaqSection() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -29,10 +30,8 @@ export default function ClientFaqSection() {
           {clientFaqs.map((faq, i) => (
             <motion.div
               key={faq.q}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
+              {...riseVariant}
+              transition={{ ...riseVariant.transition, delay: i * 0.08 }}
             >
               <button
                 type="button"

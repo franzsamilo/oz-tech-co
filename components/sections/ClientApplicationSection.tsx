@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import ClientApplicationForm from "@/components/ClientApplicationForm";
+import { riseVariant } from "@/lib/animations";
 import Script from "next/script";
 
 export default function ClientApplicationSection() {
@@ -40,8 +41,7 @@ export default function ClientApplicationSection() {
 
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full relative z-10 text-center">
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          {...riseVariant}
         >
           <span className="oz-badge oz-badge-gold">
             Ready to Apply

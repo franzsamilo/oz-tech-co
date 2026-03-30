@@ -3,13 +3,7 @@
 import { motion } from "framer-motion";
 import ScrollFloat from "@/components/ScrollFloat";
 import { clientBonuses } from "@/data/clientPageContent";
-
-const cardMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.4 },
-};
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientBonusesSection() {
   return (
@@ -33,8 +27,8 @@ export default function ClientBonusesSection() {
           {clientBonuses.items.map((item, idx) => (
             <motion.div
               key={item.title}
-              {...cardMotion}
-              transition={{ ...cardMotion.transition, delay: idx * 0.05 }}
+              {...riseVariant}
+              transition={{ ...riseVariant.transition, delay: idx * 0.08 }}
               className="oz-forest-card rounded-3xl border-t-2 border-[#effc5f] p-5 shadow-2xl hover:bg-white/10 transition-all group"
             >
               <div className="flex items-center gap-3 mb-3">
@@ -52,7 +46,7 @@ export default function ClientBonusesSection() {
         </div>
 
         <motion.div
-          {...cardMotion}
+          {...riseVariant}
           className="mt-7 md:mt-10 p-5 md:p-8 rounded-[32px] md:rounded-[48px] bg-linear-to-br from-[#effc5f] to-[#5df3c2] text-[#021f0d] shadow-2xl relative overflow-hidden"
           style={{ boxShadow: '0 0 24px rgba(239,252,95,0.2)' }}
         >

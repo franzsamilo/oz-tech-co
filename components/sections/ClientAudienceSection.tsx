@@ -3,13 +3,7 @@
 import { motion } from "framer-motion";
 import ScrollFloat from "@/components/ScrollFloat";
 import { clientAudience } from "@/data/clientPageContent";
-
-const cardMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.4 },
-};
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientAudienceSection() {
   return (
@@ -31,7 +25,7 @@ export default function ClientAudienceSection() {
         </ScrollFloat>
 
         <motion.div
-          {...cardMotion}
+          {...riseVariant}
           className="mt-6 md:mt-8 max-w-4xl mx-auto oz-forest-card oz-gold-accent p-5 md:p-8"
         >
           <div className="h-1.5 w-full bg-linear-to-r from-[#006c40] via-[#5df3c2] to-[#effc5f] -mt-5 md:-mt-8 mb-5 md:mb-8 -mx-5 md:-mx-8 w-[calc(100%+2.5rem)] md:w-[calc(100%+4rem)]" />
@@ -47,8 +41,8 @@ export default function ClientAudienceSection() {
           {clientAudience.situations.map((item, idx) => (
             <motion.div
               key={item.title}
-              {...cardMotion}
-              transition={{ ...cardMotion.transition, delay: idx * 0.1 }}
+              {...riseVariant}
+              transition={{ ...riseVariant.transition, delay: idx * 0.08 }}
               className="oz-forest-card oz-gold-accent p-5 md:p-8 transition-all group hover:-translate-y-1"
             >
               <span
@@ -70,7 +64,7 @@ export default function ClientAudienceSection() {
         </div>
 
         <motion.div
-          {...cardMotion}
+          {...riseVariant}
           className="mt-8 md:mt-10 max-w-4xl mx-auto oz-forest-card p-5 sm:p-6 md:p-8 border border-[#5df3c2]/30"
         >
           <p className="text-[11px] md:text-xs font-black uppercase tracking-[0.28em] text-[#5df3c2]">

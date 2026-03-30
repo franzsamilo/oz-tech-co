@@ -3,13 +3,7 @@
 import { motion } from "framer-motion";
 import ScrollFloat from "@/components/ScrollFloat";
 import { clientFit } from "@/data/clientPageContent";
-
-const cardMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.4 },
-};
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientFitSection() {
   return (
@@ -30,7 +24,7 @@ export default function ClientFitSection() {
         </ScrollFloat>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2 text-left">
-          <motion.div {...cardMotion} className="oz-city-card oz-emerald-accent rounded-3xl p-5 shadow-xl">
+          <motion.div {...riseVariant} className="oz-city-card oz-emerald-accent rounded-3xl p-5 shadow-xl">
             <p className="text-xs uppercase tracking-[0.3em] font-black text-[#006c40]/60 mb-3">
               Good fit
             </p>
@@ -43,7 +37,7 @@ export default function ClientFitSection() {
               ))}
             </ul>
           </motion.div>
-          <motion.div {...cardMotion} className="oz-red-accent rounded-3xl border border-white/10 p-5 bg-[#021f0d] text-white shadow-2xl">
+          <motion.div {...riseVariant} className="oz-red-accent rounded-3xl border border-white/10 p-5 bg-[#021f0d] text-white shadow-2xl">
             <p className="text-xs uppercase tracking-[0.3em] font-black text-red-500 mb-3">
               Not a fit
             </p>
@@ -58,7 +52,7 @@ export default function ClientFitSection() {
           </motion.div>
         </div>
 
-        <motion.div {...cardMotion} className="mt-6 oz-city-card oz-emerald-accent rounded-3xl p-5 shadow-xl text-left">
+        <motion.div {...riseVariant} className="mt-6 oz-city-card oz-emerald-accent rounded-3xl p-5 shadow-xl text-left">
           <p className="text-xs uppercase tracking-[0.3em] font-black text-[#006c40]/60 mb-3">
             Values (non-negotiable)
           </p>

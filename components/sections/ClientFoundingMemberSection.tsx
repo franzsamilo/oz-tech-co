@@ -3,13 +3,7 @@
 import { motion } from "framer-motion";
 import ScrollReveal from "@/components/ScrollReveal";
 import { clientFoundingMember } from "@/data/clientPageContent";
-
-const cardMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.4 },
-};
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientFoundingMemberSection() {
   return (
@@ -28,12 +22,12 @@ export default function ClientFoundingMemberSection() {
         >
           {clientFoundingMember.headline}
         </ScrollReveal>
-        <motion.p {...cardMotion} className="mt-4 text-sm md:text-lg text-white/70 max-w-3xl mx-auto">
+        <motion.p {...riseVariant} className="mt-4 text-sm md:text-lg text-white/70 max-w-3xl mx-auto">
           {clientFoundingMember.summary}
         </motion.p>
 
         <motion.div
-          {...cardMotion}
+          {...riseVariant}
           className="mt-8 md:mt-10 oz-forest-card text-white p-5 md:p-8 rounded-3xl md:rounded-[48px] shadow-2xl relative overflow-hidden text-left"
           style={{ clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)' }}
         >
@@ -69,7 +63,7 @@ export default function ClientFoundingMemberSection() {
         </motion.div>
 
         <motion.div
-          {...cardMotion}
+          {...riseVariant}
           className="mt-6 p-5 md:p-8 rounded-[32px] md:rounded-[48px] bg-linear-to-br from-[#effc5f] to-[#5df3c2] text-[#021f0d] shadow-2xl relative overflow-hidden"
         >
           <div className="relative z-10 text-center">
@@ -79,7 +73,7 @@ export default function ClientFoundingMemberSection() {
           </div>
         </motion.div>
 
-        <motion.p {...cardMotion} className="mt-6 text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-widest text-white/40">
+        <motion.p {...riseVariant} className="mt-6 text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-widest text-white/40">
           5 spots only. Lock the rate for life.
         </motion.p>
       </div>

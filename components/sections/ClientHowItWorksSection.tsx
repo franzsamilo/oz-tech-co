@@ -3,13 +3,7 @@
 import { motion } from "framer-motion";
 import ScrollFloat from "@/components/ScrollFloat";
 import { clientHowItWorks } from "@/data/clientPageContent";
-
-const cardMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.4 },
-};
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientHowItWorksSection() {
   return (
@@ -28,7 +22,7 @@ export default function ClientHowItWorksSection() {
         >
           {clientHowItWorks.headline}
         </ScrollFloat>
-        <motion.p {...cardMotion} className="mt-4 text-sm md:text-lg text-[#021f0d]/70 max-w-3xl mx-auto">
+        <motion.p {...riseVariant} className="mt-4 text-sm md:text-lg text-[#021f0d]/70 max-w-3xl mx-auto">
           {clientHowItWorks.summary}
         </motion.p>
 
@@ -36,8 +30,8 @@ export default function ClientHowItWorksSection() {
           {clientHowItWorks.bullets.map((item, idx) => (
             <motion.div
               key={item}
-              {...cardMotion}
-              transition={{ ...cardMotion.transition, delay: idx * 0.05 }}
+              {...riseVariant}
+              transition={{ ...riseVariant.transition, delay: idx * 0.08 }}
               className="oz-city-card oz-emerald-accent p-5 md:p-8 text-sm text-[#021f0d]/70 hover:bg-white transition-all group flex gap-4 items-center"
             >
               <span className="w-8 h-8 rounded-xl bg-[#effc5f] text-[#021f0d] flex items-center justify-center text-xs font-black">
@@ -50,12 +44,12 @@ export default function ClientHowItWorksSection() {
           ))}
         </div>
 
-        <motion.p {...cardMotion} className="mt-6 text-sm md:text-lg text-[#021f0d]/70">
+        <motion.p {...riseVariant} className="mt-6 text-sm md:text-lg text-[#021f0d]/70">
           {clientHowItWorks.analogy}
         </motion.p>
 
         <motion.div
-          {...cardMotion}
+          {...riseVariant}
           className="mt-7 md:mt-10 p-5 md:p-8 rounded-[32px] md:rounded-[48px] bg-[#021f0d] text-white shadow-2xl relative overflow-hidden"
         >
           <div className="absolute top-0 left-0 right-0 h-1 bg-[#effc5f]" />

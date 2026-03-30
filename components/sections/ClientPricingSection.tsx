@@ -4,13 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import ScrollReveal from "@/components/ScrollReveal";
 import { clientPricing } from "@/data/clientPageContent";
-
-const cardMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.4 },
-};
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientPricingSection() {
   const [openPanel, setOpenPanel] = useState<"included" | "addons" | "terms" | null>("included");
@@ -31,12 +25,12 @@ export default function ClientPricingSection() {
         >
           {clientPricing.headline}
         </ScrollReveal>
-        <motion.p {...cardMotion} className="mt-4 text-sm md:text-lg text-[#021f0d]/70 max-w-3xl mx-auto">
+        <motion.p {...riseVariant} className="mt-4 text-sm md:text-lg text-[#021f0d]/70 max-w-3xl mx-auto">
           {clientPricing.rate}
         </motion.p>
 
         <motion.div
-          {...cardMotion}
+          {...riseVariant}
           className="mt-8 md:mt-10 bg-[#021f0d] text-white p-5 md:p-10 rounded-3xl md:rounded-[48px] shadow-2xl relative overflow-hidden oz-emerald-card text-left hidden md:block"
         >
           <div className="absolute top-0 right-0 p-6 md:p-12 text-[12vw] font-black opacity-5 select-none leading-none">$3,500</div>
@@ -143,7 +137,7 @@ export default function ClientPricingSection() {
           </div>
         </div>
 
-        <motion.p {...cardMotion} className="mt-6 text-sm md:text-lg text-[#021f0d]/70">
+        <motion.p {...riseVariant} className="mt-6 text-sm md:text-lg text-[#021f0d]/70">
           {clientPricing.totalValue}
         </motion.p>
       </div>

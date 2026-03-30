@@ -3,13 +3,7 @@
 import { motion } from "framer-motion";
 import ScrollFloat from "@/components/ScrollFloat";
 import { clientSystem } from "@/data/clientPageContent";
-
-const cardMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.4 },
-};
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientSystemSection() {
   return (
@@ -20,9 +14,7 @@ export default function ClientSystemSection() {
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full text-center">
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          {...riseVariant}
           className="oz-badge oz-badge-gold mb-7 md:mb-11"
         >
           The Execution Engine
@@ -39,8 +31,8 @@ export default function ClientSystemSection() {
           {clientSystem.stages.map((stage, stageIdx) => (
             <motion.div
               key={stage.title}
-              {...cardMotion}
-              transition={{ ...cardMotion.transition, delay: stageIdx * 0.1 }}
+              {...riseVariant}
+              transition={{ ...riseVariant.transition, delay: stageIdx * 0.08 }}
               className="oz-forest-card p-4 md:p-6 group"
               style={{ clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)' }}
             >
@@ -63,9 +55,7 @@ export default function ClientSystemSection() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
+          {...riseVariant}
           className="mt-7 md:mt-10 p-5 md:p-8 rounded-[32px] md:rounded-[48px] bg-[#021f0d] border border-white/10 text-white shadow-2xl relative overflow-hidden"
         >
           <div className="absolute top-0 left-0 right-0 h-1 bg-[#effc5f]" />

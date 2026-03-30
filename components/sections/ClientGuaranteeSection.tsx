@@ -3,13 +3,7 @@
 import { motion } from "framer-motion";
 import ScrollFloat from "@/components/ScrollFloat";
 import { clientGuarantee } from "@/data/clientPageContent";
-
-const cardMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.4 },
-};
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientGuaranteeSection() {
   return (
@@ -20,9 +14,7 @@ export default function ClientGuaranteeSection() {
     >
       <div className="oz-container max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10 w-full text-center">
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          {...riseVariant}
           className="oz-badge oz-badge-gold"
         >
           The 4-Week Guarantee
@@ -33,12 +25,12 @@ export default function ClientGuaranteeSection() {
         >
           {clientGuarantee.headline}
         </ScrollFloat>
-        <motion.p {...cardMotion} className="mt-4 text-sm md:text-lg text-white/70 max-w-3xl mx-auto">
+        <motion.p {...riseVariant} className="mt-4 text-sm md:text-lg text-white/70 max-w-3xl mx-auto">
           {clientGuarantee.promise}
         </motion.p>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 text-left">
-          <motion.div {...cardMotion} className="oz-forest-card rounded-3xl border border-[#5df3c2]/20 p-0 transition-all">
+          <motion.div {...riseVariant} className="oz-forest-card rounded-3xl border border-[#5df3c2]/20 p-0 transition-all">
             <div className="border border-[#effc5f]/15 rounded-[10px] m-1.5 p-5 md:p-8">
               <p className="text-xs uppercase tracking-[0.3em] font-black text-[#5df3c2]/70 mb-3">
                 You commit to
@@ -53,7 +45,7 @@ export default function ClientGuaranteeSection() {
               </ul>
             </div>
           </motion.div>
-          <motion.div {...cardMotion} className="oz-forest-card rounded-3xl border border-[#5df3c2]/20 p-0 transition-all">
+          <motion.div {...riseVariant} className="oz-forest-card rounded-3xl border border-[#5df3c2]/20 p-0 transition-all">
             <div className="border border-[#effc5f]/15 rounded-[10px] m-1.5 p-5 md:p-8">
               <p className="text-xs uppercase tracking-[0.3em] font-black text-[#5df3c2]/70 mb-3">
                 We commit to
@@ -70,10 +62,10 @@ export default function ClientGuaranteeSection() {
           </motion.div>
         </div>
 
-        <motion.p {...cardMotion} className="mt-6 text-xs uppercase tracking-[0.2em] text-white/50">
+        <motion.p {...riseVariant} className="mt-6 text-xs uppercase tracking-[0.2em] text-white/50">
           {clientGuarantee.disclaimer}
         </motion.p>
-        <motion.p {...cardMotion} className="mt-4 text-xs md:text-sm font-black uppercase tracking-[0.25em] text-red-500">
+        <motion.p {...riseVariant} className="mt-4 text-xs md:text-sm font-black uppercase tracking-[0.25em] text-red-500">
           Miss the deadline? <span className="bg-[#effc5f]/15 px-2 py-0.5 rounded">Month 2 is free.</span>
         </motion.p>
       </div>

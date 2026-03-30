@@ -3,13 +3,7 @@
 import { motion } from "framer-motion";
 import ScrollReveal from "@/components/ScrollReveal";
 import { clientProcess } from "@/data/clientPageContent";
-
-const cardMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.4 },
-};
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientProcessSection() {
   return (
@@ -33,8 +27,8 @@ export default function ClientProcessSection() {
           {clientProcess.steps.map((step, idx) => (
             <motion.div
               key={step}
-              {...cardMotion}
-              transition={{ ...cardMotion.transition, delay: idx * 0.05 }}
+              {...riseVariant}
+              transition={{ ...riseVariant.transition, delay: idx * 0.08 }}
               className="rounded-3xl border-2 border-[#021f0d]/5 p-4 md:p-5 bg-white text-sm text-[#021f0d]/70 shadow-lg hover:border-[#006c40]/20 transition-all flex items-start gap-4 text-left"
             >
               <span className="w-9 h-9 rounded-xl bg-[#effc5f] text-[#021f0d] flex items-center justify-center text-xs font-black shrink-0">
@@ -45,12 +39,12 @@ export default function ClientProcessSection() {
           ))}
         </div>
 
-        <motion.p {...cardMotion} className="mt-6 text-sm md:text-lg text-[#021f0d]/70">
+        <motion.p {...riseVariant} className="mt-6 text-sm md:text-lg text-[#021f0d]/70">
           {clientProcess.timeline}
         </motion.p>
 
         <motion.div
-          {...cardMotion}
+          {...riseVariant}
           className="mt-7 md:mt-10 p-5 md:p-8 rounded-[32px] md:rounded-[48px] bg-[#021f0d] text-white shadow-2xl relative overflow-hidden"
         >
           <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
