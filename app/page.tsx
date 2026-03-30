@@ -18,11 +18,12 @@ import ClientFaqSection from "@/components/sections/ClientFaqSection";
 import ClientProcessSection from "@/components/sections/ClientProcessSection";
 import ClientApplicationSection from "@/components/sections/ClientApplicationSection";
 import Footer from "@/components/sections/Footer";
+import SectionDivider from "@/components/SectionDivider";
 
 /** Session-only: new browser session → intro again; refresh in same session → skip */
 const CLIENT_ENTRANCE_SESSION_KEY = "oztech_client_home_entrance_shown";
 /** Must match `.oz-entrance-overlay--client` / `--invest` CSS animation (5.2s) */
-const ENTRANCE_MS = 5200;
+const ENTRANCE_MS = 4000;
 
 export default function Home() {
   const [showSite, setShowSite] = useState(false);
@@ -66,7 +67,7 @@ export default function Home() {
     <div
       className={
         showSite
-          ? "bg-[#f8fafc] text-[#021f0d] overflow-x-hidden oz-landing-shell"
+          ? "bg-[#021f0d] text-white overflow-x-hidden"
           : "min-h-dvh bg-[#021f0d] overflow-hidden"
       }
     >
@@ -77,6 +78,7 @@ export default function Home() {
 
       {showIntro ? (
         <div className="oz-entrance-overlay oz-entrance-overlay--client">
+          <div className="oz-entrance-glow" />
           <div className="oz-entrance-content">
             <p className="oz-entrance-kicker">Engineering partner, not a vendor</p>
             <h2 className="oz-entrance-title">Build what you see</h2>
@@ -92,19 +94,28 @@ export default function Home() {
           <main className="relative">
             <ClientHeroSection />
             <ClientAudienceSection />
+            <SectionDivider type="dark-line" />
             <ClientTruthSection />
+            <SectionDivider type="dark-to-light" />
             <ClientHowItWorksSection />
+            <SectionDivider type="light-to-dark" />
             <ClientSystemSection />
+            <SectionDivider type="dark-to-light" />
             <ClientProofSection />
             <CaseStudiesSection />
             <ClientComparisonSection />
+            <SectionDivider type="light-to-dark" />
             <ClientFoundingMemberSection />
+            <SectionDivider type="dark-line" />
             <ClientBonusesSection />
+            <SectionDivider type="dark-line" />
             <ClientGuaranteeSection />
+            <SectionDivider type="dark-to-light" />
             <ClientFitSection />
             <ClientPricingSection />
-            <ClientFaqSection />
             <ClientProcessSection />
+            <ClientFaqSection />
+            <SectionDivider type="light-to-dark" />
             <ClientApplicationSection />
           </main>
 
