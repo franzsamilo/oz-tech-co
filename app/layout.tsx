@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
+import GoldenThread from "@/components/GoldenThread";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -42,6 +43,7 @@ export default function RootLayout({
         className={`${syne.variable} ${dmSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
+        <GoldenThread />
         {children}
       </body>
     </html>
