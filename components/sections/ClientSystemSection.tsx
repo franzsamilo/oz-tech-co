@@ -15,14 +15,15 @@ export default function ClientSystemSection() {
   return (
     <section
       id="client-system"
-      className="px-4 sm:px-6 md:px-10 py-10 md:py-14 section-viewport flex items-center justify-center bg-[#021f0d] text-white relative overflow-hidden"
+      data-theme="dark"
+      className="oz-section-secondary bg-[#021f0d] text-white relative overflow-hidden"
     >
-      <div className="relative z-10 max-w-6xl mx-auto w-full text-center">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full text-center">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-block rounded-full bg-[#5df3c2]/10 border border-[#5df3c2]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#5df3c2] mb-7 md:mb-11"
+          className="oz-badge oz-badge-gold mb-7 md:mb-11"
         >
           The Execution Engine
         </motion.div>
@@ -40,18 +41,19 @@ export default function ClientSystemSection() {
               key={stage.title}
               {...cardMotion}
               transition={{ ...cardMotion.transition, delay: stageIdx * 0.1 }}
-              className="p-4 md:p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#5df3c2]/30 transition-all group"
+              className="oz-forest-card p-4 md:p-6 group"
+              style={{ clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)' }}
             >
-              <span className="w-9 h-9 md:w-12 md:h-12 rounded-xl bg-[#5df3c2] text-[#021f0d] flex items-center justify-center text-sm md:text-xl font-black mb-3 md:mb-5 shadow-[0_0_20px_rgba(93,243,192,0.3)]">
+              <span className="w-9 h-9 md:w-12 md:h-12 rounded-xl bg-[#effc5f] text-[#021f0d] flex items-center justify-center text-sm md:text-xl font-black mb-3 md:mb-5">
                 {stageIdx + 1}
               </span>
-              <h3 className="text-base md:text-xl font-heading font-black uppercase tracking-tighter text-white group-hover:text-[#5df3c2] transition-colors mb-2 md:mb-3">
+              <h3 className="text-base md:text-xl font-heading font-black uppercase tracking-tighter text-white group-hover:text-[#effc5f] transition-colors mb-2 md:mb-3">
                 {stage.title}
               </h3>
               <div className="space-y-2">
                 {stage.steps.map((step) => (
                   <p key={step.title} className="text-xs md:text-sm text-white/60 font-medium leading-relaxed">
-                    <span className="text-[#5df3c2] font-bold">{step.title.replace(/Step \d+: /, "")}</span> —{" "}
+                    <span className="text-[#effc5f] font-bold">{step.title.replace(/Step \d+: /, "")}</span> —{" "}
                     {step.detail.split(".")[0]}.
                   </p>
                 ))}
@@ -64,9 +66,9 @@ export default function ClientSystemSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="mt-7 md:mt-10 p-5 md:p-8 rounded-[32px] md:rounded-[48px] bg-linear-to-br from-[#effc5f] to-[#5df3c2] text-[#021f0d] shadow-2xl relative overflow-hidden"
+          className="mt-7 md:mt-10 p-5 md:p-8 rounded-[32px] md:rounded-[48px] bg-[#021f0d] border border-white/10 text-white shadow-2xl relative overflow-hidden"
         >
-          <div className="absolute inset-0 oz-maze-overlay opacity-20" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-[#effc5f]" />
           <div className="relative z-10">
             <p className="text-2xl sm:text-3xl md:text-4xl font-heading font-black tracking-tighter uppercase leading-none">
               Vision to Launch in 4 Weeks. Then We Scale It.
