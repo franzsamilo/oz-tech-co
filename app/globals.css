@@ -52,8 +52,8 @@
   --radius: 0.625rem;
   
   /* Brand Typography */
-  --font-brand-display: "Pragmatica Extended", "Pragmatica", var(--font-geist-sans), "Segoe UI", Arial, sans-serif;
-  --font-brand-body: "Pragmatica", var(--font-geist-sans), "Segoe UI", Arial, sans-serif;
+  --font-brand-display: var(--font-syne), "Segoe UI", Arial, sans-serif;
+  --font-brand-body: var(--font-dm-sans), "Segoe UI", Arial, sans-serif;
 
   /* OZ Tech Brand Color System */
   --oz-dark-green: #021f0d;
