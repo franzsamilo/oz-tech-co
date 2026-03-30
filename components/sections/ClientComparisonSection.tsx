@@ -15,10 +15,11 @@ export default function ClientComparisonSection() {
   return (
     <section
       id="client-comparison"
-      className="px-4 sm:px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#f9fafb]"
+      data-theme="light"
+      className="oz-section-secondary py-8 md:py-10 flex items-center justify-center bg-[#f9fafb]"
     >
-      <div className="max-w-6xl mx-auto w-full text-center">
-        <span className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#006c40] mb-6 md:mb-10">
+      <div className="oz-container max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full text-center">
+        <span className="oz-badge oz-badge-green">
           The Honest Comparison
         </span>
         <ScrollReveal
@@ -33,11 +34,11 @@ export default function ClientComparisonSection() {
 
         <div className="mt-8 hidden md:block overflow-x-auto rounded-3xl border border-[#d4dce6]/60 bg-white shadow-xl text-left">
           <table className="min-w-[900px] w-full text-left text-sm">
-            <thead className="bg-[#021f0d] text-white">
+            <thead className="bg-gradient-to-r from-[#006c40] to-[#021f0d] text-white">
               <tr>
                 <th className="p-4 text-xs uppercase tracking-[0.25em] font-black">Category</th>
-                {clientComparison.columns.map((col) => (
-                  <th key={col} className="p-4 text-xs uppercase tracking-[0.18em] font-black">
+                {clientComparison.columns.map((col, colIdx) => (
+                  <th key={col} className={`p-4 text-xs uppercase tracking-[0.18em] font-black ${colIdx === 0 ? "bg-[#effc5f]/10" : ""}`}>
                     {col}
                   </th>
                 ))}
@@ -45,7 +46,7 @@ export default function ClientComparisonSection() {
             </thead>
             <tbody>
               {clientComparison.rows.map((row, idx) => (
-                <tr key={row.label} className={`transition-colors ${idx % 2 === 0 ? "bg-white" : "bg-[#f9fafb]"} hover:bg-[#eefcf6]`}>
+                <tr key={row.label} className={`transition-colors ${idx % 2 === 0 ? "bg-white" : "bg-[#f9fafb]"} hover:bg-[#5df3c2]/5`}>
                   <td className="p-4 font-semibold text-[#021f0d]">{row.label}</td>
                   {row.values.map((value, vIdx) => (
                     <td
