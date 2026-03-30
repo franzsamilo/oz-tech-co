@@ -27,17 +27,27 @@ export default function ClientApplicationSection() {
   return (
     <section
       id="application"
-      className="px-4 sm:px-6 md:px-10 py-10 sm:py-12 md:py-16 min-h-screen bg-[#021f0d] text-white relative overflow-hidden oz-section-glow pb-[max(2.5rem,env(safe-area-inset-bottom))]"
+      data-theme="dark"
+      className="oz-section-primary bg-gradient-to-b from-[#021f0d] via-[#04301b] to-[#021f0d] text-white relative overflow-hidden pb-[max(2.5rem,env(safe-area-inset-bottom))]"
     >
-      <div className="max-w-5xl mx-auto w-full relative z-10 text-center">
+      {/* Radial gold glow centered on form area */}
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/4 w-[600px] h-[600px] pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(239,252,95,0.06) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          className="text-[#5df3c2] font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[10px] md:text-xs mb-6 md:mb-10"
         >
-          Ready to Apply
+          <span className="oz-badge oz-badge-gold">
+            Ready to Apply
+          </span>
         </motion.div>
-        <h2 className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[1.05] uppercase mb-4 md:mb-6 px-1">
+        <h2 className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-[1.05] uppercase mb-4 md:mb-6 px-1 text-white">
           Apply for a Founding Member Spot.
         </h2>
         <p className="text-sm md:text-lg font-medium text-white/50 max-w-2xl mx-auto leading-relaxed italic mb-8 md:mb-10">
@@ -93,7 +103,7 @@ export default function ClientApplicationSection() {
                 Want to Book a Call Instead?
               </h3>
               <p className="text-sm md:text-base text-[#021f0d]/70 leading-relaxed mb-6">
-                If you’re ready to talk, book a call now. Prefer to qualify first? Continue to the intake form.
+                If you're ready to talk, book a call now. Prefer to qualify first? Continue to the intake form.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
