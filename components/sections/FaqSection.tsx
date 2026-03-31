@@ -11,9 +11,10 @@ export default function FaqSection() {
   return (
     <section
       id="faq"
-      className="px-5 md:px-10 py-10 md:py-16 min-h-screen bg-[#f9fafb]"
+      data-theme="light"
+      className="oz-section-secondary bg-[#f9fafb] text-[#021f0d]"
     >
-      <div className="max-w-3xl mx-auto w-full text-center">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full text-center">
         <ScrollReveal
           textClassName="text-[#021f0d] text-center"
           textSize="text-3xl sm:text-5xl md:text-6xl font-heading font-black tracking-tighter leading-[0.95] uppercase"

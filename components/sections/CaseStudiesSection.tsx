@@ -40,13 +40,14 @@ export default function CaseStudiesSection() {
   return (
     <section
       id="proof"
-      className="px-4 sm:px-6 md:px-10 py-8 sm:py-10 md:py-12 min-h-screen section-viewport flex items-center justify-center bg-white relative overflow-hidden"
+      data-theme="light"
+      className="oz-section-secondary bg-white text-[#021f0d] relative overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto w-full">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full">
         <div className="flex flex-col lg:flex-row lg:items-stretch gap-5 sm:gap-6 lg:gap-8">
-          <div className="lg:w-[65%]">
+          <div className="lg:w-[58%]">
             <div className="flex items-center justify-start gap-3 mb-4 md:mb-6">
-              <span className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#006c40]">
+              <span className="oz-badge oz-badge-green">
                 The Evidence
               </span>
             </div>
@@ -58,7 +59,7 @@ export default function CaseStudiesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4 }}
-                className="rounded-3xl md:rounded-[36px] bg-[#021f0d] text-white shadow-2xl relative overflow-hidden oz-emerald-card h-[42vh] min-h-[280px] sm:min-h-[320px] sm:h-[45vh] lg:h-[70vh]"
+                className="rounded-3xl md:rounded-[36px] bg-[#021f0d] text-white shadow-2xl relative overflow-hidden oz-emerald-card h-[42vh] min-h-[280px] sm:min-h-[320px] sm:h-[45vh] lg:h-[70vh] border-b-2 border-[#effc5f]"
               >
                 {(study as any).url && iframeStatus[(study as any).url] !== "failed" && (
                   <div className="absolute inset-0">
@@ -126,7 +127,7 @@ export default function CaseStudiesSection() {
             </div>
           </div>
 
-          <div className="lg:w-[35%] flex flex-col justify-center text-left">
+          <div className="lg:w-[42%] flex flex-col justify-center text-left">
             {visibleStudies.map((study) => (
               <motion.div
                 key={`${study.title}-details`}
@@ -134,7 +135,7 @@ export default function CaseStudiesSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4 }}
-                className="bg-white rounded-3xl md:rounded-[32px] border border-[#d4dce6]/60 shadow-xl p-4 sm:p-5 md:p-6"
+                className="bg-white rounded-3xl md:rounded-[32px] border border-[#d4dce6]/60 border-t-[3px] border-t-[#5df3c2] shadow-xl p-4 sm:p-5 md:p-6"
               >
                 <ScrollReveal
                   textClassName="text-[#021f0d]"
@@ -159,14 +160,20 @@ export default function CaseStudiesSection() {
                     <p className="text-sm md:text-base font-semibold text-[#021f0d]">{study.timeline}</p>
                   </div>
                 </div>
-                <div className="mt-5 flex items-center gap-3">
+                <div className="mt-5 flex flex-col gap-2">
+                  <a
+                    href="#application"
+                    className="oz-btn-primary w-full min-h-11 justify-center text-xs md:text-sm touch-manipulation"
+                  >
+                    Build Something Like This <ArrowRight size={16} strokeWidth={3} />
+                  </a>
                   <a
                     href={(study as any).url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="oz-btn-primary w-full min-h-11 justify-center text-xs md:text-sm touch-manipulation"
+                    className="inline-flex items-center justify-center gap-2 text-[10px] md:text-xs font-bold text-[#006c40]/60 hover:text-[#006c40] uppercase tracking-widest transition-colors py-2"
                   >
-                    View Live Project <ArrowRight size={16} strokeWidth={3} />
+                    View Live Project &rarr;
                   </a>
                 </div>
               </motion.div>

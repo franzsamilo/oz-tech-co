@@ -117,7 +117,10 @@ export default function TeamPage() {
   const [activeIdx, setActiveIdx] = useState(0);
 
   return (
-    <main className="min-h-screen w-full bg-[#021f0d] text-white selection:bg-[#5df3c2] selection:text-[#021f0d] overflow-hidden lg:h-screen lg:w-screen lg:fixed lg:inset-0">
+    <main
+      data-theme="dark"
+      className="min-h-screen w-full bg-[#021f0d] text-white selection:bg-[#5df3c2] selection:text-[#021f0d] overflow-hidden lg:h-screen lg:w-screen lg:fixed lg:inset-0"
+    >
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 oz-maze-overlay opacity-20" />
@@ -128,7 +131,7 @@ export default function TeamPage() {
 
       {/* Team Content */}
       <div className="relative z-10 w-full min-h-screen flex flex-col lg:flex-row lg:h-full">
-        
+
         {/* Left Side: Dynamic Image Area */}
         <div className="lg:w-[45%] h-[45vh] min-h-[320px] lg:h-full relative shrink-0 overflow-hidden">
           <AnimatePresence mode="wait">
@@ -153,29 +156,36 @@ export default function TeamPage() {
 
           {/* Social Proof Overlays */}
           <div className="absolute bottom-6 left-6 right-6 sm:bottom-10 sm:left-10 sm:right-10 flex justify-between items-end z-20">
-            <motion.div 
+            <motion.div
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
                transition={{ delay: 0.5 }}
                className="bg-white/5 backdrop-blur-xl p-6 rounded-[32px] border border-white/10 hidden xl:block max-w-xs"
             >
-              <p className="text-[#5df3c2] font-black uppercase tracking-[0.3em] text-[10px] mb-4">Founding Asset</p>
-              <p className="text-lg font-black italic leading-tight">"{teamMembers[activeIdx].motto}"</p>
+              <p className="font-mono text-[#effc5f] uppercase tracking-[0.3em] text-[10px] mb-4">Founding Asset</p>
+              <p className="text-lg font-black italic leading-tight text-white">"{teamMembers[activeIdx].motto}"</p>
             </motion.div>
-            
-            <div className="flex gap-4">
-               {teamMembers.map((_, i) => (
-                 <button 
+
+            {/* Member thumbnail navigation */}
+            <div className="flex gap-3">
+               {teamMembers.map((member, i) => (
+                 <button
                   key={i}
                   onClick={() => setActiveIdx(i)}
-                  className={`h-12 rounded-full transition-all duration-500 flex items-center justify-center overflow-hidden border ${
-                    i === activeIdx ? "w-24 bg-[#5df3c2] border-[#5df3c2]" : "w-12 bg-white/5 border-white/10 hover:border-white/30"
+                  className={`relative w-12 h-12 overflow-hidden transition-all duration-500 rounded-lg border ${
+                    i === activeIdx
+                      ? "border-[#5df3c2] scale-110 shadow-[0_0_16px_rgba(93,243,194,0.3)]"
+                      : "border-[#5df3c2]/30 opacity-60 hover:opacity-90 hover:border-[#5df3c2]/60"
                   }`}
                  >
-                   {i === activeIdx ? (
-                     <span className="text-[#021f0d] font-black text-xs">0{i+1}</span>
-                   ) : (
-                     <span className="text-white/40 font-black text-xs">0{i+1}</span>
+                   <Image
+                     src={member.image}
+                     alt={member.name}
+                     fill
+                     className="object-cover object-center"
+                   />
+                   {i === activeIdx && (
+                     <div className="absolute inset-0 bg-[#5df3c2]/10" />
                    )}
                  </button>
                ))}
@@ -195,48 +205,54 @@ export default function TeamPage() {
               className="max-w-3xl w-full mx-auto flex flex-col justify-center min-h-full lg:min-h-0"
             >
               <div className="flex items-center gap-4 mb-5 lg:mb-8">
-                <span className="text-[10px] sm:text-xs lg:text-sm font-black uppercase tracking-[0.3em] lg:tracking-[0.5em] text-[#5df3c2]">Personnel 0{activeIdx + 1}</span>
-                <div className="h-px w-10 lg:w-20 bg-[#5df3c2]/30" />
+                <span className="font-mono text-[#effc5f] uppercase tracking-widest text-xs">Personnel 0{activeIdx + 1}</span>
+                <div className="h-px w-10 lg:w-20 bg-[#effc5f]/30" />
               </div>
-              
-              <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-heading font-black uppercase tracking-tighter leading-none mb-3 lg:mb-4">
+
+              <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-heading font-black uppercase tracking-tighter leading-none mb-3 lg:mb-4 text-white oz-gold-underline oz-visible">
                 {teamMembers[activeIdx].name}
               </h1>
-              
-              <h2 className="text-lg sm:text-xl md:text-2xl xl:text-3xl font-heading font-bold text-[#5df3c2] uppercase italic tracking-tighter mb-5 lg:mb-8 leading-none">
+
+              <h2 className="font-mono text-[#effc5f] uppercase tracking-widest text-xs mb-5 lg:mb-8 leading-none">
                 {teamMembers[activeIdx].title}
               </h2>
 
-              <p className="text-sm sm:text-base xl:text-lg text-white/70 font-medium leading-relaxed mb-6 lg:mb-10 max-w-2xl">
+              <p className="text-sm sm:text-base xl:text-lg text-white/80 font-medium leading-relaxed mb-6 lg:mb-10 max-w-2xl">
                 {teamMembers[activeIdx].bio}
               </p>
 
-              <div className="grid md:grid-cols-2 gap-6 lg:gap-10 mb-6 lg:mb-12">
-                <div className="space-y-4 lg:space-y-6">
-                  <h3 className="text-[10px] lg:text-xs font-black uppercase tracking-[0.3em] lg:tracking-[0.4em] text-[#5df3c2]/40">Core Expertise</h3>
-                  <div className="space-y-2 lg:space-y-3">
-                    {teamMembers[activeIdx].expertise.map((exp) => (
-                      <div key={exp} className="flex gap-3 lg:gap-4 items-center">
-                        <span className="w-5 h-5 lg:w-6 lg:h-6 rounded bg-[#5df3c2]/10 border border-[#5df3c2]/20 flex items-center justify-center text-[#5df3c2]">
-                           <Zap size={10} />
-                        </span>
-                        <span className="text-sm lg:text-lg font-black uppercase tracking-tight">{exp}</span>
-                      </div>
-                    ))}
+              {/* Bio card with oz-forest-card and gem-cut clip-path */}
+              <div
+                className="oz-forest-card p-5 lg:p-8 mb-6 lg:mb-10"
+                style={{ clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)' }}
+              >
+                <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
+                  <div className="space-y-4 lg:space-y-6">
+                    <h3 className="font-mono text-[#effc5f]/60 uppercase tracking-widest text-[10px]">Core Expertise</h3>
+                    <div className="space-y-2 lg:space-y-3">
+                      {teamMembers[activeIdx].expertise.map((exp) => (
+                        <div key={exp} className="flex gap-3 lg:gap-4 items-center">
+                          <span className="w-5 h-5 lg:w-6 lg:h-6 rounded bg-[#5df3c2]/10 border border-[#5df3c2]/20 flex items-center justify-center text-[#5df3c2]">
+                             <Zap size={10} />
+                          </span>
+                          <span className="text-sm lg:text-lg font-black uppercase tracking-tight text-white">{exp}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                <div className="space-y-4 lg:space-y-6">
-                  <h3 className="text-[10px] lg:text-xs font-black uppercase tracking-[0.3em] lg:tracking-[0.4em] text-[#5df3c2]/40">Strategic Impact</h3>
-                  <div className="space-y-2 lg:space-y-3">
-                    {teamMembers[activeIdx].details.map((detail) => (
-                      <div key={detail} className="flex gap-3 lg:gap-4 items-start">
-                        <span className="w-5 h-5 lg:w-6 lg:h-6 rounded bg-white/5 border border-white/10 flex items-center justify-center text-white/40 mt-1 shrink-0">
-                           <Shield size={10} />
-                        </span>
-                        <span className="text-xs lg:text-base font-medium text-white/60 leading-tight italic">{detail}</span>
-                      </div>
-                    ))}
+                  <div className="space-y-4 lg:space-y-6">
+                    <h3 className="font-mono text-[#effc5f]/60 uppercase tracking-widest text-[10px]">Strategic Impact</h3>
+                    <div className="space-y-2 lg:space-y-3">
+                      {teamMembers[activeIdx].details.map((detail) => (
+                        <div key={detail} className="flex gap-3 lg:gap-4 items-start">
+                          <span className="w-5 h-5 lg:w-6 lg:h-6 rounded bg-white/5 border border-white/10 flex items-center justify-center text-white/40 mt-1 shrink-0">
+                             <Shield size={10} />
+                          </span>
+                          <span className="text-xs lg:text-base font-medium text-white/80 leading-tight italic">{detail}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -246,8 +262,8 @@ export default function TeamPage() {
                   Apply with Oz <ArrowRight className="inline-block ml-2 lg:ml-4 group-hover:translate-x-2 transition-transform" />
                 </a>
                 <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-                  <Link href="/" className="text-white/40 hover:text-white font-black uppercase tracking-widest text-[10px] lg:text-xs transition-colors flex items-center gap-3 whitespace-nowrap min-h-11 touch-manipulation">
-                    <ArrowLeft size={14} /> Back home
+                  <Link href="/" className="text-[#effc5f] hover:text-white font-black uppercase tracking-widest text-[10px] lg:text-xs transition-colors flex items-center gap-3 whitespace-nowrap min-h-11 touch-manipulation">
+                    <ArrowLeft size={14} className="text-[#effc5f]" /> Back home
                   </Link>
                   <Link href="/invest" className="text-white/35 hover:text-[#5df3c2] font-black uppercase tracking-widest text-[10px] lg:text-xs transition-colors whitespace-nowrap min-h-11 inline-flex items-center touch-manipulation">
                     Investor deck
@@ -257,10 +273,17 @@ export default function TeamPage() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Page Indicator for Desk */}
-          <div className="absolute top-1/2 right-6 lg:right-12 -translate-y-1/2 hidden xl:flex flex-col gap-4 lg:gap-8 opacity-20">
+          {/* Dot indicators for active member */}
+          <div className="absolute top-1/2 right-6 lg:right-12 -translate-y-1/2 hidden xl:flex flex-col gap-4 lg:gap-8">
             {teamMembers.map((_, i) => (
-               <div key={i} className={`w-px h-8 lg:h-12 transition-all duration-500 ${i === activeIdx ? 'bg-[#5df3c2] h-16 lg:h-20 opacity-100' : 'bg-white'}`} />
+               <div
+                 key={i}
+                 className={`w-1.5 rounded-full transition-all duration-500 ${
+                   i === activeIdx
+                     ? 'bg-[#effc5f] h-8 lg:h-10'
+                     : 'bg-[#effc5f]/20 h-4 lg:h-6'
+                 }`}
+               />
             ))}
           </div>
         </div>

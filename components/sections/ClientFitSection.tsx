@@ -3,22 +3,17 @@
 import { motion } from "framer-motion";
 import ScrollFloat from "@/components/ScrollFloat";
 import { clientFit } from "@/data/clientPageContent";
-
-const cardMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.4 },
-};
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientFitSection() {
   return (
     <section
       id="client-fit"
-      className="px-4 sm:px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#f9fafb]"
+      data-theme="light"
+      className="oz-section-secondary py-8 md:py-10 flex items-center justify-center bg-[#f9fafb]"
     >
-      <div className="max-w-6xl mx-auto w-full text-center">
-        <span className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#006c40] mb-6 md:mb-10">
+      <div className="oz-container max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full text-center">
+        <span className="oz-badge oz-badge-green">
           Fit & Values
         </span>
         <ScrollFloat
@@ -29,7 +24,7 @@ export default function ClientFitSection() {
         </ScrollFloat>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2 text-left">
-          <motion.div {...cardMotion} className="rounded-3xl border-2 border-[#021f0d]/5 p-5 bg-white shadow-xl">
+          <motion.div {...riseVariant} className="oz-city-card oz-emerald-accent rounded-3xl p-5 shadow-xl">
             <p className="text-xs uppercase tracking-[0.3em] font-black text-[#006c40]/60 mb-3">
               Good fit
             </p>
@@ -42,7 +37,7 @@ export default function ClientFitSection() {
               ))}
             </ul>
           </motion.div>
-          <motion.div {...cardMotion} className="rounded-3xl border border-white/10 p-5 bg-[#021f0d] text-white shadow-2xl">
+          <motion.div {...riseVariant} className="oz-red-accent rounded-3xl border border-white/10 p-5 bg-[#021f0d] text-white shadow-2xl">
             <p className="text-xs uppercase tracking-[0.3em] font-black text-red-500 mb-3">
               Not a fit
             </p>
@@ -57,7 +52,7 @@ export default function ClientFitSection() {
           </motion.div>
         </div>
 
-        <motion.div {...cardMotion} className="mt-6 rounded-3xl border-2 border-[#021f0d]/5 p-5 bg-white shadow-xl text-left">
+        <motion.div {...riseVariant} className="mt-6 oz-city-card oz-emerald-accent rounded-3xl p-5 shadow-xl text-left">
           <p className="text-xs uppercase tracking-[0.3em] font-black text-[#006c40]/60 mb-3">
             Values (non-negotiable)
           </p>
@@ -65,7 +60,7 @@ export default function ClientFitSection() {
             {clientFit.values.map((item) => (
               <span
                 key={item}
-                className="inline-flex items-center rounded-full bg-[#021f0d] text-white px-4 py-2 text-xs font-bold uppercase tracking-[0.2em]"
+                className="inline-flex items-center rounded-full bg-transparent border border-[#021f0d]/20 text-[#021f0d] px-4 py-2 text-xs font-bold uppercase tracking-[0.2em]"
               >
                 {item}
               </span>

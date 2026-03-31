@@ -4,13 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import ScrollReveal from "@/components/ScrollReveal";
 import { clientPricing } from "@/data/clientPageContent";
-
-const cardMotion = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.4 },
-};
+import { riseVariant } from "@/lib/animations";
 
 export default function ClientPricingSection() {
   const [openPanel, setOpenPanel] = useState<"included" | "addons" | "terms" | null>("included");
@@ -18,10 +12,11 @@ export default function ClientPricingSection() {
   return (
     <section
       id="client-pricing"
-      className="px-4 sm:px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-white relative overflow-hidden"
+      data-theme="light"
+      className="py-32 md:py-40 bg-[#f9fafb] relative overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto w-full text-center">
-        <span className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#006c40] mb-6 md:mb-10">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full text-center">
+        <span className="oz-badge oz-badge-green">
           Transparent Pricing
         </span>
         <ScrollReveal
@@ -30,12 +25,12 @@ export default function ClientPricingSection() {
         >
           {clientPricing.headline}
         </ScrollReveal>
-        <motion.p {...cardMotion} className="mt-4 text-sm md:text-lg text-[#021f0d]/70 max-w-3xl mx-auto">
+        <motion.p {...riseVariant} className="mt-4 text-sm md:text-lg text-[#021f0d]/70 max-w-3xl mx-auto">
           {clientPricing.rate}
         </motion.p>
 
         <motion.div
-          {...cardMotion}
+          {...riseVariant}
           className="mt-8 md:mt-10 bg-[#021f0d] text-white p-5 md:p-10 rounded-3xl md:rounded-[48px] shadow-2xl relative overflow-hidden oz-emerald-card text-left hidden md:block"
         >
           <div className="absolute top-0 right-0 p-6 md:p-12 text-[12vw] font-black opacity-5 select-none leading-none">$3,500</div>
@@ -43,13 +38,13 @@ export default function ClientPricingSection() {
             <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-[#5df3c2] mb-3 md:mb-5">
               Founding Member Rate
             </p>
-            <h3 className="text-2xl md:text-5xl font-heading font-black uppercase tracking-tighter mb-3 md:mb-5 leading-none">
+            <h3 className="text-2xl md:text-5xl font-heading font-black uppercase tracking-tighter mb-3 md:mb-5 leading-none text-[#effc5f]">
               $3,500 / Month
             </h3>
             <p className="text-sm md:text-lg text-white/60 font-medium leading-relaxed mb-4 md:mb-8">{clientPricing.rate}</p>
             <div className="flex flex-wrap gap-2 md:gap-3 mb-4 md:mb-8">
               {clientPricing.included.map((t: string) => (
-                <span key={t} className="px-3 md:px-5 py-2 md:py-3 rounded-xl bg-white/10 border border-white/20 font-bold text-[10px] md:text-sm uppercase tracking-wide md:tracking-widest">
+                <span key={t} className="px-3 md:px-5 py-2 md:py-3 rounded-xl bg-transparent border border-[#5df3c2]/30 text-[#5df3c2] font-bold text-[10px] md:text-sm uppercase tracking-wide md:tracking-widest">
                   {t}
                 </span>
               ))}
@@ -82,7 +77,7 @@ export default function ClientPricingSection() {
 
         <div className="mt-6 md:hidden text-left bg-[#021f0d] text-white rounded-3xl p-4 shadow-2xl oz-emerald-card">
           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#5df3c2] mb-3">Founding Member Rate</p>
-          <h3 className="text-xl font-heading font-black uppercase tracking-tighter mb-3 leading-tight">
+          <h3 className="text-xl font-heading font-black uppercase tracking-tighter mb-3 leading-tight text-[#effc5f]">
             $3,500 / Month
           </h3>
           <p className="text-xs text-white/70 font-medium leading-relaxed mb-4">
@@ -101,7 +96,7 @@ export default function ClientPricingSection() {
             {openPanel === "included" && (
               <div className="flex flex-wrap gap-2 px-1 pb-2">
                 {clientPricing.included.map((t: string) => (
-                  <span key={t} className="px-3 py-2 rounded-xl bg-white/10 border border-white/20 font-bold text-[10px] uppercase tracking-wide">
+                  <span key={t} className="px-3 py-2 rounded-xl bg-transparent border border-[#5df3c2]/30 text-[#5df3c2] font-bold text-[10px] uppercase tracking-wide">
                     {t}
                   </span>
                 ))}
@@ -142,7 +137,7 @@ export default function ClientPricingSection() {
           </div>
         </div>
 
-        <motion.p {...cardMotion} className="mt-6 text-sm md:text-lg text-[#021f0d]/70">
+        <motion.p {...riseVariant} className="mt-6 text-sm md:text-lg text-[#021f0d]/70">
           {clientPricing.totalValue}
         </motion.p>
       </div>

@@ -27,15 +27,18 @@ export default function ApplicationSection() {
   return (
     <section
       id="application"
-      className="px-6 md:px-10 py-12 md:py-16 min-h-screen bg-[#021f0d] text-white relative overflow-hidden oz-section-glow"
+      data-theme="dark"
+      className="oz-section-secondary bg-[#021f0d] text-white relative overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto w-full relative z-10 text-center">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          className="text-[#5df3c2] font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[10px] md:text-xs mb-6 md:mb-10"
+          className="mb-6 md:mb-10"
         >
-          The Selection Process
+          <span className="oz-badge oz-badge-gold">
+            The Selection Process
+          </span>
         </motion.div>
         <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black tracking-tighter leading-none uppercase mb-4 md:mb-6">
           Become an Owner.
@@ -44,7 +47,7 @@ export default function ApplicationSection() {
           We are looking for strategic partners who believe in software sovereignty. If you believe businesses should own their tools, apply below.
         </p>
 
-        <div className="p-6 md:p-8 rounded-3xl md:rounded-[40px] bg-white text-[#021f0d] shadow-2xl text-left max-w-3xl mx-auto">
+        <div className="oz-city-card p-6 md:p-8 text-left max-w-3xl mx-auto">
           <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-[#006c40] mb-3">
             Fast Qualification
           </p>
@@ -75,7 +78,7 @@ export default function ApplicationSection() {
               initial={{ opacity: 0, y: 16, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.25 }}
-              className="w-full max-w-lg rounded-3xl bg-white text-[#021f0d] shadow-2xl p-6 md:p-8 text-left oz-glass-card oz-skew-frame oz-vine-border relative"
+              className="w-full max-w-lg rounded-3xl bg-white text-[#021f0d] shadow-2xl p-6 md:p-8 text-left relative"
               onClick={(event) => event.stopPropagation()}
             >
               <button
@@ -93,7 +96,7 @@ export default function ApplicationSection() {
                 Want to Book a Call Instead?
               </h3>
               <p className="text-sm md:text-base text-[#021f0d]/70 leading-relaxed mb-6">
-                If you’re ready to talk, book a call now. Prefer to qualify first? Continue to the intake form.
+                If you're ready to talk, book a call now. Prefer to qualify first? Continue to the intake form.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
@@ -121,7 +124,7 @@ export default function ApplicationSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="mt-8 md:mt-10 p-4 md:p-6 rounded-3xl md:rounded-[40px] bg-white text-[#021f0d] shadow-2xl text-left"
+            className="mt-8 md:mt-10 oz-city-card p-4 md:p-6 text-left"
           >
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
               <div>

@@ -15,10 +15,11 @@ export default function VisionSection() {
   return (
     <section
       id="vision"
-      className="px-6 md:px-10 py-8 md:py-10 section-viewport flex items-center justify-center bg-[#f9fafb] relative overflow-hidden"
+      data-theme="light"
+      className="oz-section-secondary bg-[#f9fafb] text-[#021f0d] relative overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto w-full text-center">
-        <span className="inline-block rounded-full bg-[#006c40]/10 border border-[#006c40]/20 px-4 py-1.5 text-[10px] md:text-xs font-black uppercase tracking-[0.25em] md:tracking-[0.4em] text-[#006c40] mb-6 md:mb-10">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full text-center">
+        <span className="oz-badge oz-badge-green mb-6 md:mb-10">
           Technology Sovereignty
         </span>
 
@@ -29,7 +30,7 @@ export default function VisionSection() {
           {visionSection.headline}
         </ScrollReveal>
 
-        <motion.div {...cardMotion} className="mt-6 md:mt-10 p-4 md:p-8 rounded-3xl bg-white border-2 border-red-500/10 shadow-lg inline-flex flex-col md:flex-row items-center gap-3 md:gap-8">
+        <motion.div {...cardMotion} className="mt-6 md:mt-10 oz-city-card p-4 md:p-8 inline-flex flex-col md:flex-row items-center gap-3 md:gap-8">
           <p className="text-sm md:text-lg font-bold text-[#021f0d]/60 italic">&quot;{visionSection.math[visionSection.math.length - 1]}&quot;</p>
           <div className="text-center md:text-right">
             <p className="text-2xl md:text-5xl font-heading font-black text-red-500">$33,500/yr</p>
@@ -38,7 +39,7 @@ export default function VisionSection() {
         </motion.div>
 
         <div className="mt-6 md:mt-10 grid md:grid-cols-2 gap-4 md:gap-8 text-left">
-          <motion.div {...cardMotion} className="p-5 md:p-8 rounded-3xl bg-[#021f0d] text-white shadow-2xl oz-emerald-card">
+          <motion.div {...cardMotion} className="oz-emerald-card p-5 md:p-8">
             <h3 className="text-lg md:text-2xl font-heading font-black text-[#5df3c2] uppercase tracking-tighter leading-none mb-4 md:mb-6">The SaaS Renting Trap</h3>
             <div className="space-y-2 md:space-y-4">
               {visionSection.renting.map((item) => (
@@ -50,7 +51,7 @@ export default function VisionSection() {
             </div>
           </motion.div>
 
-          <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.1 }} className="p-5 md:p-8 rounded-3xl bg-white border-2 border-[#006c40]/20 shadow-2xl">
+          <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.1 }} className="oz-city-card p-5 md:p-8">
             <h3 className="text-lg md:text-2xl font-heading font-black text-[#006c40] uppercase tracking-tighter leading-none mb-4 md:mb-6">Our Approach</h3>
             <div className="space-y-2 md:space-y-4">
               {visionSection.approach.map((item) => (
