@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import ScrollFloat from "@/components/ScrollFloat";
 import { opportunity } from "@/data/seedPageContent";
 
@@ -42,7 +43,7 @@ export default function OpportunitySection() {
               transition={{ ...cardMotion.transition, delay: i * 0.1 }}
               className="oz-city-card p-4 md:p-7"
             >
-              <span className="w-8 h-8 rounded-xl bg-[#effc5f]/20 text-[#effc5f] flex items-center justify-center font-black mb-3 text-xs">0{i+1}</span>
+              <span className="w-8 h-8 rounded-xl bg-[#006c40]/10 text-[#006c40] flex items-center justify-center font-black mb-3 text-xs">0{i+1}</span>
               <h4 className="text-base md:text-xl font-heading font-black text-[#021f0d] uppercase tracking-tighter mb-2">{pillar.title}</h4>
               <p className="text-xs md:text-base text-[#021f0d]/60 font-medium leading-relaxed">{pillar.description}</p>
             </motion.div>
@@ -62,6 +63,15 @@ export default function OpportunitySection() {
             </span>
           ))}
         </div>
+
+        <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.3 }} className="mt-8 md:mt-12">
+          <a
+            href="#application"
+            className="oz-btn-primary min-w-[220px] md:min-w-[280px] text-xs md:text-sm inline-flex items-center justify-center gap-3"
+          >
+            Become an Investor <ArrowRight size={16} strokeWidth={3} />
+          </a>
+        </motion.div>
       </div>
     </section>
   );

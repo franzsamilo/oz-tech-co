@@ -39,7 +39,7 @@ export default function VisionSection() {
         </motion.div>
 
         <div className="mt-6 md:mt-10 grid md:grid-cols-2 gap-4 md:gap-8 text-left">
-          <motion.div {...cardMotion} className="oz-forest-card p-5 md:p-8">
+          <motion.div {...cardMotion} className="oz-emerald-card p-5 md:p-8">
             <h3 className="text-lg md:text-2xl font-heading font-black text-[#5df3c2] uppercase tracking-tighter leading-none mb-4 md:mb-6">The SaaS Renting Trap</h3>
             <div className="space-y-2 md:space-y-4">
               {visionSection.renting.map((item) => (

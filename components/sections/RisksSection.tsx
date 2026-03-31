@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import ScrollFloat from "@/components/ScrollFloat";
 import { risks } from "@/data/seedPageContent";
 
@@ -58,6 +59,13 @@ export default function RisksSection() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-8 md:mt-12">
+          <a href="#investment" className="oz-scroll-cue inline-flex">
+            <ChevronDown size={24} strokeWidth={2} className="text-[#5df3c2]/40 animate-bounce" />
+          </a>
+          <p className="mt-2 text-[9px] md:text-[10px] font-bold text-white/30 uppercase tracking-[0.25em]">See the terms</p>
         </div>
       </div>
     </section>

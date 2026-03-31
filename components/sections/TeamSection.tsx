@@ -42,8 +42,7 @@ export default function TeamSection() {
           {...cardMotion}
           className="mt-8 md:mt-10 relative group cursor-pointer"
         >
-          <Link href="/team">
-            <div className="relative h-[260px] sm:h-[300px] md:h-[420px] w-full rounded-[32px] md:rounded-[48px] overflow-hidden shadow-2xl">
+          <div className="relative h-[260px] sm:h-[300px] md:h-[420px] w-full rounded-[32px] md:rounded-[48px] overflow-hidden shadow-2xl">
               <Image
                 src="/software-design.jpg"
                 alt="The OZ Team"
@@ -57,9 +56,12 @@ export default function TeamSection() {
                   Meet The Assets Behind The Machine.
                 </h3>
                 <div className="flex items-center gap-3 md:gap-6">
-                  <div className="oz-btn-primary px-4 md:px-8 group/btn text-[10px] md:text-sm">
-                    Examine The Team <ArrowRight className="inline-block ml-3 group-hover/btn:translate-x-2 transition-transform" size={16} />
-                  </div>
+                  <a href="#application" className="oz-btn-primary px-4 md:px-8 group/btn text-[10px] md:text-sm">
+                    Back This Team <ArrowRight className="inline-block ml-3 group-hover/btn:translate-x-2 transition-transform" size={16} />
+                  </a>
+                  <Link href="/team" className="text-[10px] md:text-xs font-bold text-white/50 hover:text-[#5df3c2] uppercase tracking-widest transition-colors">
+                    Full Bios &rarr;
+                  </Link>
                   <div className="hidden sm:flex -space-x-3">
                     {teamMembers.map((m, i) => (
                       <div key={i} className="w-10 h-10 rounded-full border-3 border-[#021f0d] bg-white/10 backdrop-blur-md overflow-hidden relative">
@@ -70,7 +72,6 @@ export default function TeamSection() {
                 </div>
               </div>
             </div>
-          </Link>
         </motion.div>
       </div>
     </section>

@@ -160,14 +160,20 @@ export default function CaseStudiesSection() {
                     <p className="text-sm md:text-base font-semibold text-[#021f0d]">{study.timeline}</p>
                   </div>
                 </div>
-                <div className="mt-5 flex items-center gap-3">
+                <div className="mt-5 flex flex-col gap-2">
+                  <a
+                    href="#application"
+                    className="oz-btn-primary w-full min-h-11 justify-center text-xs md:text-sm touch-manipulation"
+                  >
+                    Build Something Like This <ArrowRight size={16} strokeWidth={3} />
+                  </a>
                   <a
                     href={(study as any).url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="oz-btn-primary w-full min-h-11 justify-center text-xs md:text-sm touch-manipulation"
+                    className="inline-flex items-center justify-center gap-2 text-[10px] md:text-xs font-bold text-[#006c40]/60 hover:text-[#006c40] uppercase tracking-widest transition-colors py-2"
                   >
-                    View Live Project <ArrowRight size={16} strokeWidth={3} />
+                    View Live Project &rarr;
                   </a>
                 </div>
               </motion.div>

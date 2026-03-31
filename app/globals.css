@@ -550,6 +550,7 @@ html {
   position: relative;
   background: linear-gradient(145deg, #021f0d 0%, #04301b 45%, #006c40 100%);
   border: 1px solid #5df3c2;
+  border-radius: 24px;
   box-shadow:
     inset 0 0 22px rgba(93, 243, 194, 0.18),
     0 20px 60px rgba(2, 31, 13, 0.45);
@@ -811,6 +812,12 @@ html {
 
 .oz-section-secondary {
   @apply py-20 md:py-28;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .oz-section-tertiary {

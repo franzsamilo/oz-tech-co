@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import StatCounter from "@/components/StatCounter";
 
 const cardMotion = {
@@ -32,7 +33,7 @@ export default function SocialProofSection() {
             <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-[#006c40] mt-3 md:mt-4">Projects Delivered</p>
           </motion.div>
 
-          <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.1 }} className="oz-forest-card p-4 sm:p-6 md:p-8">
+          <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.1 }} className="oz-emerald-card p-4 sm:p-6 md:p-8">
             <div className="text-4xl sm:text-5xl md:text-7xl font-heading font-black tracking-tighter leading-none">
               <StatCounter value={100} suffix="M+" className="text-white" />
             </div>
@@ -51,6 +52,13 @@ export default function SocialProofSection() {
         <motion.p {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.3 }} className="mt-8 md:mt-10 text-sm md:text-lg text-[#021f0d]/50 font-bold uppercase tracking-[0.18em] md:tracking-widest">
           98.4% Client Satisfaction · 18+ Month Avg Tenure
         </motion.p>
+
+        <div className="mt-6 md:mt-10">
+          <a href="#truth" className="oz-scroll-cue inline-flex">
+            <ChevronDown size={24} strokeWidth={2} className="text-[#006c40]/30 animate-bounce" />
+          </a>
+          <p className="mt-2 text-[9px] md:text-[10px] font-bold text-[#021f0d]/25 uppercase tracking-[0.25em]">How we did it</p>
+        </div>
       </div>
     </section>
   );

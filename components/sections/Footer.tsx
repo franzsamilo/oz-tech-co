@@ -28,6 +28,11 @@ export default function Footer() {
           className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:gap-x-8 sm:gap-y-3 mb-8 max-w-md"
           aria-label="Footer"
         >
+          <a href="#application" className="oz-btn-primary px-6 py-3 text-[10px] sm:text-xs">
+            {ctaLabel}
+          </a>
+        </nav>
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 mb-6">
           <Link href="/" className={linkClass}>
             Home
           </Link>
@@ -39,10 +44,7 @@ export default function Footer() {
               For investors
             </Link>
           ) : null}
-          <a href="#application" className={linkClass}>
-            {ctaLabel}
-          </a>
-        </nav>
+        </div>
         <div className="text-[10px] font-black uppercase tracking-widest text-white/20 px-2">
           © 2026 OZ Tech Co. Built for Technology Sovereignty.
         </div>

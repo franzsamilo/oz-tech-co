@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l 'C:\\\\Users\\\\Franz Samilo\\\\Desktop\\\\oz-tech-co\\\\app\\\\globals.css' C:UsersFranz SamiloDesktopoz-tech-cocomponentssections/*.tsx C:UsersFranz SamiloDesktopoz-tech-cocomponents/*.tsx 'C:\\\\Users\\\\Franz Samilo\\\\Desktop\\\\oz-tech-co\\\\data\\\\clientPageContent.ts' 'C:\\\\Users\\\\Franz Samilo\\\\Desktop\\\\oz-tech-co\\\\data\\\\seedPageContent.ts' 'C:\\\\Users\\\\Franz Samilo\\\\Desktop\\\\oz-tech-co\\\\lib\\\\utils.ts')",
+      "Bash(find components/sections -name \"*.tsx\" -exec wc -l {} +)",
+      "Bash(sort -k2)",
+      "Bash(find components:*)",
+      "Bash(grep:*)",
+      "Bash(npm run:*)"
+    ]
+  }
+}

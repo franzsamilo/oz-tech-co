@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import ScrollFloat from "@/components/ScrollFloat";
 import { businessModel } from "@/data/seedPageContent";
 
@@ -24,10 +25,10 @@ export default function BusinessModelSection() {
         </ScrollFloat>
 
         <div className="mt-8 md:mt-10 grid md:grid-cols-3 gap-4 md:gap-6">
-          <motion.div {...cardMotion} className="oz-forest-card p-5 md:p-7 text-left">
+          <motion.div {...cardMotion} className="oz-emerald-card p-5 md:p-7 text-left">
             <p className="text-xs font-black uppercase tracking-[0.3em] text-[#5df3c2] mb-4">Current MRR</p>
             <p className="text-3xl md:text-4xl font-heading font-black tracking-tighter text-white">$17,500</p>
-            <p className="text-xs md:text-sm text-white/50 font-bold mt-2">5 Founding Members · $3,500/mo each</p>
+            <p className="text-xs md:text-sm text-white/60 font-bold mt-2">5 Founding Members · $3,500/mo each</p>
           </motion.div>
 
           <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.1 }} className="oz-city-card p-5 md:p-7 text-left">
@@ -36,10 +37,10 @@ export default function BusinessModelSection() {
             <p className="text-xs md:text-sm text-[#021f0d]/50 font-bold mt-2">18+ month avg tenure</p>
           </motion.div>
 
-          <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.2 }} className="oz-forest-card p-5 md:p-7 text-left">
+          <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.2 }} className="oz-emerald-card p-5 md:p-7 text-left">
             <p className="text-xs font-black uppercase tracking-[0.3em] text-[#effc5f] mb-4">Capacity</p>
             <p className="text-3xl md:text-4xl font-heading font-black tracking-tighter text-white">30 Clients</p>
-            <p className="text-xs md:text-sm text-white/50 font-bold mt-2">10-person team · Scalable system</p>
+            <p className="text-xs md:text-sm text-white/60 font-bold mt-2">10-person team · Scalable system</p>
           </motion.div>
         </div>
 
@@ -61,6 +62,15 @@ export default function BusinessModelSection() {
         <p className="mt-5 md:mt-8 text-xs md:text-lg text-[#021f0d]/40 font-bold uppercase tracking-[0.2em] md:tracking-widest">
           Strategic Exit (5-7 Yr) · Acquisition or Direct Secondary
         </p>
+
+        <motion.div {...cardMotion} transition={{ ...cardMotion.transition, delay: 0.3 }} className="mt-6 md:mt-10">
+          <a
+            href="#application"
+            className="oz-btn-primary min-w-[220px] md:min-w-[280px] text-xs md:text-sm inline-flex items-center justify-center gap-3"
+          >
+            Invest in This Model <ArrowRight size={16} strokeWidth={3} />
+          </a>
+        </motion.div>
       </div>
     </section>
   );
