@@ -425,7 +425,7 @@ export const applicationFields = [
     {
       label: "How did you hear about this investment opportunity?*",
       type: "select",
-      name: "source",
+      name: "referralSource",
       required: true,
       options: ["Referral", "LinkedIn / Twitter", "Web Summit", "Current Client", "Tech Community", "Other"]
     }

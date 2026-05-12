@@ -1,29 +1,80 @@
 import { NextResponse } from "next/server";
+import {
+  buildCustomFieldsPayload,
+  type FormDataEntries,
+  type FormKind,
+} from "@/lib/ghlFields";
+import fieldIdsJson from "@/lib/ghlFieldIds.json";
+
+const FIELD_IDS = fieldIdsJson as Record<FormKind, Record<string, string>>;
+
+interface IncomingBody {
+  formKind?: FormKind;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  companyName?: string;
+  source?: string;
+  tags?: string[];
+  entries?: FormDataEntries;
+}
 
 export async function POST(request: Request) {
-  const body = await request.json();
+  let body: IncomingBody;
+  try {
+    body = (await request.json()) as IncomingBody;
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
 
-  const baseUrl =
-    process.env.GHL_BASE_URL ||
-    process.env.NEXT_PUBLIC_GHL_BASE_URL ||
-    "https://services.leadconnectorhq.com";
+  const baseUrl = process.env.GHL_BASE_URL || "https://services.leadconnectorhq.com";
   const locationId =
     process.env.GHL_LOCATION_ID || process.env.NEXT_PUBLIC_GHL_LOCATION_ID;
   const apiKey = process.env.GHL_API_KEY || process.env.NEXT_PUBLIC_GHL_API_KEY;
 
   if (!locationId || !apiKey) {
+    console.error("[ghl-contact] Missing GHL credentials — set GHL_LOCATION_ID and GHL_API_KEY (server-side only).");
     return NextResponse.json(
       { error: "Missing GHL credentials" },
       { status: 500 }
     );
   }
 
-  try {
-    const payload = { locationId, ...body };
-    if (!Array.isArray(payload.customFields)) {
-      delete (payload as Record<string, unknown>).customFields;
-    }
+  const formKind: FormKind = body.formKind === "client" ? "client" : "investor";
+  const entries: FormDataEntries = body.entries ?? {};
+  const idMap = FIELD_IDS[formKind] ?? {};
 
+  const { customFields, missingFieldIds } = buildCustomFieldsPayload(
+    formKind,
+    entries,
+    idMap
+  );
+
+  if (missingFieldIds.length) {
+    console.warn(
+      `[ghl-contact] No GHL custom field IDs configured for ${formKind} fields:`,
+      missingFieldIds.join(", "),
+      "— run `npm run sync:ghl` to create/sync them."
+    );
+  }
+
+  const payload: Record<string, unknown> = {
+    locationId,
+    firstName: body.firstName ?? "",
+    lastName: body.lastName ?? "",
+    email: body.email ?? "",
+    phone: body.phone ?? "",
+    source:
+      body.source ??
+      (formKind === "client" ? "Client Landing Page" : "Investor Landing Page"),
+    tags: Array.isArray(body.tags) ? body.tags : [],
+  };
+
+  if (body.companyName) payload.companyName = body.companyName;
+  if (customFields.length) payload.customFields = customFields;
+
+  try {
     const response = await fetch(`${baseUrl}/contacts/`, {
       method: "POST",
       headers: {
@@ -36,15 +87,21 @@ export async function POST(request: Request) {
 
     if (!response.ok) {
       const errorText = await response.text();
+      console.error("[ghl-contact] GHL responded with error:", response.status, errorText);
       return NextResponse.json(
-        { error: "GHL request failed", details: errorText },
+        { error: "GHL request failed", status: response.status, details: errorText },
         { status: 502 }
       );
     }
 
     const data = await response.json();
-    return NextResponse.json(data);
+    return NextResponse.json({
+      ok: true,
+      contact: data,
+      droppedFields: missingFieldIds,
+    });
   } catch (error) {
+    console.error("[ghl-contact] Fetch threw:", error);
     return NextResponse.json(
       { error: "GHL request error", details: String(error) },
       { status: 500 }

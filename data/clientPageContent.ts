@@ -591,7 +591,7 @@ export const clientApplicationFields = [
       {
         label: "How did you hear about Oz Tech?*",
         type: "select",
-        name: "source",
+        name: "referralSource",
         required: true,
         options: [
           "Referral",

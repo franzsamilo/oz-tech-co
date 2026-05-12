@@ -6,10 +6,8 @@ import OzLogo from "./OzLogo";
 import { ChevronRight } from "lucide-react";
 
 const STORAGE_KEY = "oztech_seed_access";
-const DEFAULT_PASSWORD = "OZTECH2026SEED";
 
-const getPassword = () =>
-  process.env.NEXT_PUBLIC_PASSWORD?.trim() || DEFAULT_PASSWORD;
+const getPassword = () => process.env.NEXT_PUBLIC_PASSWORD?.trim() ?? "";
 
 interface PasswordLockProps {
   onUnlock?: () => void;
@@ -21,7 +19,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = sessionStorage.getItem(STORAGE_KEY);
     if (stored === "true") {
       setIsUnlocked(true);
       onUnlock?.();
@@ -30,8 +28,13 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.trim() === getPassword()) {
-      localStorage.setItem(STORAGE_KEY, "true");
+    const expected = getPassword();
+    if (!expected) {
+      setError("Access not configured. Please contact the administrator.");
+      return;
+    }
+    if (password.trim() === expected) {
+      sessionStorage.setItem(STORAGE_KEY, "true");
       setIsUnlocked(true);
       setError("");
       onUnlock?.();

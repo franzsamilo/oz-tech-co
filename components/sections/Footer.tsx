@@ -10,7 +10,9 @@ const linkClass =
 export default function Footer() {
   const pathname = usePathname();
   const isInvest = pathname === "/invest";
+  const isTeam = pathname === "/team";
   const ctaLabel = isInvest ? "Back the Machine" : "Apply";
+  const ctaHref = isTeam ? "/#application" : "#application";
 
   return (
     <footer
@@ -28,7 +30,7 @@ export default function Footer() {
           className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:gap-x-8 sm:gap-y-3 mb-8 max-w-md"
           aria-label="Footer"
         >
-          <a href="#application" className="oz-btn-primary px-6 py-3 text-[10px] sm:text-xs">
+          <a href={ctaHref} className="oz-btn-primary px-6 py-3 text-[10px] sm:text-xs">
             {ctaLabel}
           </a>
         </nav>
