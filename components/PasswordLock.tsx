@@ -76,7 +76,7 @@ export default function PasswordLock({ onUnlock }: PasswordLockProps) {
             <h1 className="text-2xl md:text-3xl font-heading font-black text-white uppercase tracking-tighter mb-3">
               Seed Access <span className="text-[#effc5f]">Portal</span>
             </h1>
-            <p className="text-white/65 text-sm md:text-base leading-relaxed max-w-[280px] mx-auto font-mono">
+            <p className="text-white/40 text-sm md:text-base leading-relaxed max-w-[280px] mx-auto font-mono">
               Enter your terminal code.
             </p>
           </motion.div>

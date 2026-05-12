@@ -57,8 +57,8 @@ export default function ClientHowItWorksSection() {
             <p className="text-2xl sm:text-3xl md:text-4xl font-heading font-black tracking-tighter uppercase leading-none">
               Two Active Builds. Unlimited Queue. Ship Fast.
             </p>
-            <a href="#application" className="oz-btn-primary mt-5 md:mt-8 px-6 md:px-10 text-sm md:text-lg inline-flex min-h-11 items-center justify-center touch-manipulation w-full max-w-md mx-auto sm:w-auto">
-              Request This Machine →
+            <a href="#application" className="oz-btn-secondary mt-5 md:mt-8 px-6 md:px-10 text-sm md:text-lg inline-flex min-h-11 items-center justify-center touch-manipulation w-full max-w-md mx-auto sm:w-auto">
+              Request This Machine
             </a>
           </div>
         </motion.div>

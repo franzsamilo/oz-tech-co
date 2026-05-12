@@ -140,15 +140,6 @@ export default function ClientPricingSection() {
         <motion.p {...riseVariant} className="mt-6 text-sm md:text-lg text-[#021f0d]/70">
           {clientPricing.totalValue}
         </motion.p>
-
-        <motion.div {...riseVariant} className="mt-8 md:mt-10 flex justify-center">
-          <a
-            href="#application"
-            className="oz-btn-primary min-h-12 min-w-[260px] md:min-w-[300px] text-sm md:text-base inline-flex items-center justify-center gap-3 px-6 touch-manipulation"
-          >
-            Lock In the Founding Rate →
-          </a>
-        </motion.div>
       </div>
     </section>
   );

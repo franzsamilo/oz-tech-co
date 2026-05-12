@@ -6,7 +6,7 @@ export const clientHero = {
     "Unlimited custom software and AI projects. One flat monthly fee. Full code ownership. Your first project live in 4 weeks — guaranteed.",
   valueStatement:
     "You bring the vision. We bring the engineering. Custom AI tools. Lead-gen platforms. Dashboards. Integrations. Automation. All built specifically for your business. No agency pricing. No platform limitations. No vendor lock-in.",
-  cta: "Apply for a Founding Spot",
+  cta: "See How It Works",
   trustLine:
     "100+ Projects Delivered · Gold SaaS Award Winner · $100M+ Generated for Clients · 4-Week Launch Guarantee",
 };

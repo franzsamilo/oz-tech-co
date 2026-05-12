@@ -1,13 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import ClientApplicationForm from "@/components/ClientApplicationForm";
 import { riseVariant } from "@/lib/animations";
 import Script from "next/script";
 
 export default function ClientApplicationSection() {
+  const [showForm, setShowForm] = useState(false);
   const [activePath, setActivePath] = useState<"form" | "calendar">("form");
+  const formRef = useRef<HTMLDivElement | null>(null);
+
+  const handleStartIntake = () => {
+    setShowForm(true);
+    setActivePath("form");
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  };
 
   return (
     <section
@@ -23,7 +33,7 @@ export default function ClientApplicationSection() {
         }}
       />
 
-      <div className="max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-12 w-full relative z-10 text-center">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full relative z-10 text-center">
         <motion.div
           {...riseVariant}
         >
@@ -42,20 +52,29 @@ export default function ClientApplicationSection() {
           <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-[#006c40] mb-3">
             Fast Qualification
           </p>
-          <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
+          <div className="grid sm:grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
             <p className="text-xs md:text-sm font-semibold text-[#021f0d]/80">Clear vision and commitment to build fast.</p>
             <p className="text-xs md:text-sm font-semibold text-[#021f0d]/80">Budget aligned at $3,500/month.</p>
             <p className="text-xs md:text-sm font-semibold text-[#021f0d]/80">Ready to give feedback every 2 weeks.</p>
             <p className="text-xs md:text-sm font-semibold text-[#021f0d]/80">Open to being a public case study.</p>
           </div>
+          <button
+            type="button"
+            onClick={handleStartIntake}
+            className="oz-btn-primary w-full justify-center text-xs md:text-sm min-h-12 touch-manipulation"
+          >
+            Start Founding Member Intake
+          </button>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="mt-8 md:mt-10 p-4 md:p-6 rounded-3xl md:rounded-[40px] bg-white text-[#021f0d] shadow-2xl text-left"
-        >
+        {showForm && (
+          <motion.div
+            ref={formRef}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mt-8 md:mt-10 p-4 md:p-6 rounded-3xl md:rounded-[40px] bg-white text-[#021f0d] shadow-2xl text-left"
+          >
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
               <div>
                 <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-[#006c40]">
@@ -95,12 +114,13 @@ export default function ClientApplicationSection() {
               <ClientApplicationForm />
             </div>
             {activePath === "calendar" && (
-              <div className="rounded-2xl border border-[#d4dce6]/60 bg-[#f9fafb] p-2 sm:p-3 md:p-4">
-                <div className="rounded-xl overflow-hidden border border-[#d4dce6]/60 bg-white">
+              <div className="rounded-2xl border border-[#d4dce6]/60 bg-[#f9fafb] p-3 sm:p-4 md:p-6">
+                <div className="rounded-xl overflow-hidden border border-[#d4dce6]/60 bg-white min-h-[480px] sm:min-h-[560px] md:min-h-[600px]">
                   <iframe
                     src="https://connect.civy.ph/widget/booking/6wcV7lvcjOxdBntDuIGj"
-                    className="w-full"
-                    style={{ border: "none", height: "min(1100px, 85vh)", minHeight: "700px" }}
+                    className="min-h-[480px] sm:min-h-[560px] md:min-h-[600px] w-full"
+                    style={{ border: "none", overflow: "hidden" }}
+                    scrolling="no"
                     id="iOnZgkuDwzd0FqcU9roG_1772876686888"
                     title="Book a call"
                   />
@@ -108,7 +128,8 @@ export default function ClientApplicationSection() {
                 <Script src="https://connect.civy.ph/js/form_embed.js" strategy="afterInteractive" />
               </div>
             )}
-        </motion.div>
+          </motion.div>
+        )}
       </div>
     </section>
   );

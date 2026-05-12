@@ -63,8 +63,8 @@ export default function ClientSystemSection() {
             <p className="text-2xl sm:text-3xl md:text-4xl font-heading font-black tracking-tighter uppercase leading-none">
               Vision to Launch in 4 Weeks. Then We Scale It.
             </p>
-            <a href="#application" className="oz-btn-primary mt-5 md:mt-8 px-6 md:px-10 text-sm md:text-lg inline-flex min-h-11 items-center justify-center touch-manipulation w-full max-w-md mx-auto sm:w-auto">
-              Start the Build Cycle →
+            <a href="#application" className="oz-btn-secondary mt-5 md:mt-8 px-6 md:px-10 text-sm md:text-lg inline-flex min-h-11 items-center justify-center touch-manipulation w-full max-w-md mx-auto sm:w-auto">
+              Start the Build Cycle
             </a>
           </div>
         </motion.div>

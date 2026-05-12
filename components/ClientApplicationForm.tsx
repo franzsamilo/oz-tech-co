@@ -23,18 +23,11 @@ export default function ClientApplicationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [stepError, setStepError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
   const topRef = useRef<HTMLDivElement | null>(null);
 
   const sections = clientApplicationFields as unknown as AppSection[];
   const totalSteps = sections.length;
-  const progressPct = ((step + 1) / totalSteps) * 100;
-
-  const labelForInput = (input: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): string => {
-    const fieldDef = sections[step]?.fields.find((f) => f.name === input.name);
-    return fieldDef?.label.replace(/\*$/, "") ?? input.name;
-  };
 
   const validateCurrentStep = (): boolean => {
     const form = formRef.current;
@@ -42,25 +35,12 @@ export default function ClientApplicationForm() {
     const inputs = form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
       `[data-step="${step}"] input, [data-step="${step}"] select, [data-step="${step}"] textarea`
     );
-    const missing = new Set<string>();
-    let firstInvalid: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null = null;
     for (const input of Array.from(inputs)) {
       if (!input.checkValidity()) {
-        if (!firstInvalid) firstInvalid = input;
-        missing.add(labelForInput(input));
+        input.reportValidity();
+        return false;
       }
     }
-    if (missing.size > 0) {
-      setStepError(
-        missing.size === 1
-          ? `Please complete "${[...missing][0]}" before continuing.`
-          : `Please complete: ${[...missing].slice(0, 3).join(", ")}${missing.size > 3 ? ` (+${missing.size - 3} more)` : ""}.`
-      );
-      firstInvalid?.focus();
-      firstInvalid?.reportValidity();
-      return false;
-    }
-    setStepError(null);
     return true;
   };
 
@@ -69,7 +49,6 @@ export default function ClientApplicationForm() {
     setStep((prev) => {
       const next = Math.min(prev + 1, totalSteps - 1);
       if (next !== prev) {
-        setStepError(null);
         requestAnimationFrame(() => {
           topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         });
@@ -81,7 +60,6 @@ export default function ClientApplicationForm() {
     setStep((prev) => {
       const next = Math.max(prev - 1, 0);
       if (next !== prev) {
-        setStepError(null);
         requestAnimationFrame(() => {
           topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         });
@@ -151,23 +129,10 @@ export default function ClientApplicationForm() {
         <h3 className="text-3xl md:text-4xl font-heading font-black text-[#021f0d] uppercase tracking-tighter">
           Application Received
         </h3>
-        <p className="mt-4 text-base sm:text-lg text-[#021f0d]/70 max-w-md mx-auto leading-relaxed">
-          We review applications within 48 hours. If it&apos;s a strong fit, we&apos;ll
+        <p className="mt-4 text-lg text-[#021f0d]/70 max-w-md mx-auto leading-relaxed">
+          We review applications within 48 hours. If it's a strong fit, we'll
           email you to schedule a Platform Audit call.
         </p>
-        <div className="mt-8 flex flex-col items-center gap-3">
-          <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#006c40]/70">
-            Want to skip the queue?
-          </p>
-          <a
-            href="https://connect.civy.ph/widget/booking/6wcV7lvcjOxdBntDuIGj"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="oz-btn-primary min-h-12 px-6 text-xs sm:text-sm inline-flex items-center justify-center gap-2 touch-manipulation"
-          >
-            Book a Platform Audit Call →
-          </a>
-        </div>
       </div>
     );
   }
@@ -179,33 +144,11 @@ export default function ClientApplicationForm() {
       className="text-left space-y-8 text-[#021f0d]"
       style={{ colorScheme: "light" }}
     >
-      <div ref={topRef} className="space-y-2">
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-xs font-black uppercase tracking-[0.25em] text-[#006c40]/70">
-            Step {step + 1} of {totalSteps}
-          </p>
-          <p className="text-xs font-bold uppercase tracking-widest text-[#021f0d]/40">
-            {sections[step]?.section}
-          </p>
-        </div>
-        <div className="h-1.5 rounded-full bg-[#d4dce6]/50 overflow-hidden">
-          <motion.div
-            className="h-full bg-gradient-to-r from-[#006c40] to-[#5df3c2]"
-            initial={false}
-            animate={{ width: `${progressPct}%` }}
-            transition={{ type: "tween", duration: 0.35, ease: "easeOut" }}
-          />
-        </div>
+      <div ref={topRef} className="flex items-center justify-center">
+        <p className="text-xs font-black uppercase tracking-[0.25em] text-[#006c40]/70">
+          Step {step + 1} of {totalSteps}
+        </p>
       </div>
-
-      {stepError && (
-        <div
-          role="alert"
-          className="rounded-2xl border-2 border-[#fe5858]/40 bg-[#fe5858]/10 px-4 py-3 text-sm font-semibold text-[#a52424]"
-        >
-          {stepError}
-        </div>
-      )}
 
       {sections.map((section, sIdx) => {
         const isActive = sIdx === step;

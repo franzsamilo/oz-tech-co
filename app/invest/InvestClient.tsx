@@ -3,7 +3,6 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import PasswordLock from "@/components/PasswordLock";
 import SectionDivider from "@/components/SectionDivider";
-import StickyApplyBar from "@/components/StickyApplyBar";
 
 // Section components
 import HeroSection from "@/components/sections/HeroSection";
@@ -24,8 +23,8 @@ import Footer from "@/components/sections/Footer";
 
 /** Session-only: same behavior as client home intro */
 const INVEST_ENTRANCE_SESSION_KEY = "oztech_invest_entrance_shown";
-/** Must match `.oz-entrance-overlay--invest` / `--client` CSS animation (2.4s) */
-const ENTRANCE_MS = 2400;
+/** Must match `.oz-entrance-overlay--invest` / `--client` CSS */
+const ENTRANCE_MS = 4000;
 
 export default function InvestClient() {
   const [isUnlocked, setIsUnlocked] = useState(false);
@@ -40,14 +39,9 @@ export default function InvestClient() {
 
   useEffect(() => {
     if (!isUnlocked || !landingReady) return;
-    const timer = setTimeout(() => setRenderRest(true), 400);
+    const timer = setTimeout(() => setRenderRest(true), 800);
     return () => clearTimeout(timer);
   }, [isUnlocked, landingReady]);
-
-  const skipIntro = () => {
-    setShowIntro(false);
-    setLandingReady(true);
-  };
 
   useLayoutEffect(() => {
     if (!isUnlocked) return;
@@ -109,20 +103,12 @@ export default function InvestClient() {
 
             {showIntro ? (
               <div className="oz-entrance-overlay oz-entrance-overlay--invest">
-                <button
-                  type="button"
-                  onClick={skipIntro}
-                  className="oz-entrance-skip"
-                  aria-label="Skip intro"
-                >
-                  Skip →
-                </button>
                 <div className="oz-entrance-glow" />
                 <div className="oz-entrance-content">
-                  <p className="oz-entrance-kicker">Seed Round · Series A Path</p>
+                  <p className="oz-entrance-kicker">Welcome to Oz Tech</p>
                   <h2 className="oz-entrance-title">The Curtain Opens</h2>
                   <p className="oz-entrance-subtitle">
-                    $100K seed · 4–10 investors · 48-hour review.
+                    Step into technology sovereignty.
                   </p>
                 </div>
               </div>
@@ -156,13 +142,12 @@ export default function InvestClient() {
                       <TeamSection />
                       <FaqSection />
                       <SectionDivider type="light-to-dark" />
+                      <ApplicationSection />
                     </>
                   )}
-                  <ApplicationSection />
                 </main>
 
                 <Footer />
-                <StickyApplyBar label="Apply to Invest" />
               </div>
             ) : null}
           </>
