@@ -29,6 +29,23 @@ export default function ClientApplicationForm() {
   const sections = clientApplicationFields as unknown as AppSection[];
   const totalSteps = sections.length;
 
+  const autocompleteFor = (name: string): string => {
+    switch (name) {
+      case "fullName":
+        return "name";
+      case "email":
+        return "email";
+      case "phone":
+        return "tel";
+      case "company":
+        return "organization";
+      case "website":
+        return "url";
+      default:
+        return "off";
+    }
+  };
+
   const validateCurrentStep = (): boolean => {
     const form = formRef.current;
     if (!form) return true;
@@ -101,13 +118,18 @@ export default function ClientApplicationForm() {
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok) {
-        const detail =
-          typeof result?.details === "string"
-            ? result.details
-            : typeof result?.error === "string"
-            ? result.error
-            : "Submission failed. Please try again or email us directly.";
-        setSubmitError(detail);
+        const reason = typeof result?.reason === "string" ? result.reason : "unknown";
+        const messages: Record<string, string> = {
+          duplicate:
+            "Looks like you've already applied with this email. We'll get back to you within 48 hours — check your spam folder if you haven't heard from us.",
+          invalid_email:
+            "That email doesn't look right. Double-check the address and try again.",
+          invalid_phone:
+            "That phone number didn't go through. Use the format +1 555 123 4567 (or your local equivalent) and try again.",
+          unknown:
+            "Something went wrong on our end. Please try again in a moment, or email us directly if it keeps happening.",
+        };
+        setSubmitError(messages[reason] ?? messages.unknown);
         console.error("GHL lead capture failed:", result);
         return;
       }
@@ -122,15 +144,15 @@ export default function ClientApplicationForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-[28px] sm:rounded-[40px] border-2 border-[#d4dce6]/60 bg-white p-6 sm:p-10 md:p-14 shadow-2xl text-center oz-glass-card oz-skew-frame oz-vine-border">
+      <div className="w-full min-h-[480px] sm:min-h-[560px] flex flex-col items-center justify-center rounded-[28px] sm:rounded-[40px] border-2 border-[#d4dce6]/60 bg-white p-6 sm:p-10 md:p-14 shadow-2xl text-center oz-glass-card oz-skew-frame oz-vine-border">
         <div className="w-20 h-20 bg-[#5df3c2]/15 rounded-full flex items-center justify-center mx-auto mb-8">
           <span className="text-4xl text-[#006c40]">✓</span>
         </div>
         <h3 className="text-3xl md:text-4xl font-heading font-black text-[#021f0d] uppercase tracking-tighter">
           Application Received
         </h3>
-        <p className="mt-4 text-lg text-[#021f0d]/70 max-w-md mx-auto leading-relaxed">
-          We review applications within 48 hours. If it's a strong fit, we'll
+        <p className="mt-4 text-base sm:text-lg text-[#021f0d]/70 max-w-md mx-auto leading-relaxed">
+          We review applications within 48 hours. If it&apos;s a strong fit, we&apos;ll
           email you to schedule a Platform Audit call.
         </p>
       </div>
@@ -189,6 +211,7 @@ export default function ClientApplicationForm() {
                           required={required}
                           type={field.type}
                           name={field.name}
+                          autoComplete={autocompleteFor(field.name)}
                           placeholder={field.placeholder || field.label}
                           className="w-full h-12 sm:h-14 rounded-xl border-2 border-[#d4dce6]/60 px-4 sm:px-6 text-base sm:text-lg text-[#021f0d] placeholder:text-[#021f0d]/40 bg-white focus:border-[#006c40] focus:outline-none transition-colors"
                         />
@@ -198,6 +221,7 @@ export default function ClientApplicationForm() {
                         <textarea
                           required={required}
                           name={field.name}
+                          autoComplete="off"
                           placeholder={field.placeholder}
                           rows={4}
                           className="w-full rounded-xl border-2 border-[#d4dce6]/60 p-4 sm:p-6 text-base sm:text-lg text-[#021f0d] placeholder:text-[#021f0d]/40 bg-white focus:border-[#006c40] focus:outline-none transition-colors"
@@ -230,6 +254,7 @@ export default function ClientApplicationForm() {
                         <select
                           name={field.name}
                           required={required}
+                          autoComplete="off"
                           className="w-full h-12 sm:h-14 rounded-xl border-2 border-[#d4dce6]/60 px-4 sm:px-6 text-base sm:text-lg text-[#021f0d] focus:border-[#006c40] focus:outline-none bg-white"
                         >
                           <option value="">Select option...</option>

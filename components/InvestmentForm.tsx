@@ -58,13 +58,18 @@ export default function InvestmentForm() {
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok) {
-        const detail =
-          typeof result?.details === "string"
-            ? result.details
-            : typeof result?.error === "string"
-            ? result.error
-            : "Submission failed. Please try again or email us directly.";
-        setSubmitError(detail);
+        const reason = typeof result?.reason === "string" ? result.reason : "unknown";
+        const messages: Record<string, string> = {
+          duplicate:
+            "Looks like you've already submitted an application with this email. We'll get back to you within 48 hours — check your spam folder if you haven't heard from us.",
+          invalid_email:
+            "That email doesn't look right. Double-check the address and try again.",
+          invalid_phone:
+            "That phone number didn't go through. Use the format +1 555 123 4567 (or your local equivalent) and try again.",
+          unknown:
+            "Something went wrong on our end. Please try again in a moment, or email us directly if it keeps happening.",
+        };
+        setSubmitError(messages[reason] ?? messages.unknown);
         console.error("GHL lead capture failed:", result);
         return;
       }
@@ -79,17 +84,32 @@ export default function InvestmentForm() {
 
   const sections = applicationFields as unknown as AppSection[];
 
+  const autocompleteFor = (name: string): string => {
+    switch (name) {
+      case "fullName":
+        return "name";
+      case "email":
+        return "email";
+      case "phone":
+        return "tel";
+      case "linkedin":
+        return "url";
+      default:
+        return "off";
+    }
+  };
+
   if (submitted) {
     return (
-        <div className="rounded-[40px] border-2 border-[#d4dce6]/60 bg-white p-12 md:p-16 shadow-2xl text-center oz-glass-card oz-skew-frame oz-vine-border">
+      <div className="w-full min-h-[480px] sm:min-h-[560px] flex flex-col items-center justify-center rounded-[40px] border-2 border-[#d4dce6]/60 bg-white p-8 sm:p-12 md:p-16 shadow-2xl text-center oz-glass-card oz-skew-frame oz-vine-border">
         <div className="w-20 h-20 bg-[#5df3c2]/15 rounded-full flex items-center justify-center mx-auto mb-8">
           <span className="text-4xl text-[#006c40]">✓</span>
         </div>
         <h3 className="text-3xl md:text-4xl font-heading font-black text-[#021f0d] uppercase tracking-tighter">
           Application Received
         </h3>
-        <p className="mt-4 text-lg text-[#021f0d]/70 max-w-md mx-auto leading-relaxed">
-          We review all strategic applications within 48 hours. If there's an alignment, we'll reach out to schedule your Platform Audit.
+        <p className="mt-4 text-base sm:text-lg text-[#021f0d]/70 max-w-md mx-auto leading-relaxed">
+          We review all strategic applications within 48 hours. If there&apos;s an alignment, we&apos;ll reach out to schedule your Platform Audit.
         </p>
       </div>
     );
@@ -127,6 +147,7 @@ export default function InvestmentForm() {
                     required={field.required}
                     type={field.type}
                     name={field.name}
+                    autoComplete={autocompleteFor(field.name)}
                     placeholder={field.placeholder || field.label}
                     className="w-full h-14 rounded-xl border-2 border-[#d4dce6]/60 px-6 text-lg text-[#021f0d] placeholder:text-[#021f0d]/40 bg-white focus:border-[#006c40] focus:outline-none transition-colors"
                   />
@@ -136,6 +157,7 @@ export default function InvestmentForm() {
                   <textarea
                     required={field.required}
                     name={field.name}
+                    autoComplete="off"
                     placeholder={field.placeholder}
                     rows={4}
                     className="w-full rounded-xl border-2 border-[#d4dce6]/60 p-6 text-lg text-[#021f0d] placeholder:text-[#021f0d]/40 bg-white focus:border-[#006c40] focus:outline-none transition-colors"
@@ -155,7 +177,7 @@ export default function InvestmentForm() {
                 )}
 
                 {field.type === 'select' && (
-                  <select name={field.name} required={field.required} className="w-full h-14 rounded-xl border-2 border-[#d4dce6]/60 px-6 text-lg text-[#021f0d] focus:border-[#006c40] focus:outline-none bg-white">
+                  <select name={field.name} required={field.required} autoComplete="off" className="w-full h-14 rounded-xl border-2 border-[#d4dce6]/60 px-6 text-lg text-[#021f0d] focus:border-[#006c40] focus:outline-none bg-white">
                     <option value="">Select option...</option>
                     {field.options?.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                   </select>
