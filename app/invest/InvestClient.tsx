@@ -33,7 +33,7 @@ export default function InvestClient() {
   const [showIntro, setShowIntro] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("oztech_seed_access");
+    const stored = sessionStorage.getItem("oztech_seed_access");
     if (stored === "true") setIsUnlocked(true);
   }, []);
 

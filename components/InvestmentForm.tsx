@@ -30,17 +30,22 @@ export default function InvestmentForm() {
     setSubmitError(null);
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
-    const entries = Object.fromEntries(formData.entries());
+    const entries: Record<string, string | string[]> = {};
+    for (const key of Array.from(new Set(formData.keys()))) {
+      const values = formData.getAll(key).map((v) => (typeof v === "string" ? v : ""));
+      entries[key] = values.length > 1 ? values : values[0] ?? "";
+    }
 
+    const fullName = typeof entries.fullName === "string" ? entries.fullName : "";
     const payload = {
-      firstName: (entries.fullName as string | undefined)?.split(" ")[0] || "",
-      lastName:
-        (entries.fullName as string | undefined)?.split(" ").slice(1).join(" ") || "",
-      email: entries.email || "",
-      phone: entries.phone || "",
-      source: entries.source || "Landing Page",
+      formKind: "investor" as const,
+      firstName: fullName.split(" ")[0] || "",
+      lastName: fullName.split(" ").slice(1).join(" ") || "",
+      email: typeof entries.email === "string" ? entries.email : "",
+      phone: typeof entries.phone === "string" ? entries.phone : "",
+      source: "Investor Landing Page",
       tags: ["OZ Tech Seed Round", "Investor Intake"],
-      customFields: entries,
+      entries,
     };
 
     try {
@@ -51,16 +56,22 @@ export default function InvestmentForm() {
         },
         body: JSON.stringify(payload),
       });
+      const result = await response.json().catch(() => ({}));
       if (!response.ok) {
-        const errorText = await response.text();
-        setSubmitError("Submission failed. Please try again.");
-        console.error("GHL lead capture failed:", errorText);
+        const detail =
+          typeof result?.details === "string"
+            ? result.details
+            : typeof result?.error === "string"
+            ? result.error
+            : "Submission failed. Please try again or email us directly.";
+        setSubmitError(detail);
+        console.error("GHL lead capture failed:", result);
         return;
       }
       setSubmitted(true);
     } catch (error) {
       console.error("GHL lead capture failed:", error);
-      setSubmitError("Submission failed. Please try again.");
+      setSubmitError("Network error. Check your connection and try again.");
     } finally {
       setSubmitting(false);
     }

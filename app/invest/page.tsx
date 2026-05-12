@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import InvestClient from "./InvestClient";
+import { faqs } from "@/data/seedPageContent";
 
 export const metadata: Metadata = {
   title: "Invest in OZ Tech — Software Ownership for Every Business",
@@ -13,6 +14,24 @@ export const metadata: Metadata = {
   },
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function InvestPage() {
-  return <InvestClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <InvestClient />
+    </>
+  );
 }

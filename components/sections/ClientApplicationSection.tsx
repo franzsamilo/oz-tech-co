@@ -9,17 +9,11 @@ import Script from "next/script";
 export default function ClientApplicationSection() {
   const [showForm, setShowForm] = useState(false);
   const [activePath, setActivePath] = useState<"form" | "calendar">("form");
-  const [showModal, setShowModal] = useState(false);
   const formRef = useRef<HTMLDivElement | null>(null);
 
   const handleStartIntake = () => {
-    setShowModal(true);
-  };
-
-  const handleSelectPath = (path: "form" | "calendar") => {
     setShowForm(true);
-    setActivePath(path);
-    setShowModal(false);
+    setActivePath("form");
     setTimeout(() => {
       formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
@@ -73,58 +67,6 @@ export default function ClientApplicationSection() {
           </button>
         </div>
 
-        {showModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#021f0d]/80 backdrop-blur-sm px-4 pb-6 pt-10 sm:p-6 sm:pb-6"
-            onClick={() => setShowModal(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 16, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.25 }}
-              className="w-full max-w-lg max-h-[min(90dvh,720px)] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-white text-[#021f0d] shadow-2xl p-5 sm:p-6 md:p-8 text-left oz-glass-card oz-skew-frame oz-vine-border relative"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <button
-                type="button"
-                onClick={() => setShowModal(false)}
-                className="absolute top-4 right-4 w-10 h-10 rounded-full border border-[#d4dce6]/60 text-[#021f0d]/70 hover:text-[#021f0d] hover:border-[#006c40]/30 transition"
-                aria-label="Close modal"
-              >
-                ✕
-              </button>
-              <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-[#006c40] mb-3">
-                Quick Choice
-              </p>
-              <h3 className="text-2xl md:text-3xl font-heading font-black uppercase tracking-tighter mb-3">
-                Want to Book a Call Instead?
-              </h3>
-              <p className="text-sm md:text-base text-[#021f0d]/70 leading-relaxed mb-6">
-                If you're ready to talk, book a call now. Prefer to qualify first? Continue to the intake form.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  type="button"
-                  onClick={() => handleSelectPath("calendar")}
-                  className="oz-btn-primary w-full justify-center text-xs md:text-sm min-h-12 touch-manipulation"
-                >
-                  Book a Call
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleSelectPath("form")}
-                  className="oz-btn-secondary w-full justify-center text-xs md:text-sm min-h-12 touch-manipulation"
-                >
-                  Continue to Form
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-
         {showForm && (
           <motion.div
             ref={formRef}
@@ -168,9 +110,10 @@ export default function ClientApplicationSection() {
               </div>
             </div>
 
-            {activePath === "form" ? (
+            <div className={activePath === "form" ? "" : "hidden"} aria-hidden={activePath !== "form"}>
               <ClientApplicationForm />
-            ) : (
+            </div>
+            {activePath === "calendar" && (
               <div className="rounded-2xl border border-[#d4dce6]/60 bg-[#f9fafb] p-3 sm:p-4 md:p-6">
                 <div className="rounded-xl overflow-hidden border border-[#d4dce6]/60 bg-white min-h-[480px] sm:min-h-[560px] md:min-h-[600px]">
                   <iframe

@@ -5,8 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Shield, Zap } from "lucide-react";
-import PillNav from "@/components/PillNav";
-import OzLogo from "@/components/OzLogo";
 
 const teamMembers = [
   {
@@ -99,18 +97,6 @@ const teamMembers = [
       "Expert in GSAP and high-performance web animations"
     ]
   },
-];
-
-const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Our Story", href: "/#truth" },
-  { label: "System", href: "/#system" },
-  { label: "Case Studies", href: "/#proof" },
-  { label: "Unit Math", href: "/#model" },
-  { label: "Investor Terms", href: "/#investment" },
-  { label: "Team", href: "/team" },
-  { label: "FAQ", href: "/#faq" },
-  { label: "Apply Now", href: "/#application" },
 ];
 
 export default function TeamClient() {
