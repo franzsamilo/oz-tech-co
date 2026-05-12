@@ -88,8 +88,25 @@ export async function POST(request: Request) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error("[ghl-contact] GHL responded with error:", response.status, errorText);
+
+      const lower = errorText.toLowerCase();
+      let reason: "duplicate" | "invalid_email" | "invalid_phone" | "unknown" = "unknown";
+      if (
+        response.status === 409 ||
+        response.status === 422 ||
+        lower.includes("duplicate") ||
+        lower.includes("already exist") ||
+        lower.includes("does not allow duplicate")
+      ) {
+        reason = "duplicate";
+      } else if (lower.includes("email")) {
+        reason = "invalid_email";
+      } else if (lower.includes("phone")) {
+        reason = "invalid_phone";
+      }
+
       return NextResponse.json(
-        { error: "GHL request failed", status: response.status, details: errorText },
+        { error: "GHL request failed", reason, status: response.status },
         { status: 502 }
       );
     }
