@@ -24,7 +24,7 @@ export default function ApplicationSection() {
       data-theme="dark"
       className="oz-section-secondary bg-[#021f0d] text-white relative overflow-hidden"
     >
-      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full relative z-10 text-center">
+      <div className="max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-12 w-full relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -107,12 +107,12 @@ export default function ApplicationSection() {
               <InvestmentForm />
             </div>
             {activePath === "calendar" && (
-              <div className="rounded-2xl border border-[#d4dce6]/60 bg-[#f9fafb] p-4 md:p-6">
+              <div className="rounded-2xl border border-[#d4dce6]/60 bg-[#f9fafb] p-2 sm:p-3 md:p-4">
                 <div className="rounded-xl overflow-hidden border border-[#d4dce6]/60 bg-white">
                   <iframe
                     src="https://connect.civy.ph/widget/booking/6wcV7lvcjOxdBntDuIGj"
-                    style={{ width: "100%", border: "none", overflow: "hidden" }}
-                    scrolling="no"
+                    className="w-full"
+                    style={{ border: "none", height: "min(1100px, 85vh)", minHeight: "700px" }}
                     id="iOnZgkuDwzd0FqcU9roG_1772876686888"
                     title="Book a call"
                   />
