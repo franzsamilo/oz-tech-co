@@ -81,16 +81,29 @@ export default function InvestmentForm() {
 
   if (submitted) {
     return (
-        <div className="rounded-[40px] border-2 border-[#d4dce6]/60 bg-white p-12 md:p-16 shadow-2xl text-center oz-glass-card oz-skew-frame oz-vine-border">
+      <div className="rounded-[40px] border-2 border-[#d4dce6]/60 bg-white p-12 md:p-16 shadow-2xl text-center oz-glass-card oz-skew-frame oz-vine-border">
         <div className="w-20 h-20 bg-[#5df3c2]/15 rounded-full flex items-center justify-center mx-auto mb-8">
           <span className="text-4xl text-[#006c40]">✓</span>
         </div>
         <h3 className="text-3xl md:text-4xl font-heading font-black text-[#021f0d] uppercase tracking-tighter">
           Application Received
         </h3>
-        <p className="mt-4 text-lg text-[#021f0d]/70 max-w-md mx-auto leading-relaxed">
-          We review all strategic applications within 48 hours. If there's an alignment, we'll reach out to schedule your Platform Audit.
+        <p className="mt-4 text-base sm:text-lg text-[#021f0d]/70 max-w-md mx-auto leading-relaxed">
+          We review all strategic applications within 48 hours. If there&apos;s an alignment, we&apos;ll reach out to schedule your Platform Audit.
         </p>
+        <div className="mt-8 flex flex-col items-center gap-3">
+          <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#006c40]/70">
+            Prefer to talk now?
+          </p>
+          <a
+            href="https://connect.civy.ph/widget/booking/6wcV7lvcjOxdBntDuIGj"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="oz-btn-primary min-h-12 px-6 text-xs sm:text-sm inline-flex items-center justify-center gap-2 touch-manipulation"
+          >
+            Book a Strategic Call →
+          </a>
+        </div>
       </div>
     );
   }

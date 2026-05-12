@@ -19,11 +19,12 @@ import ClientProcessSection from "@/components/sections/ClientProcessSection";
 import ClientApplicationSection from "@/components/sections/ClientApplicationSection";
 import Footer from "@/components/sections/Footer";
 import SectionDivider from "@/components/SectionDivider";
+import StickyApplyBar from "@/components/StickyApplyBar";
 
 /** Session-only: new browser session → intro again; refresh in same session → skip */
 const CLIENT_ENTRANCE_SESSION_KEY = "oztech_client_home_entrance_shown";
-/** Must match `.oz-entrance-overlay--client` / `--invest` CSS animation (5.2s) */
-const ENTRANCE_MS = 4000;
+/** Must match `.oz-entrance-overlay--client/--invest` CSS animation duration (2.4s) */
+const ENTRANCE_MS = 2400;
 
 export default function ClientHomePage() {
   const [showSite, setShowSite] = useState(false);
@@ -63,6 +64,11 @@ export default function ClientHomePage() {
     return () => window.clearTimeout(timer);
   }, []);
 
+  const skipIntro = () => {
+    setShowIntro(false);
+    setShowSite(true);
+  };
+
   return (
     <div
       className={
@@ -78,6 +84,14 @@ export default function ClientHomePage() {
 
       {showIntro ? (
         <div className="oz-entrance-overlay oz-entrance-overlay--client">
+          <button
+            type="button"
+            onClick={skipIntro}
+            className="oz-entrance-skip"
+            aria-label="Skip intro"
+          >
+            Skip →
+          </button>
           <div className="oz-entrance-glow" />
           <div className="oz-entrance-content">
             <p className="oz-entrance-kicker">Engineering partner, not a vendor</p>
@@ -120,6 +134,7 @@ export default function ClientHomePage() {
           </main>
 
           <Footer />
+          <StickyApplyBar label="Apply for a Founding Spot" />
         </div>
       ) : null}
     </div>

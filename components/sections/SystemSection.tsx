@@ -65,8 +65,8 @@ export default function SystemSection() {
             <p className="text-2xl sm:text-3xl md:text-4xl font-heading font-black tracking-tighter uppercase leading-none">
               From Concept to Deployment in <span className="underline decoration-4 underline-offset-8">4 Weeks</span>
             </p>
-            <a href="#application" className="oz-btn-secondary mt-5 md:mt-8 px-6 md:px-10 text-sm md:text-lg inline-flex">
-              Request This Machine
+            <a href="#application" className="oz-btn-primary mt-5 md:mt-8 px-6 md:px-10 text-sm md:text-lg inline-flex">
+              Request This Machine →
             </a>
           </div>
         </motion.div>

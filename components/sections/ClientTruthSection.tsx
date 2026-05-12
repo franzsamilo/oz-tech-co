@@ -44,7 +44,10 @@ export default function ClientTruthSection() {
 
         <div className="mt-6 md:mt-10 grid md:grid-cols-2 gap-4 md:gap-8 text-left">
           <motion.div {...riseVariant} className="oz-forest-card p-5 md:p-8" style={{ boxShadow: 'inset 0 0 40px rgba(254,88,88,0.06)' }}>
-            <h3 className="text-lg md:text-2xl font-heading font-black text-[#fe5858] uppercase tracking-tighter leading-none mb-4 md:mb-6">The Industry Wants You Stuck</h3>
+            <h3 className="text-lg md:text-2xl font-heading font-black text-white uppercase tracking-tighter leading-none mb-4 md:mb-6 flex items-center gap-3">
+              <span className="inline-flex w-7 h-7 md:w-8 md:h-8 rounded-full bg-[#fe5858]/20 text-[#fe5858] items-center justify-center text-sm md:text-base shrink-0">!</span>
+              The Industry Wants You Stuck
+            </h3>
             <div className="space-y-2 md:space-y-4">
               {clientTruth.bullets.map((item) => (
                 <div key={item} className="flex gap-3 items-start">
@@ -81,7 +84,7 @@ export default function ClientTruthSection() {
           </motion.div>
         </div>
 
-        <motion.p {...riseVariant} className="mt-6 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-widest text-white/40">
+        <motion.p {...riseVariant} className="mt-6 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-widest text-white/65">
           Build assets, not subscriptions. Own your tools forever.
         </motion.p>
       </div>

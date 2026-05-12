@@ -127,6 +127,15 @@ export default function InvestmentSection() {
             </span>
           ))}
         </div>
+
+        <motion.div {...cardMotion} className="mt-8 md:mt-12 flex justify-center">
+          <a
+            href="#application"
+            className="oz-btn-primary min-h-12 min-w-[260px] md:min-w-[300px] text-sm md:text-base inline-flex items-center justify-center gap-3 px-6 touch-manipulation"
+          >
+            Apply to Invest →
+          </a>
+        </motion.div>
       </div>
     </section>
   );

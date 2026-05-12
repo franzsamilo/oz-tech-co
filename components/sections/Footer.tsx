@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import OzLogo from "@/components/OzLogo";
 
 const linkClass =
-  "inline-flex min-h-11 items-center justify-center px-2 text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/40 hover:text-[#5df3c2] transition-colors touch-manipulation";
+  "inline-flex min-h-11 items-center justify-center px-2 text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/60 hover:text-[#5df3c2] transition-colors touch-manipulation";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -21,9 +21,9 @@ export default function Footer() {
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-12 w-full flex flex-col items-center">
         <div className="oz-divider-dark-line mb-12 w-full" />
-        <OzLogo className="w-8 h-8 grayscale opacity-40 mb-6" />
-        <p className="text-white/30 text-xs font-black uppercase tracking-[0.4em] mb-3">OZ Tech Development Corp</p>
-        <p className="text-white/50 text-sm font-medium italic mb-6 max-w-xs px-2">
+        <OzLogo className="w-8 h-8 grayscale opacity-55 mb-6" />
+        <p className="text-white/60 text-xs font-black uppercase tracking-[0.4em] mb-3">OZ Tech Development Corp</p>
+        <p className="text-white/70 text-sm font-medium italic mb-6 max-w-xs px-2">
           &quot;We don&apos;t build software for rent. We engineer assets for ownership.&quot;
         </p>
         <nav
@@ -41,13 +41,8 @@ export default function Footer() {
           <Link href="/team" className={linkClass}>
             The Team
           </Link>
-          {!isInvest ? (
-            <Link href="/invest" className={linkClass}>
-              For investors
-            </Link>
-          ) : null}
         </div>
-        <div className="text-[10px] font-black uppercase tracking-widest text-white/20 px-2">
+        <div className="text-[10px] font-black uppercase tracking-widest text-white/55 px-2">
           © 2026 OZ Tech Co. Built for Technology Sovereignty.
         </div>
       </div>

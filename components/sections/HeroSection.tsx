@@ -44,7 +44,7 @@ export default function HeroSection() {
           </a>
         </div>
 
-        <p className="mt-4 md:mt-6 text-[10px] md:text-xs font-bold text-white/40 uppercase tracking-[0.16em] md:tracking-widest">
+        <p className="mt-4 md:mt-6 text-[10px] md:text-xs font-bold text-white/65 uppercase tracking-[0.16em] md:tracking-widest">
           100+ Projects Delivered · $100M+ Revenue Generated · 4-Week Launches
         </p>
       </div>

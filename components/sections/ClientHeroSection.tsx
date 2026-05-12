@@ -39,16 +39,22 @@ export default function ClientHeroSection() {
           </p>
         </div>
 
-        <div className="mt-6 md:mt-9">
+        <div className="mt-6 md:mt-9 flex flex-col items-center gap-3 sm:flex-row sm:gap-4 sm:justify-center">
           <a
-            href="#client-how"
+            href="#application"
             className="oz-btn-primary min-h-11 min-w-[min(100%,220px)] md:min-w-[280px] text-sm md:text-lg inline-flex items-center justify-center gap-3 touch-manipulation px-6 w-full max-w-sm sm:w-auto"
           >
             {clientHero.cta} <ArrowRight size={20} strokeWidth={3} />
           </a>
+          <a
+            href="#client-how"
+            className="text-xs sm:text-sm font-bold uppercase tracking-widest text-white/55 hover:text-[#5df3c2] transition-colors min-h-11 inline-flex items-center"
+          >
+            See how it works →
+          </a>
         </div>
 
-        <p className="mt-5 md:mt-6 text-[10px] md:text-xs font-mono text-white/40 uppercase tracking-[0.16em] md:tracking-widest max-w-4xl">
+        <p className="mt-5 md:mt-6 text-[10px] md:text-xs font-mono text-white/65 uppercase tracking-[0.16em] md:tracking-widest max-w-4xl">
           {clientHero.trustLine}
         </p>
       </div>

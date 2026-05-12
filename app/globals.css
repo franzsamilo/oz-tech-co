@@ -139,7 +139,7 @@ body {
 .oz-entrance-overlay--client,
 .oz-entrance-overlay--invest {
   z-index: 100;
-  animation: ozEntranceFade 4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: ozEntranceFade 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .oz-entrance-glow {
@@ -147,7 +147,7 @@ body {
   inset: -20%;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(93, 243, 194, 0.4), transparent 70%);
-  animation: ozEntranceGlowExpand 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: ozEntranceGlowExpand 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   pointer-events: none;
 }
 
@@ -167,7 +167,7 @@ body {
   color: var(--oz-button);
   font-weight: 600;
   opacity: 0;
-  animation: ozFadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  animation: ozFadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
 }
 
 .oz-entrance-title {
@@ -178,7 +178,7 @@ body {
   margin: 0.4rem 0;
   color: white;
   opacity: 0;
-  animation: ozFadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
+  animation: ozFadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
   position: relative;
 }
 
@@ -191,7 +191,7 @@ body {
   height: 2px;
   width: 0;
   background: var(--oz-button);
-  animation: ozDrawLine 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
+  animation: ozDrawLine 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
 }
 
 .oz-entrance-subtitle {
@@ -199,7 +199,34 @@ body {
   color: rgba(255, 255, 255, 0.7);
   font-weight: 500;
   opacity: 0;
-  animation: ozFadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1.6s forwards;
+  animation: ozFadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+}
+
+.oz-entrance-skip {
+  position: absolute;
+  top: max(1rem, env(safe-area-inset-top));
+  right: max(1rem, env(safe-area-inset-right));
+  z-index: 2;
+  pointer-events: auto;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-geist-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0;
+  animation: ozFadeIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.oz-entrance-skip:hover {
+  color: var(--oz-button);
+  border-color: var(--oz-button);
 }
 
 @keyframes ozEntranceFade {

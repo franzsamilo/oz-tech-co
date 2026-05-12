@@ -73,9 +73,18 @@ export default function ClientFoundingMemberSection() {
           </div>
         </motion.div>
 
-        <motion.p {...riseVariant} className="mt-6 text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-widest text-white/40">
+        <motion.p {...riseVariant} className="mt-6 text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-widest text-white/55">
           5 spots only. Lock the rate for life.
         </motion.p>
+
+        <motion.div {...riseVariant} className="mt-6 md:mt-8 flex justify-center">
+          <a
+            href="#application"
+            className="oz-btn-primary min-h-12 min-w-[260px] md:min-w-[300px] text-sm md:text-base inline-flex items-center justify-center gap-3 px-6 touch-manipulation"
+          >
+            Claim a Founding Spot →
+          </a>
+        </motion.div>
       </div>
     </section>
   );
