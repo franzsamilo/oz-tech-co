@@ -138,7 +138,12 @@ export default function ClientApplicationForm() {
   }
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className="text-left space-y-8">
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      className="text-left space-y-8 text-[#021f0d]"
+      style={{ colorScheme: "light" }}
+    >
       <div ref={topRef} className="flex items-center justify-center">
         <p className="text-xs font-black uppercase tracking-[0.25em] text-[#006c40]/70">
           Step {step + 1} of {totalSteps}
@@ -185,7 +190,7 @@ export default function ClientApplicationForm() {
                           type={field.type}
                           name={field.name}
                           placeholder={field.placeholder || field.label}
-                          className="w-full h-12 sm:h-14 rounded-xl border-2 border-[#d4dce6]/60 px-4 sm:px-6 text-base sm:text-lg focus:border-[#006c40] focus:outline-none transition-colors"
+                          className="w-full h-12 sm:h-14 rounded-xl border-2 border-[#d4dce6]/60 px-4 sm:px-6 text-base sm:text-lg text-[#021f0d] placeholder:text-[#021f0d]/40 bg-white focus:border-[#006c40] focus:outline-none transition-colors"
                         />
                       )}
 
@@ -195,7 +200,7 @@ export default function ClientApplicationForm() {
                           name={field.name}
                           placeholder={field.placeholder}
                           rows={4}
-                          className="w-full rounded-xl border-2 border-[#d4dce6]/60 p-4 sm:p-6 text-base sm:text-lg focus:border-[#006c40] focus:outline-none transition-colors"
+                          className="w-full rounded-xl border-2 border-[#d4dce6]/60 p-4 sm:p-6 text-base sm:text-lg text-[#021f0d] placeholder:text-[#021f0d]/40 bg-white focus:border-[#006c40] focus:outline-none transition-colors"
                         />
                       )}
 
@@ -225,7 +230,7 @@ export default function ClientApplicationForm() {
                         <select
                           name={field.name}
                           required={required}
-                          className="w-full h-12 sm:h-14 rounded-xl border-2 border-[#d4dce6]/60 px-4 sm:px-6 text-base sm:text-lg focus:border-[#006c40] focus:outline-none bg-white"
+                          className="w-full h-12 sm:h-14 rounded-xl border-2 border-[#d4dce6]/60 px-4 sm:px-6 text-base sm:text-lg text-[#021f0d] focus:border-[#006c40] focus:outline-none bg-white"
                         >
                           <option value="">Select option...</option>
                           {field.options?.map((opt) => (

@@ -96,7 +96,11 @@ export default function InvestmentForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="text-left space-y-12">
+    <form
+      onSubmit={handleSubmit}
+      className="text-left space-y-12 text-[#021f0d]"
+      style={{ colorScheme: "light" }}
+    >
       {sections.map((section, sIdx) => (
         <motion.div 
           key={section.section}
@@ -124,7 +128,7 @@ export default function InvestmentForm() {
                     type={field.type}
                     name={field.name}
                     placeholder={field.placeholder || field.label}
-                    className="w-full h-14 rounded-xl border-2 border-[#d4dce6]/60 px-6 text-lg focus:border-[#006c40] focus:outline-none transition-colors"
+                    className="w-full h-14 rounded-xl border-2 border-[#d4dce6]/60 px-6 text-lg text-[#021f0d] placeholder:text-[#021f0d]/40 bg-white focus:border-[#006c40] focus:outline-none transition-colors"
                   />
                 )}
 
@@ -134,7 +138,7 @@ export default function InvestmentForm() {
                     name={field.name}
                     placeholder={field.placeholder}
                     rows={4}
-                    className="w-full rounded-xl border-2 border-[#d4dce6]/60 p-6 text-lg focus:border-[#006c40] focus:outline-none transition-colors"
+                    className="w-full rounded-xl border-2 border-[#d4dce6]/60 p-6 text-lg text-[#021f0d] placeholder:text-[#021f0d]/40 bg-white focus:border-[#006c40] focus:outline-none transition-colors"
                   />
                 )}
 
@@ -151,7 +155,7 @@ export default function InvestmentForm() {
                 )}
 
                 {field.type === 'select' && (
-                  <select name={field.name} required={field.required} className="w-full h-14 rounded-xl border-2 border-[#d4dce6]/60 px-6 text-lg focus:border-[#006c40] focus:outline-none bg-white">
+                  <select name={field.name} required={field.required} className="w-full h-14 rounded-xl border-2 border-[#d4dce6]/60 px-6 text-lg text-[#021f0d] focus:border-[#006c40] focus:outline-none bg-white">
                     <option value="">Select option...</option>
                     {field.options?.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                   </select>
