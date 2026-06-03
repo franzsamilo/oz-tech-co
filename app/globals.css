@@ -1049,3 +1049,35 @@ html {
     animation: none;
   }
 }
+
+/* ===== Blog editorial polish ===== */
+
+/* Drop cap on the opening paragraph of a post */
+.blog-prose > p.blog-paragraph:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-brand-display);
+  font-weight: 900;
+  font-size: 4.5rem;
+  line-height: 0.85;
+  padding: 0.35rem 0.7rem 0 0;
+  color: var(--oz-dark-green);
+}
+
+/* Subtle, restrained selection color */
+.blog-prose ::selection {
+  background: rgba(0, 108, 64, 0.18);
+  color: var(--oz-dark-green);
+}
+
+/* Reading progress bar (top of post) */
+.blog-reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--oz-button), var(--oz-mint));
+  width: var(--progress, 0%);
+  z-index: 60;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}

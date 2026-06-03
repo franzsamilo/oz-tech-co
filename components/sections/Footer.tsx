@@ -11,6 +11,7 @@ export default function Footer() {
   const pathname = usePathname();
   const isInvest = pathname === "/invest";
   const isTeam = pathname === "/team";
+  const isBlog = pathname?.startsWith("/blog") ?? false;
   const ctaLabel = isInvest ? "Back the Machine" : "Apply";
   const ctaHref = isTeam ? "/#application" : "#application";
 
@@ -41,6 +42,11 @@ export default function Footer() {
           <Link href="/team" className={linkClass}>
             The Team
           </Link>
+          {!isBlog ? (
+            <Link href="/blog" className={linkClass}>
+              Field Notes
+            </Link>
+          ) : null}
           {!isInvest ? (
             <Link href="/invest" className={linkClass}>
               For investors
