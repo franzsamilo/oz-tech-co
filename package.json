@@ -9,7 +9,8 @@
     "lint": "eslint",
     "sync:ghl": "tsx scripts/sync-ghl-fields.ts",
     "seed:sanity-authors": "tsx scripts/seed-sanity-authors.ts",
-    "seed:sanity-posts": "tsx scripts/seed-sanity-posts.ts"
+    "seed:sanity-posts": "tsx scripts/seed-sanity-posts.ts",
+    "seed:sanity": "npm run seed:sanity-authors && npm run seed:sanity-posts"
   },
   "dependencies": {
     "@portabletext/react": "^3.2.1",
