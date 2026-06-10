@@ -13,9 +13,12 @@
  */
 import { createReadStream, existsSync } from "node:fs";
 import { basename, join, resolve } from "node:path";
+import { loadEnvConfig } from "@next/env";
 import { createClient } from "next-sanity";
 import { samplePosts } from "../data/blogSampleContent";
 import type { PortableTextBlock } from "@portabletext/types";
+
+loadEnvConfig(process.cwd());
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
