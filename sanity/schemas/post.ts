@@ -79,8 +79,62 @@ export const post = defineType({
               name: "alt",
               type: "string",
               title: "Alt text",
+              description: "Describe the image for screen readers and SEO.",
+            }),
+            defineField({
+              name: "caption",
+              type: "string",
+              title: "Caption",
+              description: "Optional caption shown below the image.",
+            }),
+            defineField({
+              name: "ratio",
+              type: "string",
+              title: "Aspect ratio",
+              description:
+                "How the image should be framed. Auto preserves the original aspect ratio.",
+              options: {
+                list: [
+                  { title: "Wide (16:9)", value: "wide" },
+                  { title: "Tall (4:5)", value: "tall" },
+                  { title: "Square (1:1)", value: "square" },
+                  { title: "Auto (original)", value: "auto" },
+                ],
+                layout: "radio",
+              },
+              initialValue: "wide",
+            }),
+            defineField({
+              name: "frame",
+              type: "string",
+              title: "Frame style",
+              description:
+                "Photo = soft card. Screenshot = paper-card with browser chrome (use for app screenshots).",
+              options: {
+                list: [
+                  { title: "Photo", value: "photo" },
+                  { title: "Screenshot", value: "screenshot" },
+                ],
+                layout: "radio",
+              },
+              initialValue: "photo",
             }),
           ],
+          preview: {
+            select: {
+              imageUrl: "asset.url",
+              title: "caption",
+              subtitle: "alt",
+              media: "asset",
+            },
+            prepare({ title, subtitle, media }) {
+              return {
+                title: title || subtitle || "Image",
+                subtitle: title && subtitle ? subtitle : undefined,
+                media,
+              };
+            },
+          },
         }),
         defineArrayMember({
           type: "object",

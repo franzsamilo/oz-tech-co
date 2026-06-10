@@ -1,5 +1,8 @@
 import type { PortableTextBlock } from "@portabletext/types";
 
+export type SanityImageRatio = "wide" | "tall" | "square" | "auto";
+export type SanityImageFrame = "photo" | "screenshot";
+
 export type SanityImageAsset = {
   _type: "image";
   asset: {
@@ -7,6 +10,9 @@ export type SanityImageAsset = {
     _type: "reference";
   };
   alt?: string;
+  caption?: string;
+  ratio?: SanityImageRatio;
+  frame?: SanityImageFrame;
 };
 
 export type BlogAuthor = {
