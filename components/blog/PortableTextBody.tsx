@@ -2,7 +2,11 @@ import Image from "next/image";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
 import { getImageUrl } from "@/lib/sanity/image";
-import type { SanityImageAsset } from "@/lib/sanity/types";
+import type {
+  SanityImageAsset,
+  SanityImageFrame,
+  SanityImageRatio,
+} from "@/lib/sanity/types";
 
 type CodeBlockValue = {
   _type: "code";
@@ -16,10 +20,80 @@ type UrlImageValue = {
   alt?: string;
   caption?: string;
   /** "wide" (16/9, default), "tall" (4/5), or "square" (1/1) */
-  ratio?: "wide" | "tall" | "square" | "auto";
+  ratio?: SanityImageRatio;
   /** "screenshot" gives a paper-card frame; default is "photo" */
-  frame?: "photo" | "screenshot";
+  frame?: SanityImageFrame;
 };
+
+function aspectClassFor(ratio: SanityImageRatio | undefined) {
+  switch (ratio) {
+    case "tall":
+      return "aspect-[4/5]";
+    case "square":
+      return "aspect-square";
+    case "auto":
+      return "";
+    case "wide":
+    default:
+      return "aspect-video";
+  }
+}
+
+function renderArticleImage({
+  src,
+  alt,
+  caption,
+  ratio,
+  frame,
+}: {
+  src: string;
+  alt: string;
+  caption?: string;
+  ratio?: SanityImageRatio;
+  frame?: SanityImageFrame;
+}) {
+  const aspectClass = aspectClassFor(ratio);
+  const isScreenshot = frame === "screenshot";
+  const frameClass = isScreenshot
+    ? "rounded-lg overflow-hidden border border-[#021f0d]/10 bg-[#f5f1e8] shadow-[8px_8px_0_rgba(2,31,13,0.08)]"
+    : "rounded-xl overflow-hidden oz-city-card shadow-[0_30px_60px_-30px_rgba(2,31,13,0.35)]";
+
+  return (
+    <figure className="my-12">
+      {isScreenshot ? (
+        <div className={`relative ${aspectClass} ${frameClass}`}>
+          <div className="absolute top-0 left-0 right-0 h-7 bg-[#021f0d]/5 border-b border-[#021f0d]/10 flex items-center px-3 gap-1.5 z-10">
+            <span className="w-2 h-2 rounded-full bg-[#021f0d]/15" />
+            <span className="w-2 h-2 rounded-full bg-[#021f0d]/15" />
+            <span className="w-2 h-2 rounded-full bg-[#021f0d]/15" />
+          </div>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            className="object-contain pt-7"
+            sizes="(max-width: 768px) 100vw, 800px"
+          />
+        </div>
+      ) : (
+        <div className={`relative ${aspectClass} ${frameClass}`}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 800px"
+          />
+        </div>
+      )}
+      {caption ? (
+        <figcaption className="mt-4 text-[11px] font-mono uppercase tracking-widest text-[#021f0d]/45 text-center">
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
+  );
+}
 
 const components: PortableTextComponents = {
   block: {
@@ -86,22 +160,16 @@ const components: PortableTextComponents = {
   },
   types: {
     image: ({ value }) => {
-      const img = value as SanityImageAsset & { alt?: string };
-      const url = getImageUrl(img, 1200);
+      const img = value as SanityImageAsset;
+      const url = getImageUrl(img, 1600);
       if (!url) return null;
-      return (
-        <figure className="my-12">
-          <div className="relative aspect-video rounded-xl overflow-hidden oz-city-card">
-            <Image
-              src={url}
-              alt={img.alt || ""}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 800px"
-            />
-          </div>
-        </figure>
-      );
+      return renderArticleImage({
+        src: url,
+        alt: img.alt || "",
+        caption: img.caption,
+        ratio: img.ratio,
+        frame: img.frame,
+      });
     },
     code: ({ value }) => {
       const block = value as CodeBlockValue;
@@ -126,54 +194,13 @@ const components: PortableTextComponents = {
     urlImage: ({ value }) => {
       const v = value as UrlImageValue;
       if (!v.url) return null;
-      const ratio = v.ratio ?? "wide";
-      const aspectClass =
-        ratio === "tall"
-          ? "aspect-[4/5]"
-          : ratio === "square"
-            ? "aspect-square"
-            : ratio === "auto"
-              ? ""
-              : "aspect-video";
-      const isScreenshot = v.frame === "screenshot";
-      const frameClass = isScreenshot
-        ? "rounded-lg overflow-hidden border border-[#021f0d]/10 bg-[#f5f1e8] shadow-[8px_8px_0_rgba(2,31,13,0.08)]"
-        : "rounded-xl overflow-hidden oz-city-card shadow-[0_30px_60px_-30px_rgba(2,31,13,0.35)]";
-      return (
-        <figure className="my-12">
-          {isScreenshot ? (
-            <div className={`relative ${aspectClass} ${frameClass}`}>
-              <div className="absolute top-0 left-0 right-0 h-7 bg-[#021f0d]/5 border-b border-[#021f0d]/10 flex items-center px-3 gap-1.5 z-10">
-                <span className="w-2 h-2 rounded-full bg-[#021f0d]/15" />
-                <span className="w-2 h-2 rounded-full bg-[#021f0d]/15" />
-                <span className="w-2 h-2 rounded-full bg-[#021f0d]/15" />
-              </div>
-              <Image
-                src={v.url}
-                alt={v.alt || ""}
-                fill
-                className="object-contain pt-7"
-                sizes="(max-width: 768px) 100vw, 800px"
-              />
-            </div>
-          ) : (
-            <div className={`relative ${aspectClass} ${frameClass}`}>
-              <Image
-                src={v.url}
-                alt={v.alt || ""}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 800px"
-              />
-            </div>
-          )}
-          {v.caption ? (
-            <figcaption className="mt-4 text-[11px] font-mono uppercase tracking-widest text-[#021f0d]/45 text-center">
-              {v.caption}
-            </figcaption>
-          ) : null}
-        </figure>
-      );
+      return renderArticleImage({
+        src: v.url,
+        alt: v.alt || "",
+        caption: v.caption,
+        ratio: v.ratio,
+        frame: v.frame,
+      });
     },
   },
 };

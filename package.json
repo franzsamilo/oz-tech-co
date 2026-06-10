@@ -3,17 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "cross-env NODE_OPTIONS=--use-system-ca next dev",
+    "build": "cross-env NODE_OPTIONS=--use-system-ca next build",
     "start": "next start",
     "lint": "eslint",
     "sync:ghl": "tsx scripts/sync-ghl-fields.ts",
-    "seed:sanity-authors": "tsx scripts/seed-sanity-authors.ts"
+    "seed:sanity-authors": "tsx scripts/seed-sanity-authors.ts",
+    "seed:sanity-posts": "tsx scripts/seed-sanity-posts.ts",
+    "seed:sanity": "npm run seed:sanity-authors && npm run seed:sanity-posts"
   },
   "dependencies": {
     "@portabletext/react": "^3.2.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
+    "@sanity/code-input": "^7.1.2",
     "@sanity/image-url": "^1.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -38,6 +41,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
