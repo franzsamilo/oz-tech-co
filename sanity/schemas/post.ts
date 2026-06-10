@@ -137,32 +137,21 @@ export const post = defineType({
           },
         }),
         defineArrayMember({
-          type: "object",
-          name: "code",
+          type: "code",
           title: "Code block",
-          fields: [
-            defineField({
-              name: "language",
-              title: "Language",
-              type: "string",
-              options: {
-                list: [
-                  "typescript",
-                  "javascript",
-                  "bash",
-                  "json",
-                  "html",
-                  "css",
-                  "text",
-                ],
-              },
-            }),
-            defineField({
-              name: "code",
-              title: "Code",
-              type: "text",
-            }),
-          ],
+          options: {
+            language: "typescript",
+            languageAlternatives: [
+              { title: "TypeScript", value: "typescript" },
+              { title: "JavaScript", value: "javascript" },
+              { title: "Bash", value: "bash" },
+              { title: "JSON", value: "json" },
+              { title: "HTML", value: "html" },
+              { title: "CSS", value: "css" },
+              { title: "Plain text", value: "text" },
+            ],
+            withFilename: false,
+          },
         }),
       ],
       validation: (rule) => rule.required(),
