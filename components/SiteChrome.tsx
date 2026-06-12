@@ -6,9 +6,10 @@ import BlogFloatingCTA from "@/components/blog/BlogFloatingCTA";
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isStudio = pathname?.startsWith("/studio");
+  const suppressChrome =
+    pathname?.startsWith("/studio") || pathname?.startsWith("/clarity");
 
-  if (isStudio) {
+  if (suppressChrome) {
     return <>{children}</>;
   }
 
