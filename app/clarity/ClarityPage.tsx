@@ -60,7 +60,7 @@ export default function ClarityPage() {
       </Link>
 
       {/* Poster canvas — typography rail + booking widget. Height grows with widget content. */}
-      <div className="relative z-10 flex min-h-dvh w-full items-center justify-center px-4 py-20 sm:px-6 lg:py-12">
+      <div className="relative z-10 flex min-h-dvh w-full items-center justify-center px-4 py-14 sm:px-6 sm:py-16 lg:py-12">
         <div className="relative w-full max-w-[1500px]">
           {/* Hairline mint frame (poster border) — desktop only */}
           <div
@@ -73,9 +73,9 @@ export default function ClarityPage() {
           />
 
           {/* Content grid */}
-          <div className="relative grid grid-cols-1 gap-8 px-2 py-6 sm:gap-10 sm:px-6 sm:py-10 lg:grid-cols-12 lg:gap-12 lg:items-center lg:px-14 lg:py-12">
+          <div className="relative grid grid-cols-1 gap-7 px-1 py-2 sm:gap-10 sm:px-6 sm:py-10 lg:grid-cols-12 lg:gap-12 lg:items-center lg:px-14 lg:py-12">
             {/* LEFT RAIL — typography */}
-            <div className="oz-hero-entrance flex flex-col justify-center gap-5 sm:gap-7 lg:col-span-5">
+            <div className="oz-hero-entrance flex flex-col justify-center gap-4 sm:gap-7 lg:col-span-5">
               <motion.p
                 initial={false}
                 className="text-[10px] font-semibold text-[var(--oz-button)]"
@@ -164,14 +164,14 @@ export default function ClarityPage() {
             >
               {/* Mono micro-label above the widget */}
               <div
-                className="mb-3 flex items-center justify-between text-[9px] sm:text-[10px] text-white/40"
+                className="mb-3 flex items-center justify-between gap-3 text-[9px] sm:text-[10px] text-white/40"
                 style={{
                   fontFamily: "var(--font-geist-mono)",
                   letterSpacing: "0.3em",
                 }}
               >
                 <span className="uppercase">{"// PICK A TIME"}</span>
-                <span className="uppercase">UTC AUTO-DETECT</span>
+                <span className="hidden uppercase sm:inline">UTC AUTO-DETECT</span>
               </div>
 
               {/* The "stage" — white card with mint hairline */}
@@ -203,11 +203,11 @@ export default function ClarityPage() {
 
                 <iframe
                   src={CALENDAR_SRC}
-                  className="block w-full border-0"
-                  style={{
-                    height: "min(1100px, calc(100vh - 11rem))",
-                    minHeight: "720px",
-                  }}
+                  className="
+                    block w-full border-0
+                    h-[min(900px,calc(100dvh-7rem))] min-h-[620px]
+                    lg:h-[min(1100px,calc(100vh-11rem))] lg:min-h-[720px]
+                  "
                   id="oz_clarity_call_widget"
                   title="Book your Clarity Call with OZ Tech"
                 />
