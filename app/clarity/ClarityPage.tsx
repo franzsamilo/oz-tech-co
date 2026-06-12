@@ -59,15 +59,9 @@ export default function ClarityPage() {
         </span>
       </Link>
 
-      {/* Poster canvas — 16:9 on desktop, vertical stack on small screens */}
-      <div className="relative z-10 flex min-h-dvh w-full items-center justify-center px-4 py-20 sm:px-6 lg:py-10">
-        <div
-          className="
-            relative w-full max-w-[1600px]
-            lg:aspect-[16/9]
-            lg:h-auto lg:max-h-[calc(100dvh-5rem)]
-          "
-        >
+      {/* Poster canvas — typography rail + booking widget. Height grows with widget content. */}
+      <div className="relative z-10 flex min-h-dvh w-full items-center justify-center px-4 py-14 sm:px-6 sm:py-16 lg:py-12">
+        <div className="relative w-full max-w-[1500px]">
           {/* Hairline mint frame (poster border) — desktop only */}
           <div
             className="pointer-events-none absolute inset-0 hidden rounded-[20px] border border-[rgba(93,243,194,0.18)] lg:block"
@@ -79,9 +73,9 @@ export default function ClarityPage() {
           />
 
           {/* Content grid */}
-          <div className="relative grid h-full grid-cols-1 gap-8 px-2 py-6 sm:gap-10 sm:px-6 sm:py-10 lg:grid-cols-12 lg:gap-12 lg:px-14 lg:py-12">
+          <div className="relative grid grid-cols-1 gap-7 px-1 py-2 sm:gap-10 sm:px-6 sm:py-10 lg:grid-cols-12 lg:gap-12 lg:items-center lg:px-14 lg:py-12">
             {/* LEFT RAIL — typography */}
-            <div className="oz-hero-entrance flex flex-col justify-center gap-5 sm:gap-7 lg:col-span-5">
+            <div className="oz-hero-entrance flex flex-col justify-center gap-4 sm:gap-7 lg:col-span-5">
               <motion.p
                 initial={false}
                 className="text-[10px] font-semibold text-[var(--oz-button)]"
@@ -157,38 +151,32 @@ export default function ClarityPage() {
                 "
                 style={{ fontFamily: "var(--font-dm-sans)" }}
               >
-                — Franz &amp; the OZ Tech team
+                — The OZ Tech Team
               </p>
             </div>
 
-            {/* RIGHT PANE — booking widget */}
+            {/* RIGHT PANE — booking widget. Height comes from iframe so it accommodates every Civy state. */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="
-                flex h-full min-h-[560px] flex-col
-                lg:col-span-7
-              "
+              className="flex flex-col lg:col-span-7"
             >
               {/* Mono micro-label above the widget */}
               <div
-                className="mb-3 flex items-center justify-between text-[9px] sm:text-[10px] text-white/40"
+                className="mb-3 flex items-center justify-between gap-3 text-[9px] sm:text-[10px] text-white/40"
                 style={{
                   fontFamily: "var(--font-geist-mono)",
                   letterSpacing: "0.3em",
                 }}
               >
                 <span className="uppercase">{"// PICK A TIME"}</span>
-                <span className="uppercase">UTC AUTO-DETECT</span>
+                <span className="hidden uppercase sm:inline">UTC AUTO-DETECT</span>
               </div>
 
               {/* The "stage" — white card with mint hairline */}
               <div
-                className="
-                  relative flex-1 overflow-hidden rounded-2xl bg-white
-                  shadow-[0_30px_80px_-20px_rgba(2,31,13,0.6)]
-                "
+                className="relative overflow-hidden rounded-2xl bg-white"
                 style={{
                   border: "1px solid rgba(93, 243, 194, 0.35)",
                   boxShadow:
@@ -215,11 +203,11 @@ export default function ClarityPage() {
 
                 <iframe
                   src={CALENDAR_SRC}
-                  className="block h-full w-full border-0"
-                  style={{
-                    minHeight: "560px",
-                    height: "100%",
-                  }}
+                  className="
+                    block w-full border-0
+                    h-[min(900px,calc(100dvh-7rem))] min-h-[620px]
+                    lg:h-[min(1100px,calc(100vh-11rem))] lg:min-h-[720px]
+                  "
                   id="oz_clarity_call_widget"
                   title="Book your Clarity Call with OZ Tech"
                 />
