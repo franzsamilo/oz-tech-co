@@ -27,14 +27,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const author = await getAuthorBySlug(slug);
   if (!author) return { title: "Author not found — Field Notes | OZ Tech" };
 
+  const url = `https://www.unwiz.ai/blog/author/${author.slug}`;
+  const ogImage = author.photoUrl || getImageUrl(author.photo, 1200, 630);
+
   return {
     title: `${author.name} — Field Notes | OZ Tech`,
     description:
       author.bio ?? `Field notes written by ${author.name}, ${author.role} at OZ Tech.`,
+    alternates: { canonical: url },
     openGraph: {
+      type: "profile",
       title: `${author.name} — Field Notes`,
       description: author.bio ?? `Posts by ${author.name} at OZ Tech.`,
-      url: `https://www.unwiz.ai/blog/author/${author.slug}`,
+      url,
+      ...(ogImage ? { images: [{ url: ogImage }] } : {}),
     },
   };
 }
@@ -47,12 +53,14 @@ export default async function AuthorPage({ params }: PageProps) {
 
   const posts = await getPostsByAuthor(slug);
   const photoUrl = author.photoUrl || getImageUrl(author.photo, 320, 320);
+  const authorLinks = (author.links ?? []).filter((link) => link.url);
 
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: author.name,
     jobTitle: author.role,
+    ...(author.bio ? { description: author.bio } : {}),
     ...(photoUrl ? { image: photoUrl } : {}),
     worksFor: {
       "@type": "Organization",
@@ -60,6 +68,9 @@ export default async function AuthorPage({ params }: PageProps) {
       url: "https://www.unwiz.ai",
     },
     url: `https://www.unwiz.ai/blog/author/${author.slug}`,
+    ...(authorLinks.length > 0
+      ? { sameAs: authorLinks.map((link) => link.url) }
+      : {}),
   };
 
   return (
@@ -121,6 +132,28 @@ export default async function AuthorPage({ params }: PageProps) {
             <p className="mt-5 text-base font-black italic text-[#effc5f] max-w-2xl">
               &ldquo;{author.motto}&rdquo;
             </p>
+          ) : null}
+
+          {authorLinks.length > 0 ? (
+            <div className="mt-8">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">
+                Find me at
+              </span>
+              <div className="mt-3 flex flex-wrap gap-3">
+                {authorLinks.map((link) => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[#5df3c2]/30 px-4 py-2 text-[11px] font-black uppercase tracking-widest text-[#5df3c2] transition-colors hover:border-[#5df3c2] hover:text-white"
+                  >
+                    {link.label}
+                    <span aria-hidden>↗</span>
+                  </a>
+                ))}
+              </div>
+            </div>
           ) : null}
         </div>
       </header>

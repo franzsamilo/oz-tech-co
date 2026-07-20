@@ -43,6 +43,36 @@ export const author = defineType({
       type: "string",
       description: "Optional pull-quote shown on posts.",
     }),
+    defineField({
+      name: "links",
+      title: "Links",
+      type: "array",
+      description:
+        "Personal links (portfolio, LinkedIn, GitHub, etc.). Shown on the author page and used for SEO (sameAs / rel=me).",
+      of: [
+        defineField({
+          name: "link",
+          title: "Link",
+          type: "object",
+          fields: [
+            defineField({
+              name: "label",
+              title: "Label",
+              type: "string",
+              description: "e.g. Portfolio, LinkedIn, GitHub",
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "url",
+              title: "URL",
+              type: "url",
+              validation: (rule) => rule.required(),
+            }),
+          ],
+          preview: { select: { title: "label", subtitle: "url" } },
+        }),
+      ],
+    }),
   ],
   preview: {
     select: { title: "name", subtitle: "role", media: "photo" },

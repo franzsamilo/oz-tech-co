@@ -50,6 +50,7 @@ const authorProjection = `{
   role,
   bio,
   motto,
+  links,
   photo
 }`;
 

@@ -22,6 +22,8 @@ export type BlogAuthor = {
   role: string;
   bio?: string;
   motto?: string;
+  /** Personal links (portfolio, LinkedIn, GitHub, …) — rendered and used for sameAs. */
+  links?: { label: string; url: string }[];
   photo?: SanityImageAsset | null;
   /** Direct URL fallback (used by sample content; Sanity uses `photo`) */
   photoUrl?: string | null;
